@@ -1,0 +1,66 @@
+nav {
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2;
+}
+
+.logo {
+  filter: drop-shadow(0px 4.23333px 4.23333px rgba(0, 0, 0, 0.5));
+}
+
+.logo-subtitle {
+  font-size: 14px;
+  color: white;
+}
+
+.main {
+  margin-left: 250px;
+}
+
+header {
+  padding-left: 250px;
+  background-color: white;
+  height: 55px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.content {
+  margin-top: 50px;
+  background-color: #e8f0fc;
+  height: 100vh;
+}
+
+.user-role {
+  font-size: 12px;
+}
+
+.user-dropdown {
+  cursor: pointer;
+}
+
+.nav-items {
+  list-style: none;
+}
+
+nav li {
+  cursor: pointer;
+}
+
+nav li:hover {
+  color: #38b6ff;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+.active-link {
+  background-color: rgba(0, 0, 0, 0.25);
+}
