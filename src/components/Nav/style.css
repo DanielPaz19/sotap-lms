@@ -16,34 +16,6 @@ nav {
   color: white;
 }
 
-.main {
-  margin-left: 250px;
-}
-
-header {
-  padding-left: 250px;
-  background-color: white;
-  height: 55px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
-
-.content {
-  margin-top: 50px;
-  background-color: #e8f0fc;
-  height: 100vh;
-}
-
-.user-role {
-  font-size: 12px;
-}
-
-.user-dropdown {
-  cursor: pointer;
-}
-
 .nav-items {
   list-style: none;
 }

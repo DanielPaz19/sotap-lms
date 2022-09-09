@@ -1,0 +1,17 @@
+header {
+  padding-left: 250px;
+  background-color: white;
+  height: 55px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.user-role {
+  font-size: 12px;
+}
+
+.user-dropdown {
+  cursor: pointer;
+}
