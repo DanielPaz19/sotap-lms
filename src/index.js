@@ -1,13 +1,33 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./style/index.css";
+import Dashboard from "./pages/Dashboard";
+import Login from "./pages/Login";
+import reportWebVitals from "./reportWebVitals";
+import Students from "./pages/Students";
+import Teachers from "./pages/Teachers";
+import Subjects from "./pages/Subjects";
+import GradeLevels from "./pages/GradeLevels";
+import Books from "./pages/Books";
+import Events from "./pages/Events";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="students" element={<Students />} />
+        <Route path="teachers" element={<Teachers />} />
+        <Route path="subjects" element={<Subjects />} />
+        <Route path="grade_levels" element={<GradeLevels />} />
+        <Route path="books" element={<Books />} />
+        <Route path="events" element={<Events />} />
+        <Route path="login" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
