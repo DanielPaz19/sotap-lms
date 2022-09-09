@@ -1,6 +1,29 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./style.css";
 import logo from "../../img/company-logo.png";
+
+function NavLink({ href, title, icon }) {
+  return (
+    <Link to={`/${href}`}>
+      <li
+        className={`d-md-flex align-items-center ps-3 ${
+          href === "dashboard"
+            ? window.location.pathname === "/" ||
+              window.location.pathname === `/${href}`
+              ? "active-link"
+              : ""
+            : window.location.pathname === `/${href}`
+            ? "active-link"
+            : ""
+        }`}
+      >
+        <i className={`${icon} me-3 fs-4`}></i>
+        {title}
+      </li>
+    </Link>
+  );
+}
 
 function Nav() {
   return (
@@ -14,42 +37,41 @@ function Nav() {
         />
         <p className="logo-subtitle">Learning Management System</p>
       </div>
+
       <ul className="nav-items text-white mt-5 p-0">
-        <a href="../dashboard">
-          <li className="d-md-flex align-items-center ps-3 active-link">
-            <i className="bi bi-speedometer me-3 fs-4"></i>Dashboard
-          </li>
-        </a>
-        <a href="../students">
-          <li className="d-md-flex align-items-center ps-3">
-            <i className="bi bi-mortarboard me-3 fs-4"></i>Students
-          </li>
-        </a>
-        <a href="../teachers">
-          <li className="d-md-flex align-items-center ps-3">
-            <i className="bi bi-person-video3 me-3 fs-4"></i>Teachers
-          </li>
-        </a>
-        <a href="../subjects">
-          <li className="d-md-flex align-items-center ps-3">
-            <i className="bi bi-plus-slash-minus me-3 fs-4"></i> Subjects
-          </li>
-        </a>
-        <a href="../grade_levels">
-          <li className="d-md-flex align-items-center ps-3">
-            <i className="bi bi-bar-chart me-3 fs-4"></i>Grade Levels
-          </li>
-        </a>
-        <a href="../books">
-          <li className="d-md-flex align-items-center ps-3">
-            <i className="bi bi-book me-3 fs-4"></i>Books
-          </li>
-        </a>
-        <a href="../events">
-          <li className="d-md-flex align-items-center ps-3">
-            <i className="bi bi-calendar-check me-3 fs-4"></i>Events
-          </li>
-        </a>
+        <NavLink
+          href={"dashboard"}
+          title={"Dashboard"}
+          icon={"bi bi-speedometer"}
+        />
+        <NavLink
+          href={"students"}
+          title={"Students"}
+          icon={"bi bi-mortarboard"}
+        />
+        <NavLink
+          href={"teachers"}
+          title={"Teachers"}
+          icon={"bi bi-person-video3"}
+        />
+        <NavLink
+          href={"subjects"}
+          title={"Subjects"}
+          icon={"bi bi-plus-slash-minus"}
+        />
+        <NavLink
+          href={"grade_levels"}
+          title={"Grade Levels"}
+          icon={"bi bi-bar-chart"}
+        />
+
+        <NavLink href={"books"} title={"Books"} icon={"bi bi-book"} />
+
+        <NavLink
+          href={"events"}
+          title={"Events"}
+          icon={"bi bi-calendar-check"}
+        />
       </ul>
     </nav>
   );

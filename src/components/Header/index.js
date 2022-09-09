@@ -1,9 +1,9 @@
 import "./style.css";
 
-function Header() {
+function Header({ title }) {
   return (
     <header className="d-md-flex align-items-center justify-content-between">
-      <div className="ms-5 fs-4 text-primary">Dashboard</div>
+      <div className="ms-5 fs-4 text-primary">{title}</div>
       <div className="user d-md-flex align-items-center">
         <img
           src="https://picsum.photos/200"

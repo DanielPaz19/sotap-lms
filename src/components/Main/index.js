@@ -2,13 +2,17 @@ import "./style.css";
 import Header from "../Header";
 import Content from "../Content";
 
-function Main() {
+function Main({ title }) {
   return (
     <>
-      <Header />
+      <Header title={title} />
       <Content />
     </>
   );
 }
+
+Main.defaultProps = {
+  title: "Dashboard",
+};
 
 export default Main;

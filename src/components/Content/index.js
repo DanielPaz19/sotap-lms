@@ -1,5 +1,5 @@
 import "./style.css";
 
 export default function Content() {
-  return <div class="content"></div>;
+  return <div className="content"></div>;
 }
