@@ -1,12 +1,15 @@
 import React from "react";
 import Nav from "../../components/Nav";
-import Main from "../../components/Main";
+import Header from "../../components/Header";
 
 function Events() {
   return (
     <>
       <Nav />
-      <Main title={"Events"} />
+      <div className="main">
+        <Header title={"Events"} />
+        <div className="content">Test Events</div>
+      </div>
     </>
   );
 }

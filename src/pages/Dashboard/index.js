@@ -1,12 +1,14 @@
-import React from "react";
 import Nav from "../../components/Nav";
-import Main from "../../components/Main";
+import Header from "../../components/Header";
 
 function Dashboard() {
   return (
     <>
       <Nav />
-      <Main />
+      <div className="main">
+        <Header title={"Dashboard"} />
+        <div className="content">Test Dashboard</div>
+      </div>
     </>
   );
 }

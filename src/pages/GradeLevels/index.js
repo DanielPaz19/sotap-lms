@@ -1,12 +1,15 @@
 import React from "react";
 import Nav from "../../components/Nav";
-import Main from "../../components/Main";
+import Header from "../../components/Header";
 
 function GradeLevels() {
   return (
     <>
       <Nav />
-      <Main title={"Grade Levels"} />
+      <div className="main">
+        <Header title={"GradeLevels"} />
+        <div className="content">Test Grade Levels</div>
+      </div>
     </>
   );
 }

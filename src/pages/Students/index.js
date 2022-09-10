@@ -1,12 +1,15 @@
 import React from "react";
 import Nav from "../../components/Nav";
-import Main from "../../components/Main";
+import Header from "../../components/Header";
 
 function Students() {
   return (
     <>
       <Nav />
-      <Main title={"Students"} />
+      <div className="main">
+        <Header title={"Students"} />
+        <div className="content">Test Students</div>
+      </div>
     </>
   );
 }
