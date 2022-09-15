@@ -1,6 +1,23 @@
 import "./style.css";
 
-function Header({ title }) {
+function Header({ title, user_type }) {
+  let user;
+
+  switch (user_type) {
+    case 1:
+      user = "Admin";
+      break;
+    case 2:
+      user = "Teacher";
+      break;
+    case 3:
+      user = "Student";
+      break;
+
+    default:
+      break;
+  }
+
   return (
     <header className="d-md-flex align-items-center justify-content-between">
       <div className="ms-5 fs-4 text-primary">{title}</div>
@@ -15,7 +32,7 @@ function Header({ title }) {
           <p className="fs-6 fw-bold text-primary my-0 user-name">
             Juan Dela Cruz
           </p>
-          <p className="user-role my-0">Admin</p>
+          <p className="user-role my-0">{user}</p>
         </div>
         <div className="me-3 user-dropdown">
           <i className="bi bi-chevron-down fs-5"></i>

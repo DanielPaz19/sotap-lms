@@ -5,10 +5,10 @@ import Header from "../../components/Header";
 function Books() {
   return (
     <>
-      <Nav />
+      <Nav user_type={3} />
       <div className="main">
-        <Header title={"Books"} />
-        <div className="content">Test Book Content</div>
+        <Header title={"Books"} user_type={3} />
+        <div className="content">Test Book</div>
       </div>
     </>
   );

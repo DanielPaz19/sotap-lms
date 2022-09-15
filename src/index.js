@@ -1,8 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./style/index.css";
-import Dashboard from "./pages/Dashboard";
+import "./style/main.css";
 import Login from "./pages/Login";
 import reportWebVitals from "./reportWebVitals";
 import Students from "./pages/Students";
@@ -11,14 +10,15 @@ import Subjects from "./pages/Subjects";
 import GradeLevels from "./pages/GradeLevels";
 import Books from "./pages/Books";
 import Events from "./pages/Events";
+import App from "./pages/App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="/" element={<App />} />
+        <Route path="dashboard" element={<App />} />
         <Route path="students" element={<Students />} />
         <Route path="teachers" element={<Teachers />} />
         <Route path="subjects" element={<Subjects />} />

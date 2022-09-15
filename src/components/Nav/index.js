@@ -25,7 +25,123 @@ function NavLink({ href, title, icon }) {
   );
 }
 
-function Nav() {
+function Nav({ user_type }) {
+  let output;
+
+  switch (user_type) {
+    case 1:
+      output = (
+        <ul className="nav-items text-white mt-5 p-0">
+          <NavLink
+            href={"dashboard"}
+            title={"Dashboard"}
+            icon={"bi bi-speedometer"}
+          />
+
+          <NavLink
+            href={"students"}
+            title={"Students"}
+            icon={"bi bi-mortarboard"}
+          />
+
+          <NavLink
+            href={"teachers"}
+            title={"Teachers"}
+            icon={"bi bi-person-video3"}
+          />
+          <NavLink
+            href={"subjects"}
+            title={"Subjects"}
+            icon={"bi bi-plus-slash-minus"}
+          />
+          <NavLink
+            href={"grade_levels"}
+            title={"Grade Levels"}
+            icon={"bi bi-bar-chart"}
+          />
+
+          <NavLink href={"books"} title={"Books"} icon={"bi bi-book"} />
+
+          <NavLink
+            href={"events"}
+            title={"Events"}
+            icon={"bi bi-calendar-check"}
+          />
+        </ul>
+      );
+      break;
+    case 2:
+      output = (
+        <ul className="nav-items text-white mt-5 p-0">
+          <NavLink
+            href={"dashboard"}
+            title={"Dashboard"}
+            icon={"bi bi-speedometer"}
+          />
+          <NavLink
+            href={"students"}
+            title={"Students"}
+            icon={"bi bi-mortarboard"}
+          />
+          <NavLink
+            href={"subjects"}
+            title={"Subjects"}
+            icon={"bi bi-plus-slash-minus"}
+          />
+          <NavLink
+            href={"grade_levels"}
+            title={"Grade Levels"}
+            icon={"bi bi-bar-chart"}
+          />
+          <NavLink href={"books"} title={"Books"} icon={"bi bi-book"} />
+
+          <NavLink
+            href={"events"}
+            title={"Events"}
+            icon={"bi bi-calendar-check"}
+          />
+        </ul>
+      );
+      break;
+    case 3:
+      output = (
+        <ul className="nav-items text-white mt-5 p-0">
+          <NavLink
+            href={"dashboard"}
+            title={"Dashboard"}
+            icon={"bi bi-speedometer"}
+          />
+          <NavLink
+            href={"student_assignments"}
+            title={"Assignments"}
+            icon={"bi bi-card-checklist"}
+          />
+          <NavLink
+            href={"student_quizes"}
+            title={"Quizes"}
+            icon={"bi bi-pencil"}
+          />
+          <NavLink
+            href={"student_exams"}
+            title={"Exams"}
+            icon={"bi bi-files"}
+          />
+
+          <NavLink href={"books"} title={"Books"} icon={"bi bi-book"} />
+
+          <NavLink
+            href={"events"}
+            title={"Events"}
+            icon={"bi bi-calendar-check"}
+          />
+        </ul>
+      );
+      break;
+
+    default:
+      break;
+  }
+
   return (
     <nav className="bg-primary">
       <div className="text-center">
@@ -38,41 +154,7 @@ function Nav() {
         <p className="logo-subtitle">Learning Management System</p>
       </div>
 
-      <ul className="nav-items text-white mt-5 p-0">
-        <NavLink
-          href={"dashboard"}
-          title={"Dashboard"}
-          icon={"bi bi-speedometer"}
-        />
-        <NavLink
-          href={"students"}
-          title={"Students"}
-          icon={"bi bi-mortarboard"}
-        />
-        <NavLink
-          href={"teachers"}
-          title={"Teachers"}
-          icon={"bi bi-person-video3"}
-        />
-        <NavLink
-          href={"subjects"}
-          title={"Subjects"}
-          icon={"bi bi-plus-slash-minus"}
-        />
-        <NavLink
-          href={"grade_levels"}
-          title={"Grade Levels"}
-          icon={"bi bi-bar-chart"}
-        />
-
-        <NavLink href={"books"} title={"Books"} icon={"bi bi-book"} />
-
-        <NavLink
-          href={"events"}
-          title={"Events"}
-          icon={"bi bi-calendar-check"}
-        />
-      </ul>
+      {output}
     </nav>
   );
 }

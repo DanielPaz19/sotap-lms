@@ -1,17 +1,16 @@
-import React from "react";
 import Nav from "../../components/Nav";
 import Header from "../../components/Header";
 
-function Events() {
+function App() {
   return (
     <>
       <Nav user_type={3} />
       <div className="main">
-        <Header title={"Events"} user_type={3} />
-        <div className="content">Test Events</div>
+        <Header title={"Dashboard"} user_type={3} />
+        <div className="content">Test Dashboard</div>
       </div>
     </>
   );
 }
 
-export default Events;
+export default App;
