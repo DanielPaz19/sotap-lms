@@ -1,29 +1,32 @@
 import "./style.css";
-import Nav from "../../components/Nav";
-
-import Header from "../../components/Header";
-import { Outlet } from "react-router-dom";
-import { useState } from "react";
+import Books from "../Books";
+import Events from "../Events";
+import Dashboard from "../Dashboard";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "../Login";
+import Students from "../Students";
+import Teachers from "../Teachers";
+import Subjects from "../Subjects";
+import GradeLevels from "../GradeLevels";
+import Home from "../Home";
 
 function App() {
-  const [open, setOpen] = useState(true);
-
-  const toggleNav = (e) => {
-    if (e.target.closest(".btnToggleNav")) return setOpen(!open);
-  };
-
   return (
-    <>
-      <Nav user_type={3} onClick={toggleNav} open={open} />
-      <div className="main">
-        <Header title={""} user_type={3} toggleNav={toggleNav} />
-        <div className="content container-fluid">
-          <div className="container">
-            <Outlet />
-          </div>
-        </div>
-      </div>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />}>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="students" element={<Students />} />
+          <Route path="teachers" element={<Teachers />} />
+          <Route path="subjects" element={<Subjects />} />
+          <Route path="grade_levels" element={<GradeLevels />} />
+          <Route path="books" element={<Books />} />
+          <Route path="events" element={<Events />} />
+          <Route path="login" element={<Login />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

@@ -1,36 +1,14 @@
 import "./style/main.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
 import reportWebVitals from "./reportWebVitals";
-import Students from "./pages/Students";
-import Teachers from "./pages/Teachers";
-import Subjects from "./pages/Subjects";
-import GradeLevels from "./pages/GradeLevels";
-import Books from "./pages/Books";
-import Events from "./pages/Events";
 import App from "./pages/App";
-import Dashboard from "./pages/Dashboard";
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="students" element={<Students />} />
-          <Route path="teachers" element={<Teachers />} />
-          <Route path="subjects" element={<Subjects />} />
-          <Route path="grade_levels" element={<GradeLevels />} />
-          <Route path="books" element={<Books />} />
-          <Route path="events" element={<Events />} />
-          <Route path="login" element={<Login />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <App />
   </React.StrictMode>
 );
 
