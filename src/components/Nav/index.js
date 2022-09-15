@@ -5,7 +5,7 @@ import logo from "../../img/company-logo.png";
 import { GrFormClose } from "react-icons/gr";
 import { Collapse } from "react-bootstrap";
 
-function BtnHideNav({ hideNav }) {
+function BtnHideNav() {
   return (
     <span className="fs-2 position-absolute end-0 me-3 d-md-none d-block btnToggleNav">
       <GrFormClose />
@@ -35,14 +35,8 @@ function NavLink({ href, title, icon }) {
   );
 }
 
-function Nav({ user_type }) {
-  const [open, setOpen] = useState(true);
-
+function Nav({ user_type, onClick, open }) {
   let output;
-
-  const toggleNav = (e) => {
-    if (e.target.closest(".btnToggleNav")) return setOpen(!open);
-  };
 
   switch (user_type) {
     case 1:
@@ -159,10 +153,18 @@ function Nav({ user_type }) {
   }
 
   return (
-    <Collapse in={open} dimension="width">
-      <nav className="bg-primary" onClick={toggleNav}>
+    <Collapse
+      in={open}
+      dimension="width"
+      onExiting={function () {
+        document.querySelector("nav").classList.add("nav-active");
+      }}
+      onExited={function () {
+        document.querySelector("nav").classList.add("nav-active");
+      }}
+    >
+      <nav className="bg-primary" onClick={onClick}>
         <BtnHideNav />
-
         <div className="text-center">
           <img
             src={logo}

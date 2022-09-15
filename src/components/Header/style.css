@@ -6,6 +6,7 @@ header {
   top: 0;
   left: 0;
   width: 100%;
+  transition: all 0.5s;
 }
 
 .user-role {
