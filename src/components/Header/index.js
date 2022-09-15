@@ -1,4 +1,5 @@
 import "./style.css";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 function Header({ title, user_type }) {
   let user;
@@ -20,6 +21,9 @@ function Header({ title, user_type }) {
 
   return (
     <header className="d-md-flex align-items-center justify-content-between">
+      <span className="fs-4 ms-3" id="menu">
+        <GiHamburgerMenu />
+      </span>
       <div className="ms-5 fs-4 text-primary">{title}</div>
       <div className="user d-md-flex align-items-center">
         <img

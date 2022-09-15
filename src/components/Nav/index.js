@@ -1,7 +1,17 @@
-import React from "react";
+import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 import logo from "../../img/company-logo.png";
+import { GrFormClose } from "react-icons/gr";
+import { Collapse } from "react-bootstrap";
+
+function BtnHideNav({ hideNav }) {
+  return (
+    <span className="fs-2 position-absolute end-0 me-3 d-md-none d-block btnToggleNav">
+      <GrFormClose />
+    </span>
+  );
+}
 
 function NavLink({ href, title, icon }) {
   return (
@@ -26,7 +36,13 @@ function NavLink({ href, title, icon }) {
 }
 
 function Nav({ user_type }) {
+  const [open, setOpen] = useState(true);
+
   let output;
+
+  const toggleNav = (e) => {
+    if (e.target.closest(".btnToggleNav")) return setOpen(!open);
+  };
 
   switch (user_type) {
     case 1:
@@ -143,19 +159,22 @@ function Nav({ user_type }) {
   }
 
   return (
-    <nav className="bg-primary">
-      <div className="text-center">
-        <img
-          src={logo}
-          alt="company_logo"
-          width="120px"
-          className="my-2 logo"
-        />
-        <p className="logo-subtitle">Learning Management System</p>
-      </div>
+    <Collapse in={open} dimension="width">
+      <nav className="bg-primary" onClick={toggleNav}>
+        <BtnHideNav />
 
-      {output}
-    </nav>
+        <div className="text-center">
+          <img
+            src={logo}
+            alt="company_logo"
+            width="120px"
+            className="my-2 logo"
+          />
+          <p className="logo-subtitle">Learning Management System</p>
+        </div>
+        {output}
+      </nav>
+    </Collapse>
   );
 }
 
