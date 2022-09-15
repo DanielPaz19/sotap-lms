@@ -1,14 +1,5 @@
-import React from "react";
-import Nav from "../../components/Nav";
-import Main from "../../components/Main";
-
 function Subjects() {
-  return (
-    <>
-      <Nav />
-      <Main title={"Subjects"} />
-    </>
-  );
+  return <h1>Subjects</h1>;
 }
 
 export default Subjects;

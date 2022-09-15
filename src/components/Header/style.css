@@ -6,6 +6,8 @@ header {
   top: 0;
   left: 0;
   width: 100%;
+  transition: all 0.5s;
+  z-index: 1;
 }
 
 .user-role {
@@ -14,4 +16,11 @@ header {
 
 .user-dropdown {
   cursor: pointer;
+}
+
+#menu {
+  cursor: pointer;
+}
+#menu:hover {
+  color: gray;
 }

@@ -1,14 +1,5 @@
-import React from "react";
-import Nav from "../../components/Nav";
-import Main from "../../components/Main";
-
 function Teachers() {
-  return (
-    <>
-      <Nav />
-      <Main title={"Teachers"} />
-    </>
-  );
+  return <h1>Teachers</h1>;
 }
 
 export default Teachers;
