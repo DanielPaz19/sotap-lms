@@ -1,5 +1,5 @@
 .main {
-  position: absolute;
+  position: relative;
   height: 100%;
   width: calc(100% - 250px);
   left: 250px;
@@ -21,7 +21,7 @@
 .content {
   margin-top: 50px;
   background-color: #e8f0fc;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .nav-active ~ .main {
