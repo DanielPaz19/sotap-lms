@@ -10,7 +10,7 @@ function BreadCrumb({ paths }) {
         {path.title}
       </Breadcrumb.Item>
     ) : (
-      <Breadcrumb.Item key={index}>
+      <Breadcrumb.Item linkAs={"span"} key={index}>
         <Link to={"/dashboard"}>{path.title}</Link>
       </Breadcrumb.Item>
     )
