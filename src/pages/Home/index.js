@@ -17,9 +17,7 @@ function Home() {
       <div className="main">
         <Header title={""} user_type={3} toggleNav={toggleNav} />
         <div className="content container-fluid">
-          <div className="container px-0">
-            <Outlet />
-          </div>
+          <Outlet />
         </div>
       </div>
     </>

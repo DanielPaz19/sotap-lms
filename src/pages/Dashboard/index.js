@@ -1,7 +1,9 @@
+import "./style.css";
 import SubjectCard from "../../components/SubjectCard";
 import { Form, Button, InputGroup } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function Dashboard() {
   const [subjects, setSubjects] = useState([]);
@@ -30,7 +32,9 @@ function Dashboard() {
 
   const subjectOutput = subjects.map((subject) => (
     <div className="col-6 col-md-4 col-lg-3 col-xl-3 p-0" key={subject.id}>
-      <SubjectCard title={subject.title} img_src={subject.img_src} />
+      <Link to="modules">
+        <SubjectCard title={subject.title} img_src={subject.img_src} />
+      </Link>
     </div>
   ));
 
@@ -47,7 +51,9 @@ function Dashboard() {
           </InputGroup>
         </div>
       </div>
-      <div className="pt-2 row g-1">{subjectOutput}</div>
+      <div className="container px-0">
+        <div className="pt-2 pb-4 row g-2">{subjectOutput}</div>
+      </div>
     </>
   );
 }

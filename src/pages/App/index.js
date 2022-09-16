@@ -9,6 +9,7 @@ import Teachers from "../Teachers";
 import Subjects from "../Subjects";
 import GradeLevels from "../GradeLevels";
 import Home from "../Home";
+import Modules from "../Modules";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<Home />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="dashboard/modules" element={<Modules />} />
           <Route path="students" element={<Students />} />
           <Route path="teachers" element={<Teachers />} />
           <Route path="subjects" element={<Subjects />} />
