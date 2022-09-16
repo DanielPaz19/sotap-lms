@@ -17,7 +17,7 @@ function BreadCrumb({ paths }) {
   );
 
   return (
-    <Breadcrumb as={"div"} className="position-fixed pt-3">
+    <Breadcrumb as={"div"} className="position-static pt-3">
       {renderPath}
     </Breadcrumb>
   );
