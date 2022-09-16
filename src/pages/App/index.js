@@ -18,7 +18,7 @@ function App() {
         <Route path="/" element={<Home />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="dashboard" element={<Dashboard />} />
-          <Route path="dashboard/modules" element={<Modules />} />
+          <Route path="modules/:id" element={<Modules />} />
           <Route path="students" element={<Students />} />
           <Route path="teachers" element={<Teachers />} />
           <Route path="subjects" element={<Subjects />} />

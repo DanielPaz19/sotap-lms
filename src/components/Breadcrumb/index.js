@@ -1,12 +1,24 @@
 import "./style.css";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
+import { Link } from "react-router-dom";
 
-function BreadCrumb() {
+function BreadCrumb({ paths }) {
+  console.log(paths);
+  const renderPath = paths.map((path, index, row) =>
+    index + 1 === row.length ? (
+      <Breadcrumb.Item key={index} active>
+        {path.title}
+      </Breadcrumb.Item>
+    ) : (
+      <Breadcrumb.Item key={index}>
+        <Link to={"/dashboard"}>{path.title}</Link>
+      </Breadcrumb.Item>
+    )
+  );
+
   return (
     <Breadcrumb as={"div"} className="position-fixed pt-3">
-      <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-      <Breadcrumb.Item>Modules</Breadcrumb.Item>
-      <Breadcrumb.Item active>Sample Title</Breadcrumb.Item>
+      {renderPath}
     </Breadcrumb>
   );
 }

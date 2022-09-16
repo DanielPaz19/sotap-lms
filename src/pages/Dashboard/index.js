@@ -32,9 +32,11 @@ function Dashboard() {
 
   const subjectOutput = subjects.map((subject) => (
     <div className="col-6 col-md-4 col-lg-3 col-xl-3 p-0" key={subject.id}>
-      <Link to="modules">
-        <SubjectCard title={subject.title} img_src={subject.img_src} />
-      </Link>
+      <SubjectCard
+        title={subject.title}
+        img_src={subject.img_src}
+        id={subject.id}
+      />
     </div>
   ));
 
