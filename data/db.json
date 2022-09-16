@@ -1,0 +1,44 @@
+{
+  "subjects": [
+    {
+      "id": 0,
+      "title": "Mother Tongue"
+    },
+    {
+      "id": 1,
+      "title": "Filipino"
+    },
+    {
+      "id": 3,
+      "title": "English"
+    },
+    {
+      "id": 4,
+      "title": "Mathematics"
+    },
+    {
+      "id": 5,
+      "title": "Science"
+    },
+    {
+      "id": 6,
+      "title": "Araling Panlipunan"
+    },
+    {
+      "id": 7,
+      "title": "Music"
+    },
+    {
+      "id": 8,
+      "title": "Arts"
+    },
+    {
+      "id": 9,
+      "title": "Physical Education"
+    },
+    {
+      "id": 10,
+      "title": "Health"
+    }
+  ]
+}
