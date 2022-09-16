@@ -1,7 +1,17 @@
 import "./style.css";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { ImExit } from "react-icons/im";
+import { useState } from "react";
+import { Collapse } from "react-bootstrap";
 
 function Header({ title, user_type, toggleNav }) {
+  const [dropDownIsOpen, setDropDownIsOpen] = useState(false);
+
+  const toggleDropDown = () => {
+    setDropDownIsOpen(!dropDownIsOpen);
+    console.log(dropDownIsOpen);
+  };
+
   let user;
 
   switch (user_type) {
@@ -28,7 +38,7 @@ function Header({ title, user_type, toggleNav }) {
         <GiHamburgerMenu />
       </span>
       <div className="ms-md-5 fs-4 text-primary">{title}</div>
-      <div className="user d-md-flex align-items-center">
+      <div className="user d-md-flex d-flex align-items-center">
         <img
           src="https://picsum.photos/200"
           alt=""
@@ -41,10 +51,25 @@ function Header({ title, user_type, toggleNav }) {
           </p>
           <p className="user-role my-0">{user}</p>
         </div>
-        <div className="me-3 user-dropdown d-none d-md-block">
+        <div className="me-3 user-dropdown " onClick={toggleDropDown}>
           <i className="bi bi-chevron-down fs-5"></i>
         </div>
       </div>
+
+      <Collapse in={dropDownIsOpen}>
+        <div
+          className="bg-white position-absolute end-0 top-100 me-1 me-md-2 mt-1 shadow"
+          id="accountDropDown"
+        >
+          <div className="text-center fw-bold text-primary mt-1  d-block d-md-none">
+            Juan Dela Cruz
+            <hr />
+          </div>
+          <div className="pb-3 pt-md-3 fs-6 text-center ">
+            <ImExit /> Logout
+          </div>
+        </div>
+      </Collapse>
     </header>
   );
 }

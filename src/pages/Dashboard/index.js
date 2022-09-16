@@ -8,10 +8,14 @@ function Dashboard() {
 
   useEffect(() => {
     const getSubjects = async () => {
-      const response = await fetch("http://localhost:3500/subjects");
-      const data = await response.json();
-      console.log(data);
-      setSubjects(data);
+      try {
+        const response = await fetch("http://localhost:3500/subjects");
+        const data = await response.json();
+        console.log(data);
+        setSubjects(data);
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     (async () => await getSubjects())();

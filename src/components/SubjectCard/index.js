@@ -4,7 +4,7 @@ import "./style.css";
 function SubjectCard({ title }) {
   return (
     <Card className="shadow m-md-2 m-1 h-100">
-      <Card.Img variant="top" src="https://picsum.photos/600" />
+      <Card.Img variant="top" src="https://picsum.photos/400" />
       <Card.Body className="p-1 ">
         <Card.Title
           className={` my-1 text-center text-primary ${
