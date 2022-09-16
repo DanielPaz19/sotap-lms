@@ -24,3 +24,13 @@ header {
 #menu:hover {
   color: gray;
 }
+
+#accountDropDown {
+  width: 12rem;
+  border-radius: 0.5rem;
+}
+
+#accountDropDown:hover {
+  cursor: pointer;
+  color: #004aad !important;
+}

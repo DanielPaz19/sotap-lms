@@ -15,18 +15,7 @@ function BtnHideNav() {
 function NavLink({ href, title, icon }) {
   return (
     <Link to={`/${href}`}>
-      <li
-        className={`d-md-flex align-items-center ps-3 ${
-          href === "dashboard"
-            ? window.location.pathname === "/" ||
-              window.location.pathname === `/${href}`
-              ? "active-link"
-              : ""
-            : window.location.pathname === `/${href}`
-            ? "active-link"
-            : ""
-        }`}
-      >
+      <li className={`d-md-flex align-items-center ps-3 `}>
         <i className={`${icon} me-3 fs-4`}></i>
         {title}
       </li>

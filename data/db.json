@@ -1,0 +1,54 @@
+{
+  "subjects": [
+    {
+      "id": 0,
+      "title": "Mother Tongue",
+      "img_src": "https://i.picsum.photos/id/115/400/400.jpg?hmac=nWHNT5wyI521-uVsjVF2GI0q7l_YCNntQ0_uoSOFUI4"
+    },
+    {
+      "id": 1,
+      "title": "Filipino",
+      "img_src": "https://i.picsum.photos/id/113/400/400.jpg?hmac=hCg1mc0JZPvlwmU2b7Lu17RjRcBxyHCdgiF1URs9PuE"
+    },
+    {
+      "id": 3,
+      "title": "English",
+      "img_src": "https://i.picsum.photos/id/1073/400/400.jpg?hmac=f6uVVSIVpsisQfVhgtzBmx0u4UN6cyk-9xlcYFUZQx8"
+    },
+    {
+      "id": 4,
+      "title": "Mathematics",
+      "img_src": "https://i.picsum.photos/id/806/400/400.jpg?hmac=VeG2sErI6YRzsbOA4DRntIdRi0UWSuEwv-mhVl-5fH4"
+    },
+    {
+      "id": 5,
+      "title": "Science",
+      "img_src": "https://i.picsum.photos/id/209/400/400.jpg?hmac=IBHpIypp8TujrSksgY-r2LInxWn0aG5JszlY1fYCX1w"
+    },
+    {
+      "id": 6,
+      "title": "Araling Panlipunan",
+      "img_src": "https://i.picsum.photos/id/876/400/400.jpg?hmac=imQToW5wHP779RXmoWeh3eS12TZmqOgaEIUvzezJjvo"
+    },
+    {
+      "id": 7,
+      "title": "Music",
+      "img_src": "https://i.picsum.photos/id/946/400/400.jpg?hmac=OIFhfY6uakvcZHLno1BBpniWThLrbbCdSkmg0Qcr2ow"
+    },
+    {
+      "id": 8,
+      "title": "Arts",
+      "img_src": "https://i.picsum.photos/id/577/400/400.jpg?hmac=K0Xk30Jb9dDeSpkd0fVFulvrmTvK7XrN6ogsmdNYS_I"
+    },
+    {
+      "id": 9,
+      "title": "Physical Education",
+      "img_src": "https://i.picsum.photos/id/133/400/400.jpg?hmac=fqf6pjgv90K_96eKCtqAuhE_nKHguVxewB1fx1euQJs"
+    },
+    {
+      "id": 10,
+      "title": "Health",
+      "img_src": "https://i.picsum.photos/id/473/400/400.jpg?hmac=HWMbh4K_zIcw3MTFZgkZ1cVrggkB4TxpazKEQs3fglU"
+    }
+  ]
+}
