@@ -2,43 +2,53 @@
   "subjects": [
     {
       "id": 0,
-      "title": "Mother Tongue"
+      "title": "Mother Tongue",
+      "img_src": "https://picsum.photos/400"
     },
     {
       "id": 1,
-      "title": "Filipino"
+      "title": "Filipino",
+      "img_src": "https://picsum.photos/400"
     },
     {
       "id": 3,
-      "title": "English"
+      "title": "English",
+      "img_src": "https://picsum.photos/400"
     },
     {
       "id": 4,
-      "title": "Mathematics"
+      "title": "Mathematics",
+      "img_src": "https://picsum.photos/400"
     },
     {
       "id": 5,
-      "title": "Science"
+      "title": "Science",
+      "img_src": "https://picsum.photos/400"
     },
     {
       "id": 6,
-      "title": "Araling Panlipunan"
+      "title": "Araling Panlipunan",
+      "img_src": "https://picsum.photos/400"
     },
     {
       "id": 7,
-      "title": "Music"
+      "title": "Music",
+      "img_src": "https://picsum.photos/400"
     },
     {
       "id": 8,
-      "title": "Arts"
+      "title": "Arts",
+      "img_src": "https://picsum.photos/400"
     },
     {
       "id": 9,
-      "title": "Physical Education"
+      "title": "Physical Education",
+      "img_src": "https://picsum.photos/400"
     },
     {
       "id": 10,
-      "title": "Health"
+      "title": "Health",
+      "img_src": "https://picsum.photos/400"
     }
   ]
 }
