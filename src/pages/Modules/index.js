@@ -4,6 +4,30 @@ import BreadCrumb from "../../components/Breadcrumb";
 import { Accordion, ListGroup } from "react-bootstrap";
 import { FiFileText } from "react-icons/fi";
 
+function ModuleList({ title }) {
+  return (
+    <ListGroup.Item action variant="light">
+      <span className="me-2 fs-4">
+        <FiFileText />
+      </span>
+      {title}
+    </ListGroup.Item>
+  );
+}
+
+function ModulesAccordionItems({ children, header, eventKey }) {
+  return (
+    <div className="col-12  ">
+      <Accordion.Item eventKey={eventKey}>
+        <Accordion.Header>{header}</Accordion.Header>
+        <Accordion.Body className="px-2">
+          <ListGroup variant="flush">{children}</ListGroup>
+        </Accordion.Body>
+      </Accordion.Item>
+    </div>
+  );
+}
+
 function Modules() {
   const [subject, setSubject] = useState({});
 
@@ -42,84 +66,30 @@ function Modules() {
       <div className="container px-md-5 px-0">
         <Accordion defaultActiveKey={["0", "1", "2", "3"]} alwaysOpen>
           <div className="row g-md-4 g-3">
-            <div className="col-12  ">
-              <Accordion.Item eventKey="0">
-                <Accordion.Header>Topics</Accordion.Header>
-                <Accordion.Body className="px-2">
-                  <ListGroup variant="flush">
-                    <ListGroup.Item action variant="light">
-                      <span className="me-2 fs-4">
-                        <FiFileText />
-                      </span>
-                      Sample Topic 1
-                    </ListGroup.Item>
-                    <ListGroup.Item action variant="light">
-                      <span className="me-2 fs-4">
-                        <FiFileText />
-                      </span>
-                      Sample Topic 2
-                    </ListGroup.Item>
-                    <ListGroup.Item action variant="light">
-                      <span className="me-2 fs-4">
-                        <FiFileText />
-                      </span>
-                      Sample Topic 3
-                    </ListGroup.Item>
-                    <ListGroup.Item action variant="light">
-                      <span className="me-2 fs-4">
-                        <FiFileText />
-                      </span>
-                      Sample Topic 4
-                    </ListGroup.Item>
-                  </ListGroup>
-                </Accordion.Body>
-              </Accordion.Item>
-            </div>
-            <div className="col-12 ">
-              <Accordion.Item eventKey="1">
-                <Accordion.Header>Assignments</Accordion.Header>
-                <Accordion.Body>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.
-                </Accordion.Body>
-              </Accordion.Item>
-            </div>
-            <div className="col-12 ">
-              <Accordion.Item eventKey="2">
-                <Accordion.Header>Quizes</Accordion.Header>
-                <Accordion.Body>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.
-                </Accordion.Body>
-              </Accordion.Item>
-            </div>
-            <div className="col-12 ">
-              <Accordion.Item eventKey="3">
-                <Accordion.Header>Exams</Accordion.Header>
-                <Accordion.Body>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.
-                </Accordion.Body>
-              </Accordion.Item>
-            </div>
+            <ModulesAccordionItems header={"Topics"} eventKey={"0"}>
+              <ModuleList title={"Sample Topic 1"} />
+              <ModuleList title={"Sample Topic 2"} />
+              <ModuleList title={"Sample Topic 3"} />
+              <ModuleList title={"Sample Topic 4"} />
+            </ModulesAccordionItems>
+            <ModulesAccordionItems header={"Assignments"} eventKey={"1"}>
+              <ModuleList title={"Sample Assignment 1"} />
+              <ModuleList title={"Sample Assignment 2"} />
+              <ModuleList title={"Sample Assignment 3"} />
+              <ModuleList title={"Sample Assignment 4"} />
+            </ModulesAccordionItems>
+            <ModulesAccordionItems header={"Quizes"} eventKey={"2"}>
+              <ModuleList title={"Sample Quizes 1"} />
+              <ModuleList title={"Sample Quizes 2"} />
+              <ModuleList title={"Sample Quizes 3"} />
+              <ModuleList title={"Sample Quizes 4"} />
+            </ModulesAccordionItems>
+            <ModulesAccordionItems header={"Exams"} eventKey={"3"}>
+              <ModuleList title={"Sample Exams 1"} />
+              <ModuleList title={"Sample Exams 2"} />
+              <ModuleList title={"Sample Exams 3"} />
+              <ModuleList title={"Sample Exams 4"} />
+            </ModulesAccordionItems>
           </div>
         </Accordion>
       </div>
