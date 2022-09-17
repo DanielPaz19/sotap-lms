@@ -12,7 +12,7 @@ function Header({ title, user_type, toggleNav }) {
     const response = await fetch(`http://localhost:3500/students?id=${id}`);
     const data = await response.json();
 
-    if (data == "") return;
+    if (data === "") return;
 
     return setUser(data[0]);
   };
@@ -30,17 +30,13 @@ function Header({ title, user_type, toggleNav }) {
     switch (user_type) {
       case 1:
         return "Admin";
-        break;
       case 2:
         return "Teacher";
-        break;
       case 3:
         return "Student";
-        break;
 
       default:
         return;
-        break;
     }
   };
 
