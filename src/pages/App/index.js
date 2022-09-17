@@ -33,8 +33,8 @@ function App() {
             <Route path="grade_levels" element={<GradeLevels />} />
             <Route path="books" element={<Books />} />
             <Route path="events" element={<Events />} />
-            <Route path="login" element={<Login />} />
           </Route>
+          <Route path="login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -1,0 +1,116 @@
+body {
+  margin: 0;
+  background-image: url("../../img/login-background.jpg");
+  /* background-size: 100%; */
+  background-repeat: no-repeat;
+  /* height: 100%; */
+  background-size: cover;
+  /* filter: blur(2px);
+      filter: brightness(10%); */
+  /* border: 1px solid #000000; */
+  /* box-sizing: border-box; */
+  height: 100vh;
+}
+
+#logo {
+  width: 300px;
+}
+
+.school-name {
+  color: #38b6ff;
+  font-weight: bolder;
+  /* text-align: center; */
+  /* filter: none;
+      filter: brightness(100%);*/
+}
+
+.login {
+  background-color: #38b6ff;
+  width: 20rem;
+  filter: opacity(80%);
+  box-shadow: 12px 10px 12px -2px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 12px 10px 12px -2px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 12px 10px 12px -2px rgba(0, 0, 0, 0.75);
+  border-radius: 5%;
+}
+
+.loginTxt {
+  color: #004aad;
+  font-weight: bolder;
+  text-shadow: 0 0 4px black, 0 0 2px black;
+  letter-spacing: 2.5px;
+  padding-top: 20%;
+}
+
+/* Assign full width inputs*/
+input[type="text"],
+input[type="password"] {
+  width: 80%;
+  padding: 12px 40px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 5%;
+}
+
+/* Set a style for the buttons*/
+.loginBtn {
+  background-color: #004aad;
+  color: white;
+  padding: 10px 20px;
+  margin: 8px auto;
+  border: 2px solid black;
+  cursor: pointer;
+  width: 80%;
+}
+
+/* Set a hover effect for the button*/
+.loginBtn:hover {
+  opacity: 80%;
+}
+
+/* Set extra style for the cancel button*/
+.container {
+  padding: 16px;
+}
+
+.fontuser {
+  position: relative;
+}
+
+.fontuser i {
+  position: absolute;
+  left: 15%;
+  top: 50%;
+  color: gray;
+}
+
+.fontpassword {
+  position: relative;
+}
+
+.fontpassword i {
+  position: absolute;
+  left: 15%;
+  top: 50%;
+  color: gray;
+}
+
+@media screen and (max-width: 1400px) {
+  .school-name {
+    font-size: 4rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .school-name {
+    font-size: 3rem;
+  }
+  .login {
+    height: fit-content;
+  }
+  #logo {
+    width: 150px;
+  }
+}
