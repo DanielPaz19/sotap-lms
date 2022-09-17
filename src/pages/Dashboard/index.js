@@ -61,19 +61,25 @@ function Dashboard() {
 
   return (
     <>
-      <div className="row">
-        <div className="col-12 col-md-6"></div>
-        <div className="col-12 col-md-6">
-          <InputGroup className="pt-3" size="lg">
-            <Form.Control placeholder="Search" onChange={searchSubject} />
-            <Button className="btn-secondary">
-              <FaSearch />
-            </Button>
-          </InputGroup>
+      <div className="container">
+        <div className="row">
+          <div className="col-12 col-md-6"></div>
+          <div className="col-12 col-md-6 pt-3">
+            <div className="position-relative">
+              <Form.Control
+                placeholder="Search"
+                onChange={searchSubject}
+                className="ps-5"
+              />
+              <span className="text-secondary position-absolute top-50 start-0 translate-middle ms-4">
+                <FaSearch />
+              </span>
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="container px-0">
-        <div className="pt-2 pb-4 row g-2">{subjectOutput}</div>
+        <div className="container px-0">
+          <div className="pt-2 pb-4 row g-2">{subjectOutput}</div>
+        </div>
       </div>
     </>
   );

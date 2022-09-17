@@ -3,6 +3,7 @@ import "./style.css";
 import logo from "../../img/company-logo.png";
 import { GrFormClose } from "react-icons/gr";
 import { Collapse } from "react-bootstrap";
+import { ADMIN_USER, TEACHER_USER, STUDENT_USER } from "../../config";
 
 function BtnHideNav() {
   return (
@@ -27,7 +28,7 @@ function Nav({ user_type, onClick, open }) {
   let output;
 
   switch (user_type) {
-    case 1:
+    case ADMIN_USER:
       output = (
         <ul className="nav-items text-white mt-5 p-0">
           <NavLink
@@ -68,7 +69,7 @@ function Nav({ user_type, onClick, open }) {
         </ul>
       );
       break;
-    case 2:
+    case TEACHER_USER:
       output = (
         <ul className="nav-items text-white mt-5 p-0">
           <NavLink
@@ -101,7 +102,7 @@ function Nav({ user_type, onClick, open }) {
         </ul>
       );
       break;
-    case 3:
+    case STUDENT_USER:
       output = (
         <ul className="nav-items text-white mt-5 p-0">
           <NavLink
@@ -124,8 +125,6 @@ function Nav({ user_type, onClick, open }) {
             title={"Exams"}
             icon={"bi bi-files"}
           />
-
-          <NavLink href={"books"} title={"Books"} icon={"bi bi-book"} />
 
           <NavLink
             href={"events"}

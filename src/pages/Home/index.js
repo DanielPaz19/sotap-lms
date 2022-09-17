@@ -3,6 +3,7 @@ import Nav from "../../components/Nav";
 import Header from "../../components/Header";
 import { Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { STUDENT_USER } from "../../config";
 
 function Home() {
   const [open, setOpen] = useState(true);
@@ -23,7 +24,7 @@ function Home() {
 
   return (
     <>
-      <Nav user_type={3} onClick={toggleNav} open={open} />
+      <Nav user_type={STUDENT_USER} onClick={toggleNav} open={open} />
       <div className="main">
         <Header title={""} user_type={3} toggleNav={toggleNav} />
         <div className="content container-fluid">
