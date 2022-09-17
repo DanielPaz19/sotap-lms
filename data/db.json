@@ -1,11 +1,6 @@
 {
   "subjects": [
     {
-      "id": 0,
-      "title": "Mother Tongue",
-      "img_src": "https://i.picsum.photos/id/115/400/400.jpg?hmac=nWHNT5wyI521-uVsjVF2GI0q7l_YCNntQ0_uoSOFUI4"
-    },
-    {
       "id": 1,
       "title": "Filipino",
       "img_src": "https://i.picsum.photos/id/113/400/400.jpg?hmac=hCg1mc0JZPvlwmU2b7Lu17RjRcBxyHCdgiF1URs9PuE"
@@ -49,6 +44,26 @@
       "id": 10,
       "title": "Health",
       "img_src": "https://i.picsum.photos/id/473/400/400.jpg?hmac=HWMbh4K_zIcw3MTFZgkZ1cVrggkB4TxpazKEQs3fglU"
+    },
+    {
+      "id": 11,
+      "title": "Mother Tongue",
+      "img_src": "https://i.picsum.photos/id/115/400/400.jpg?hmac=nWHNT5wyI521-uVsjVF2GI0q7l_YCNntQ0_uoSOFUI4"
     }
+  ],
+
+  "students": [
+    { "id": 1, "firstname": "Simon", "lastname": "Elorde" },
+    { "id": 2, "firstname": "Jopet", "lastname": "Mejos" }
+  ],
+
+  "student_subjects": [
+    { "id": 1, "student_id": 1, "subjects_id": [1, 5, 7, 4, 3] },
+    { "id": 2, "student_id": 2, "subjects_id": [2, 6, 8, 9, 10] }
+  ],
+
+  "users": [
+    { "id": 1, "username": "student1", "password": "123456", "student_id": 1 },
+    { "id": 2, "username": "student2", "password": "123456", "student_id": 2 }
   ]
 }
