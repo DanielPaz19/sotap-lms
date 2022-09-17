@@ -2,7 +2,12 @@ import "./style.css";
 import Books from "../Books";
 import Events from "../Events";
 import Dashboard from "../Dashboard";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  ScrollRestoration,
+} from "react-router-dom";
 import Login from "../Login";
 import Students from "../Students";
 import Teachers from "../Teachers";
@@ -10,25 +15,32 @@ import Subjects from "../Subjects";
 import GradeLevels from "../GradeLevels";
 import Home from "../Home";
 import Modules from "../Modules";
+import ScrollToTop from "../ScrollToTop";
+import { useEffect } from "react";
 
 function App() {
+
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />}>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="modules/:id" element={<Modules />} />
-          <Route path="students" element={<Students />} />
-          <Route path="teachers" element={<Teachers />} />
-          <Route path="subjects" element={<Subjects />} />
-          <Route path="grade_levels" element={<GradeLevels />} />
-          <Route path="books" element={<Books />} />
-          <Route path="events" element={<Events />} />
+    <>
+      <BrowserRouter>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<Home />}>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="modules/:id" element={<Modules />} />
+            <Route path="students" element={<Students />} />
+            <Route path="teachers" element={<Teachers />} />
+            <Route path="subjects" element={<Subjects />} />
+            <Route path="grade_levels" element={<GradeLevels />} />
+            <Route path="books" element={<Books />} />
+            <Route path="events" element={<Events />} />
+          </Route>
           <Route path="login" element={<Login />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 

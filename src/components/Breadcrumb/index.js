@@ -10,14 +10,14 @@ function BreadCrumb({ paths }) {
         {path.title}
       </Breadcrumb.Item>
     ) : (
-      <Breadcrumb.Item key={index}>
+      <Breadcrumb.Item linkAs={"span"} key={index}>
         <Link to={"/dashboard"}>{path.title}</Link>
       </Breadcrumb.Item>
     )
   );
 
   return (
-    <Breadcrumb as={"div"} className="position-fixed pt-3">
+    <Breadcrumb as={"div"} className="position-static pt-3">
       {renderPath}
     </Breadcrumb>
   );

@@ -3,17 +3,36 @@ import SubjectCard from "../../components/SubjectCard";
 import { Form, Button, InputGroup } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 function Dashboard() {
   const [subjects, setSubjects] = useState([]);
   const [qry, setQry] = useState("");
 
+  const getSubjectId = async (student_id) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3500/student_subjects?student_id=${student_id}`
+      );
+      const data = await response.json();
+
+      if (data == "") return;
+
+      console.log(data[0].subjects_id);
+
+      return data[0].subjects_id;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     const getSubjects = async (qry) => {
+      const subjectId = await getSubjectId(localStorage.getItem("student_id"));
       try {
         const response = await fetch(
-          `http://localhost:3500/subjects?title_like=${qry}`
+          `http://localhost:3500/subjects?${subjectId
+            .map((id) => `id=${id}`)
+            .join("&")}&title_like=${qry}`
         );
         const data = await response.json();
         console.log(data);
