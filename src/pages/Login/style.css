@@ -70,11 +70,6 @@ input[type="password"] {
   opacity: 80%;
 }
 
-/* Set extra style for the cancel button*/
-.container {
-  padding: 16px;
-}
-
 .fontuser {
   position: relative;
 }

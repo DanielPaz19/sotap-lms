@@ -8,24 +8,24 @@ function Dashboard() {
   const [subjects, setSubjects] = useState([]);
   const [qry, setQry] = useState("");
 
+  const getSubjectId = async (student_id) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3500/student_subjects?student_id=${student_id}`
+      );
+      const data = await response.json();
+
+      if (data == "") return;
+
+      console.log(data[0].subjects_id);
+
+      return data[0].subjects_id;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    const getSubjectId = async (student_id) => {
-      try {
-        const response = await fetch(
-          `http://localhost:3500/student_subjects?student_id=${student_id}`
-        );
-        const data = await response.json();
-
-        if (data == "") return;
-
-        console.log(data[0].subjects_id);
-
-        return data[0].subjects_id;
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
     const getSubjects = async (qry) => {
       const subjectId = await getSubjectId(localStorage.getItem("student_id"));
       try {

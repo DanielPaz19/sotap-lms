@@ -1,33 +1,48 @@
 import "./style.css";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { ImExit } from "react-icons/im";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Collapse } from "react-bootstrap";
 
 function Header({ title, user_type, toggleNav }) {
   const [dropDownIsOpen, setDropDownIsOpen] = useState(false);
+  const [user, setUser] = useState({});
+
+  const getUserName = async (id) => {
+    const response = await fetch(`http://localhost:3500/students?id=${id}`);
+    const data = await response.json();
+
+    if (data == "") return;
+
+    return setUser(data[0]);
+  };
+
+  useEffect(() => {
+    (async () => getUserName(localStorage.getItem("student_id")))();
+  }, []);
 
   const toggleDropDown = () => {
     setDropDownIsOpen(!dropDownIsOpen);
     console.log(dropDownIsOpen);
   };
 
-  let user;
+  const setUserType = () => {
+    switch (user_type) {
+      case 1:
+        return "Admin";
+        break;
+      case 2:
+        return "Teacher";
+        break;
+      case 3:
+        return "Student";
+        break;
 
-  switch (user_type) {
-    case 1:
-      user = "Admin";
-      break;
-    case 2:
-      user = "Teacher";
-      break;
-    case 3:
-      user = "Student";
-      break;
-
-    default:
-      break;
-  }
+      default:
+        return;
+        break;
+    }
+  };
 
   const logoutUser = () => {
     // Destroy LocalStorage ID
@@ -54,9 +69,9 @@ function Header({ title, user_type, toggleNav }) {
         />
         <div className="me-3 d-none d-md-block">
           <p className="fs-6 fw-bold text-primary my-0 user-name">
-            Juan Dela Cruz
+            {user.firstname} {user.lastname}
           </p>
-          <p className="user-role my-0">{user}</p>
+          <p className="user-role my-0">{setUserType()}</p>
         </div>
         <div className="me-3 user-dropdown " onClick={toggleDropDown}>
           <i className="bi bi-chevron-down fs-5"></i>
@@ -69,7 +84,7 @@ function Header({ title, user_type, toggleNav }) {
           id="accountDropDown"
         >
           <div className="text-center fw-bold text-primary mt-1  d-block d-md-none">
-            Juan Dela Cruz
+            {user.firstname} {user.lastname}
             <hr />
           </div>
           <div className="pb-3 pt-md-3 fs-6 text-center" onClick={logoutUser}>
