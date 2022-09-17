@@ -5,7 +5,6 @@ import { useState } from "react";
 
 export default function Login() {
   const [formData, setFormData] = useState(null);
-  const [studentId, setStudentId] = useState([]);
 
   const checkUser = async () => {
     try {
@@ -17,7 +16,11 @@ export default function Login() {
 
       if (data == "") return;
 
-      return data[0].student_id;
+      const student_id = data[0].student_id;
+
+      localStorage.setItem("student_id", student_id);
+
+      return student_id;
     } catch (error) {
       console.log(error);
     }
@@ -25,15 +28,10 @@ export default function Login() {
 
   const submitForm = async (e) => {
     e.preventDefault();
-    // Check login info from json server
-    // If username and password match from the json server
-    // Check username
+
     (await checkUser())
       ? (window.location.pathname = "/dashboard")
       : (window.location.pathname = "/login");
-    // Render Dashboard
-    // Get the student info
-    // Else Render Login Page
   };
 
   return (

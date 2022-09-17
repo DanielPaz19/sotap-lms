@@ -8,12 +8,36 @@ import { Link } from "react-router-dom";
 function Dashboard() {
   const [subjects, setSubjects] = useState([]);
   const [qry, setQry] = useState("");
+  const [subjectId, setSubjectId] = useState([]);
+
+  useEffect(() => {
+    const getSubjectId = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3500/student_subjects?student_id=1"
+        );
+        const data = await response.json();
+
+        if (data == "") return;
+
+        console.log(data[0].subjects_id);
+
+        setSubjectId(data[0].subjects_id);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    (async () => await getSubjectId(qry))();
+  }, []);
 
   useEffect(() => {
     const getSubjects = async (qry) => {
       try {
         const response = await fetch(
-          `http://localhost:3500/subjects?title_like=${qry}`
+          `http://localhost:3500/subjects?${subjectId
+            .map((id) => `id=${id}`)
+            .join("&")}&title_like=${qry}`
         );
         const data = await response.json();
         console.log(data);
