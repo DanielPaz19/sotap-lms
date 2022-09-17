@@ -1,8 +1,41 @@
 import logo from "../../img/company-logo.png";
 import "./style.css";
 import { FaUser, FaKey } from "react-icons/fa";
+import { useState } from "react";
 
 export default function Login() {
+  const [formData, setFormData] = useState(null);
+  const [studentId, setStudentId] = useState([]);
+
+  const checkUser = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3500/users?username=${formData.username}&password=${formData.password}`
+      );
+
+      const data = await response.json();
+
+      if (data == "") return;
+
+      return data[0].student_id;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const submitForm = async (e) => {
+    e.preventDefault();
+    // Check login info from json server
+    // If username and password match from the json server
+    // Check username
+    (await checkUser())
+      ? (window.location.pathname = "/dashboard")
+      : (window.location.pathname = "/login");
+    // Render Dashboard
+    // Get the student info
+    // Else Render Login Page
+  };
+
   return (
     <div className="container p-0">
       <div className="row" style={{ height: "100vh" }}>
@@ -18,17 +51,22 @@ export default function Login() {
           <div className="login mx-auto position-absolute top-50 start-50 translate-middle">
             <div className="text-center">
               <h2 className="loginTxt">Login</h2>
-              <form action="">
+              <form action="" onSubmit={submitForm}>
                 <div className="container">
                   <div className="fontuser position-relative">
                     <span className="position-absolute top-50 translate-middle ms-4">
                       <FaUser />
                     </span>
                     <input
+                      autoComplete="false"
                       type="text"
                       placeholder="User ID"
                       name="uname"
                       required
+                      id="inputUsername"
+                      onChange={(e) =>
+                        setFormData({ ...formData, username: e.target.value })
+                      }
                     />
                   </div>
 
@@ -36,13 +74,20 @@ export default function Login() {
                     <span className="position-absolute top-50 translate-middle ms-4">
                       <FaKey />
                     </span>
-                    <input type="password" placeholder="Password" name="psw" />
+                    <input
+                      autoComplete="false"
+                      type="password"
+                      placeholder="Password"
+                      name="psw"
+                      id="inputPassword"
+                      onChange={(e) =>
+                        setFormData({ ...formData, password: e.target.value })
+                      }
+                    />
                   </div>
-                  <a href="../dashboard/index.html">
-                    <button className="loginBtn btn" type="submit">
-                      Login
-                    </button>
-                  </a>
+                  <button className="loginBtn btn" type="submit">
+                    Login
+                  </button>
                   <h4 className="registerBtn btn">Register</h4>
                 </div>
                 {/* <input type="text" class="my-1" placeholder="User ID">

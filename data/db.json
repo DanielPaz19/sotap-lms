@@ -51,19 +51,42 @@
       "img_src": "https://i.picsum.photos/id/115/400/400.jpg?hmac=nWHNT5wyI521-uVsjVF2GI0q7l_YCNntQ0_uoSOFUI4"
     }
   ],
-
   "students": [
-    { "id": 1, "firstname": "Simon", "lastname": "Elorde" },
-    { "id": 2, "firstname": "Jopet", "lastname": "Mejos" }
+    {
+      "id": 1,
+      "firstname": "Simon",
+      "lastname": "Elorde"
+    },
+    {
+      "id": 2,
+      "firstname": "Jopet",
+      "lastname": "Mejos"
+    }
   ],
-
   "student_subjects": [
-    { "id": 1, "student_id": 1, "subjects_id": [1, 5, 7, 4, 3] },
-    { "id": 2, "student_id": 2, "subjects_id": [2, 6, 8, 9, 10] }
+    {
+      "id": 1,
+      "student_id": 1,
+      "subjects_id": [1, 5, 7, 4, 3]
+    },
+    {
+      "id": 2,
+      "student_id": 2,
+      "subjects_id": [2, 6, 8, 9, 10]
+    }
   ],
-
   "users": [
-    { "id": 1, "username": "student1", "password": "123456", "student_id": 1 },
-    { "id": 2, "username": "student2", "password": "123456", "student_id": 2 }
+    {
+      "id": 1,
+      "username": "student1",
+      "password": "123456",
+      "student_id": 1
+    },
+    {
+      "id": 2,
+      "username": "student2",
+      "password": "123456",
+      "student_id": 2
+    }
   ]
 }
