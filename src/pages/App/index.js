@@ -2,12 +2,7 @@ import "./style.css";
 import Books from "../Books";
 import Events from "../Events";
 import Dashboard from "../Dashboard";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  ScrollRestoration,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "../Login";
 import Students from "../Students";
 import Teachers from "../Teachers";
@@ -15,12 +10,9 @@ import Subjects from "../Subjects";
 import GradeLevels from "../GradeLevels";
 import Home from "../Home";
 import Modules from "../Modules";
-import ScrollToTop from "../ScrollToTop";
-import { useEffect } from "react";
+import ScrollToTop from "../../customHooks/scrollToTop";
 
 function App() {
-
-
   return (
     <>
       <BrowserRouter>
