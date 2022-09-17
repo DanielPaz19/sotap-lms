@@ -1,6 +1,6 @@
 import "./style.css";
 import SubjectCard from "../../components/SubjectCard";
-import { Form, Button, InputGroup } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
@@ -15,7 +15,7 @@ function Dashboard() {
       );
       const data = await response.json();
 
-      if (data == "") return;
+      if (data === "") return;
 
       console.log(data[0].subjects_id);
 

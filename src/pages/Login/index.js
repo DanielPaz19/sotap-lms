@@ -14,7 +14,7 @@ export default function Login() {
 
       const data = await response.json();
 
-      if (data == "") return;
+      if (data === "") return;
 
       const student_id = data[0].student_id;
 
