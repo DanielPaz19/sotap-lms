@@ -29,6 +29,13 @@ function Header({ title, user_type, toggleNav }) {
       break;
   }
 
+  const logoutUser = () => {
+    // Destroy LocalStorage ID
+    localStorage.clear();
+    // Route to Login
+    window.location.pathname = "/login";
+  };
+
   return (
     <header
       className="d-flex align-items-center justify-content-between"
@@ -65,7 +72,7 @@ function Header({ title, user_type, toggleNav }) {
             Juan Dela Cruz
             <hr />
           </div>
-          <div className="pb-3 pt-md-3 fs-6 text-center ">
+          <div className="pb-3 pt-md-3 fs-6 text-center" onClick={logoutUser}>
             <ImExit /> Logout
           </div>
         </div>
