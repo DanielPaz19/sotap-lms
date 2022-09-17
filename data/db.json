@@ -61,6 +61,11 @@
       "id": 2,
       "firstname": "Jopet",
       "lastname": "Mejos"
+    },
+    {
+      "id": 3,
+      "firstname": "Danielle",
+      "lastname": "Paz"
     }
   ],
   "student_subjects": [
@@ -73,6 +78,11 @@
       "id": 2,
       "student_id": 2,
       "subjects_id": [2, 6, 8, 9, 10]
+    },
+    {
+      "id": 3,
+      "student_id": 3,
+      "subjects_id": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     }
   ],
   "users": [
@@ -87,6 +97,12 @@
       "username": "student2",
       "password": "123456",
       "student_id": 2
+    },
+    {
+      "id": 3,
+      "username": "student3",
+      "password": "123456",
+      "student_id": 3
     }
   ]
 }

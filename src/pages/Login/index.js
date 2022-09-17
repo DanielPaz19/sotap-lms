@@ -30,7 +30,7 @@ export default function Login() {
     e.preventDefault();
 
     (await checkUser())
-      ? (window.location.pathname = "/dashboard")
+      ? (window.location.pathname = "/")
       : (window.location.pathname = "/login");
   };
 

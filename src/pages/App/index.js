@@ -16,8 +16,11 @@ import GradeLevels from "../GradeLevels";
 import Home from "../Home";
 import Modules from "../Modules";
 import ScrollToTop from "../ScrollToTop";
+import { useEffect } from "react";
 
 function App() {
+
+
   return (
     <>
       <BrowserRouter>
