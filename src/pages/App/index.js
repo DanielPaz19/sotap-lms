@@ -11,6 +11,7 @@ import GradeLevels from "../GradeLevels";
 import Home from "../Home";
 import Modules from "../Modules";
 import ScrollToTop from "../../customHooks/scrollToTop";
+import Topics from "../Topics";
 
 function App() {
   return (
@@ -21,7 +22,9 @@ function App() {
           <Route path="/" element={<Home />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="dashboard" element={<Dashboard />} />
+            <Route path="modules" element={<Dashboard />} />
             <Route path="modules/:id" element={<Modules />} />
+            <Route path="modules/topic/:id" element={<Topics />} />
             <Route path="students" element={<Students />} />
             <Route path="teachers" element={<Teachers />} />
             <Route path="subjects" element={<Subjects />} />

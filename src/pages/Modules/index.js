@@ -7,6 +7,8 @@ import useGetTopics from "../../customHooks/useGetTopics";
 import useGetAssignments from "../../customHooks/useGetAssignments";
 import useGetQuizes from "../../customHooks/useGetQuizes";
 import useGetExams from "../../customHooks/useGetExams";
+import { Link } from "react-router-dom";
+import useGetSubjectById from "../../customHooks/useGetSubjectById";
 
 function ModuleList({ title }) {
   return (
@@ -35,32 +37,14 @@ function ModulesAccordionItems({ children, header, eventKey }) {
 function Modules() {
   const [subject, setSubject] = useState({});
 
-  const parseSubjectId = () => {
-    const arrPath = window.location.pathname
-      .split("/")
-      .filter((arr) => arr !== "");
+  const data = useGetSubjectById();
 
-    return Number(arrPath.at(-1));
-  };
-
-  useEffect(() => {
-    const getSubjectById = async (id) => {
-      try {
-        const response = await fetch(`http://localhost:3500/subjects?id=${id}`);
-        const data = await response.json();
-        setSubject(await data[0]);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    (async () => await getSubjectById(parseSubjectId()))();
-  }, []);
+  useEffect(() => setSubject(data), [data]);
 
   // Set Breadcrumbs Item and link
   const path = [
-    { title: "Modules", link: "modules" },
-    { title: subject?.title, link: `modules/${subject?.id}` },
+    { title: "Modules", link: "/modules" },
+    { title: subject?.title, link: `/modules/${subject?.id}` },
   ];
 
   return (
@@ -71,7 +55,9 @@ function Modules() {
           <div className="row g-md-4 g-3">
             <ModulesAccordionItems header={"Topics"} eventKey={"0"}>
               {useGetTopics(subject?.id).map((topic) => (
-                <ModuleList title={topic.title} key={topic.id} />
+                <Link to={`/modules/topic/${topic.id}`}>
+                  <ModuleList title={topic.title} key={topic.id} />
+                </Link>
               ))}
             </ModulesAccordionItems>
             <ModulesAccordionItems header={"Assignments"} eventKey={"1"}>

@@ -125,12 +125,6 @@ function Nav({ user_type, onClick, open }) {
             title={"Exams"}
             icon={"bi bi-files"}
           />
-
-          <NavLink
-            href={"events"}
-            title={"Events"}
-            icon={"bi bi-calendar-check"}
-          />
         </ul>
       );
       break;
