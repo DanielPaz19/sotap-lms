@@ -61,7 +61,7 @@ function Dashboard() {
 
   return (
     <>
-      <div className="container">
+      <div className="container px-0">
         <div className="row">
           <div className="col-12 col-md-6"></div>
           <div className="col-12 col-md-6 pt-3">
