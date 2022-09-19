@@ -23,7 +23,6 @@ function Header({ title, user_type, toggleNav }) {
 
   const toggleDropDown = () => {
     setDropDownIsOpen(!dropDownIsOpen);
-    console.log(dropDownIsOpen);
   };
 
   const setUserType = () => {

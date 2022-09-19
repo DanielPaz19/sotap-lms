@@ -51,7 +51,7 @@ export default function Login() {
               <div className="text-center">
                 <h2 className="loginTxt">Login</h2>
                 <form action="" onSubmit={submitForm}>
-                  <div className="container">
+                  <div className="container pb-5">
                     <div className="fontuser position-relative">
                       <span className="position-absolute top-50 translate-middle ms-4">
                         <FaUser />
@@ -87,7 +87,6 @@ export default function Login() {
                     <button className="loginBtn btn" type="submit">
                       Login
                     </button>
-                    <h4 className="registerBtn btn">Register</h4>
                   </div>
                   {/* <input type="text" class="my-1" placeholder="User ID">
               <input type="text" class="my-1" placeholder="Password">  */}

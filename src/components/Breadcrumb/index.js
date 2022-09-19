@@ -3,7 +3,6 @@ import Breadcrumb from "react-bootstrap/Breadcrumb";
 import { Link } from "react-router-dom";
 
 function BreadCrumb({ paths }) {
-  console.log(paths);
   const renderPath = paths.map((path, index, row) =>
     index + 1 === row.length ? (
       <Breadcrumb.Item key={index} active>

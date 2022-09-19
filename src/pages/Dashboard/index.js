@@ -17,7 +17,6 @@ function Dashboard() {
 
       if (data === "") return;
 
-      console.log(data[0].subjects_id);
 
       return data[0].subjects_id;
     } catch (error) {
@@ -35,7 +34,6 @@ function Dashboard() {
             .join("&")}&title_like=${qry}`
         );
         const data = await response.json();
-        console.log(data);
         setSubjects(data);
       } catch (error) {
         console.log(error);

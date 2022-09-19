@@ -3,6 +3,10 @@ import { useState } from "react";
 import BreadCrumb from "../../components/Breadcrumb";
 import { Accordion, ListGroup } from "react-bootstrap";
 import { FiFileText } from "react-icons/fi";
+import useGetTopics from "../../customHooks/useGetTopics";
+import useGetAssignments from "../../customHooks/useGetAssignments";
+import useGetQuizes from "../../customHooks/useGetQuizes";
+import useGetExams from "../../customHooks/useGetExams";
 
 function ModuleList({ title }) {
   return (
@@ -45,7 +49,6 @@ function Modules() {
         const response = await fetch(`http://localhost:3500/subjects?id=${id}`);
         const data = await response.json();
         setSubject(await data[0]);
-        console.log(data[0]);
       } catch (error) {
         console.log(error);
       }
@@ -63,32 +66,28 @@ function Modules() {
   return (
     <>
       <BreadCrumb paths={path} />
-      <div className="container px-md-5 px-0">
+      <div className="container px-md-5 px-0 pb-4">
         <Accordion defaultActiveKey={["0", "1", "2", "3"]} alwaysOpen>
           <div className="row g-md-4 g-3">
             <ModulesAccordionItems header={"Topics"} eventKey={"0"}>
-              <ModuleList title={"Sample Topic 1"} />
-              <ModuleList title={"Sample Topic 2"} />
-              <ModuleList title={"Sample Topic 3"} />
-              <ModuleList title={"Sample Topic 4"} />
+              {useGetTopics(subject?.id).map((topic) => (
+                <ModuleList title={topic.title} key={topic.id} />
+              ))}
             </ModulesAccordionItems>
             <ModulesAccordionItems header={"Assignments"} eventKey={"1"}>
-              <ModuleList title={"Sample Assignment 1"} />
-              <ModuleList title={"Sample Assignment 2"} />
-              <ModuleList title={"Sample Assignment 3"} />
-              <ModuleList title={"Sample Assignment 4"} />
+              {useGetAssignments(subject?.id).map((assignment) => (
+                <ModuleList title={assignment.title} key={assignment.id} />
+              ))}
             </ModulesAccordionItems>
             <ModulesAccordionItems header={"Quizes"} eventKey={"2"}>
-              <ModuleList title={"Sample Quizes 1"} />
-              <ModuleList title={"Sample Quizes 2"} />
-              <ModuleList title={"Sample Quizes 3"} />
-              <ModuleList title={"Sample Quizes 4"} />
+              {useGetQuizes(subject?.id).map((quiz) => (
+                <ModuleList title={quiz.title} key={quiz.id} />
+              ))}
             </ModulesAccordionItems>
             <ModulesAccordionItems header={"Exams"} eventKey={"3"}>
-              <ModuleList title={"Sample Exams 1"} />
-              <ModuleList title={"Sample Exams 2"} />
-              <ModuleList title={"Sample Exams 3"} />
-              <ModuleList title={"Sample Exams 4"} />
+              {useGetExams(subject?.id).map((exam) => (
+                <ModuleList title={exam.title} key={exam.id} />
+              ))}
             </ModulesAccordionItems>
           </div>
         </Accordion>
