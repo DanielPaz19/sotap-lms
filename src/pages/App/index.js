@@ -16,7 +16,20 @@ import Quizes from "../Quizes";
 import { useEffect, useState } from "react";
 
 function App() {
-  const [state, setState] = useState({});
+  const [user, setUser] = useState({
+    id: null,
+    firstname: "",
+    lastname: "",
+  });
+
+  useEffect(() => {
+    const id = localStorage.getItem("student_id");
+
+    fetch(`http://localhost:3500/students?id=${id}`)
+      .then((res) => res.json())
+      .then((data) => setUser(data[0]))
+      .catch((err) => console.log(err));
+  }, []);
 
   const checkUser = async ({ username, password }) => {
     try {
@@ -28,7 +41,6 @@ function App() {
 
       if (data === "") return;
 
-      setState(data[0]);
       const student_id = data[0].student_id;
 
       localStorage.setItem("student_id", student_id);
@@ -52,7 +64,7 @@ function App() {
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
-          <Route path="/" element={<Home state={state} />}>
+          <Route path="/" element={<Home user={user} />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="modules" element={<Dashboard />} />

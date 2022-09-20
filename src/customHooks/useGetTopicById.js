@@ -26,7 +26,7 @@ function useGetTopicById() {
     };
 
     (async () => await getData(parseId()))();
-  }, [data]);
+  }, []);
 
   return data[0];
 }

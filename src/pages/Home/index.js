@@ -5,16 +5,18 @@ import { Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { STUDENT_USER } from "../../config";
 
-function Home({ state }) {
+function Home({ user }) {
   const [open, setOpen] = useState(true);
 
   useEffect(() => {
+    console.log(user);
     checkLogin()
       ? console.log("Welcome to SOTAP LMS")
       : (window.location.pathname = "/login");
-  }, []);
+  }, [user]);
 
   const checkLogin = () => {
+    console.log(user);
     return localStorage.getItem("student_id");
   };
 
