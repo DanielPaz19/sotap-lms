@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { STUDENT_USER } from "../../config";
 
-function Home() {
+function Home({ state }) {
   const [open, setOpen] = useState(true);
 
   useEffect(() => {
