@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 function useGetSubjectById(subject_id = null) {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
 
   const parseId = () => {
     const arrPath = window.location.pathname
