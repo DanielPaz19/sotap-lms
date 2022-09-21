@@ -68,7 +68,7 @@ function App() {
             <Route path="/" element={<Dashboard user={user} />} />
             <Route path="dashboard" element={<Dashboard user={user} />} />
             <Route path="modules" element={<Dashboard user={user} />} />
-            <Route path="modules/:id" element={<Modules />} />
+            <Route path="modules/:id" element={<Modules user={user} />} />
             <Route path="modules/topic/:id" element={<Topics user={user} />} />
             <Route path="modules/quiz/:id" element={<Quizes />} />
             <Route path="students" element={<Students />} />

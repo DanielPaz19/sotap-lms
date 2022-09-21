@@ -26,7 +26,7 @@ function Topics({ user }) {
     };
 
     (async () => getStudentTopicData(topic?.id, user?.id))();
-  }, [topic, user]);
+  }, [topic?.id, user?.id]);
 
   const updateTopicStatus = async (status, student_topic_id) => {
     const response = await fetch(
