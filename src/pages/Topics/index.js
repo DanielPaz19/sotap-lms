@@ -4,23 +4,87 @@ import useGetTopicById from "../../customHooks/useGetTopicById";
 import ReactPlayer from "react-player";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { json, Link } from "react-router-dom";
 
 function Topics({ user }) {
   const [doneWatching, setDoneWatching] = useState(false);
+  const [topicStatus, setTopicStatus] = useState({});
 
   const topic = useGetTopicById();
   const subject = useGetSubjectById(topic?.subject_id);
 
+  useEffect(() => {
+    const getStudentTopicData = async (topic_id, student_id) => {
+      const response = await fetch(
+        `http://localhost:3500/student_topics?topic_id=${topic_id}&student_id=${student_id}`
+      );
+      const data = await response.json();
+
+      if (!data.length) return;
+
+      return setTopicStatus(data[0]);
+    };
+
+    (async () => getStudentTopicData(topic?.id, user?.id))();
+  }, [topic, user]);
+
+  const updateTopicStatus = async (status, student_topic_id) => {
+    const response = await fetch(
+      `http://localhost:3500/student_topics/${student_topic_id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status }),
+      }
+    );
+
+    const data = await response.json();
+
+    setTopicStatus(data);
+  };
+
+  const addStudentTopic = async (topic_data) => {
+    const response = await fetch(`http://localhost:3500/student_topics`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(topic_data),
+    });
+
+    const data = await response.json();
+
+    setTopicStatus(data);
+  };
+
   const handleReady = () => {
     console.log("video ready");
+
+    // If Status is [], update status to viewed
+    if (!Object.entries(topicStatus).length) {
+      addStudentTopic({
+        topic_id: topic?.id,
+        student_id: user?.id,
+        status: "viewed",
+      });
+    }
   };
 
   const handleStart = () => {
+    // if Status is viewed or [], update status to played
     console.log("video started");
+    console.log(topicStatus);
+
+    if (topicStatus.status === "viewed")
+      updateTopicStatus("played", topicStatus.id);
   };
 
   const handleEnded = () => {
+    // Update status to ended
+    if (topicStatus.status === "played")
+      updateTopicStatus("done", topicStatus.id);
     console.log("video ended");
   };
 
@@ -51,7 +115,9 @@ function Topics({ user }) {
               </button>
             </Link>
             <button
-              className={`btn btn-success ${doneWatching ? "" : "disabled"}`}
+              className={`btn btn-success ${
+                topicStatus.status === "done" ? "" : "disabled"
+              }`}
             >
               Take Quiz Now <FaArrowRight />
             </button>
