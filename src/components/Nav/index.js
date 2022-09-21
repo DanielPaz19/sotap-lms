@@ -27,7 +27,7 @@ function NavLink({ href, title, icon }) {
   );
 }
 
-function Nav({ user_type, onClick, open }) {
+function Nav({ user_type, onClick, open, closeNav }) {
   let output;
 
   switch (user_type) {
@@ -107,7 +107,7 @@ function Nav({ user_type, onClick, open }) {
       break;
     case STUDENT_USER:
       output = (
-        <ul className="nav-items text-white mt-5 p-0">
+        <ul className="nav-items text-white mt-5 p-0" onClick={closeNav}>
           <NavLink
             href={"dashboard"}
             title={"Dashboard"}
