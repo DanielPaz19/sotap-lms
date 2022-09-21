@@ -9,14 +9,84 @@ import useGetQuizes from "../../customHooks/useGetQuizes";
 import useGetExams from "../../customHooks/useGetExams";
 import { Link } from "react-router-dom";
 import useGetSubjectById from "../../customHooks/useGetSubjectById";
+import { FaEye, FaPlay, FaCheck } from "react-icons/fa";
+import useGetStudentTopicData from "../../customHooks/useGetStudentTopicData";
 
-function ModuleList({ title }) {
+function TopicStatus({ topic_id, user_id }) {
+  const topicStatus = useGetStudentTopicData(topic_id, user_id);
+
+  console.log(topicStatus.status);
+
+  switch (topicStatus.status) {
+    case "viewed":
+      return (
+        <span className="fs-5 text-secondary" title="Topic Viewed">
+          <FaEye />
+        </span>
+      );
+    case "played":
+      return (
+        <span className="fs-5 text-warning" title="Topic Viewed">
+          <FaPlay />
+        </span>
+      );
+    case "done":
+      return (
+        <span className="fs-5 text-success" title="Topic Viewed">
+          <FaCheck />
+        </span>
+      );
+
+    default:
+      break;
+  }
+}
+
+function TopicAccordionItem({ eventKey, subjectId, user_id }) {
   return (
-    <ListGroup.Item action variant="light">
-      <span className="me-2 fs-4">
-        <FiFileText />
+    <div className="col-12  ">
+      <Accordion.Item eventKey={eventKey}>
+        <Accordion.Header>Topics</Accordion.Header>
+        <Accordion.Body className="px-2">
+          <ListGroup variant="flush">
+            {useGetTopics(subjectId).map((topic) => (
+              <Link to={`/modules/topic/${topic.id}`}>
+                <ListGroup.Item
+                  action
+                  variant="light d-flex justify-content-between align-items-center"
+                >
+                  <div>
+                    <span className="me-2 fs-4">
+                      <FiFileText />
+                    </span>
+                    {topic.title}
+                  </div>
+                  <TopicStatus topic_id={topic.id} user_id={user_id} />
+                </ListGroup.Item>
+              </Link>
+            ))}
+          </ListGroup>
+        </Accordion.Body>
+      </Accordion.Item>
+    </div>
+  );
+}
+
+function ModuleList({ title, type, key, user }) {
+  return (
+    <ListGroup.Item
+      action
+      variant="light d-flex justify-content-between align-items-center"
+    >
+      <div>
+        <span className="me-2 fs-4">
+          <FiFileText />
+        </span>
+        {title}
+      </div>
+      <span className="fs-5 text-secondary" title="Topic Viewed">
+        {type === "topic" && <FaEye />}
       </span>
-      {title}
     </ListGroup.Item>
   );
 }
@@ -34,7 +104,7 @@ function ModulesAccordionItems({ children, header, eventKey }) {
   );
 }
 
-function Modules() {
+function Modules({ user }) {
   const [subject, setSubject] = useState({});
 
   const data = useGetSubjectById();
@@ -53,13 +123,23 @@ function Modules() {
       <div className="container px-md-5 px-0 pb-4">
         <Accordion defaultActiveKey={["0", "1", "2", "3"]} alwaysOpen>
           <div className="row g-md-4 g-3">
-            <ModulesAccordionItems header={"Topics"} eventKey={"0"}>
+            {/* <ModulesAccordionItems header={"Topics"} eventKey={"0"}>
               {useGetTopics(subject?.id).map((topic) => (
                 <Link to={`/modules/topic/${topic.id}`}>
-                  <ModuleList title={topic.title} key={topic.id} />
+                  <ModuleList
+                    title={topic.title}
+                    key={topic.id}
+                    type={"topic"}
+                    user={user}
+                  />
                 </Link>
               ))}
-            </ModulesAccordionItems>
+            </ModulesAccordionItems> */}
+            <TopicAccordionItem
+              eventKey={"0"}
+              subjectId={subject?.id}
+              user_id={user?.id}
+            />
             <ModulesAccordionItems header={"Assignments"} eventKey={"1"}>
               {useGetAssignments(subject?.id).map((assignment) => (
                 <ModuleList title={assignment.title} key={assignment.id} />
