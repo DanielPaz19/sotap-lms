@@ -16,7 +16,10 @@ function BtnHideNav() {
 function NavLink({ href, title, icon }) {
   return (
     <Link to={`/${href}`}>
-      <li className={`d-md-flex align-items-center ps-3 `}>
+      <li
+        className={`d-md-flex align-items-center ps-3 `}
+        style={{ minWidth: "16rem" }}
+      >
         <i className={`${icon} me-3 fs-4`}></i>
         {title}
       </li>
@@ -146,7 +149,7 @@ function Nav({ user_type, onClick, open }) {
     >
       <nav className="bg-primary" onClick={onClick}>
         <BtnHideNav />
-        <div className="text-center">
+        <div className="text-center logo-container">
           <img
             src={logo}
             alt="company_logo"
