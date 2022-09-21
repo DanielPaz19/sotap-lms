@@ -1,25 +1,11 @@
 import "./style.css";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { ImExit } from "react-icons/im";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Collapse } from "react-bootstrap";
 
-function Header({ title, user_type, toggleNav }) {
+function Header({ title, user_type, toggleNav, user }) {
   const [dropDownIsOpen, setDropDownIsOpen] = useState(false);
-  const [user, setUser] = useState({});
-
-  const getUserName = async (id) => {
-    const response = await fetch(`http://localhost:3500/students?id=${id}`);
-    const data = await response.json();
-
-    if (data === "") return;
-
-    return setUser(data[0]);
-  };
-
-  useEffect(() => {
-    (async () => getUserName(localStorage.getItem("student_id")))();
-  }, []);
 
   const toggleDropDown = () => {
     setDropDownIsOpen(!dropDownIsOpen);

@@ -6,34 +6,6 @@ import { useState } from "react";
 export default function Login({ onSubmit }) {
   const [formData, setFormData] = useState(null);
 
-  // const checkUser = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       `http://localhost:3500/users?username=${formData.username}&password=${formData.password}`
-  //     );
-
-  //     const data = await response.json();
-
-  //     if (data === "") return;
-
-  //     const student_id = data[0].student_id;
-
-  //     localStorage.setItem("student_id", student_id);
-
-  //     return student_id;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // const submitForm = async (e) => {
-  //   e.preventDefault();
-
-  //   (await checkUser())
-  //     ? (window.location.pathname = "/")
-  //     : (window.location.pathname = "/login");
-  // };
-
   return (
     <div id="loginBackground">
       <div className="container p-0">

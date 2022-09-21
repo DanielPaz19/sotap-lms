@@ -4,7 +4,7 @@ import { Form } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
-function Dashboard() {
+function Dashboard({ user }) {
   const [subjects, setSubjects] = useState([]);
   const [qry, setQry] = useState("");
 
@@ -25,7 +25,7 @@ function Dashboard() {
 
   useEffect(() => {
     const getSubjects = async (qry) => {
-      const subjectId = await getSubjectId(localStorage.getItem("student_id"));
+      const subjectId = await getSubjectId(user.id);
       try {
         const response = await fetch(
           `http://localhost:3500/subjects?${subjectId
@@ -40,7 +40,7 @@ function Dashboard() {
     };
 
     (async () => await getSubjects(qry))();
-  }, [qry]);
+  }, [user, qry]);
 
   const searchSubject = (e) => {
     setQry(e.target.value);

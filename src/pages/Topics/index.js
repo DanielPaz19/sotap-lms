@@ -3,14 +3,26 @@ import useGetSubjectById from "../../customHooks/useGetSubjectById";
 import useGetTopicById from "../../customHooks/useGetTopicById";
 import ReactPlayer from "react-player";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function Topics() {
+function Topics({ user }) {
   const [doneWatching, setDoneWatching] = useState(false);
 
   const topic = useGetTopicById();
   const subject = useGetSubjectById(topic?.subject_id);
+
+  const handleReady = () => {
+    console.log("video ready");
+  };
+
+  const handleStart = () => {
+    console.log("video started");
+  };
+
+  const handleEnded = () => {
+    console.log("video ended");
+  };
 
   // Set Breadcrumbs Item and link
   const path = [
@@ -28,7 +40,9 @@ function Topics() {
             url="https://www.youtube.com/watch?v=F7mKD2Un65I"
             controls={true}
             width={"100%"}
-            onEnded={() => setDoneWatching(true)}
+            onEnded={handleEnded}
+            onReady={handleReady}
+            onStart={handleStart}
           />
           <div className="d-flex justify-content-around mb-4 mt-4">
             <Link to={`/modules/${topic?.subject_id}`}>

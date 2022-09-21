@@ -2,7 +2,7 @@ import "./style.css";
 import Books from "../Books";
 import Events from "../Events";
 import Dashboard from "../Dashboard";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "../Login";
 import Students from "../Students";
 import Teachers from "../Teachers";
@@ -65,11 +65,11 @@ function App() {
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home user={user} />}>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="modules" element={<Dashboard />} />
+            <Route path="/" element={<Dashboard user={user} />} />
+            <Route path="dashboard" element={<Dashboard user={user} />} />
+            <Route path="modules" element={<Dashboard user={user} />} />
             <Route path="modules/:id" element={<Modules />} />
-            <Route path="modules/topic/:id" element={<Topics />} />
+            <Route path="modules/topic/:id" element={<Topics user={user} />} />
             <Route path="modules/quiz/:id" element={<Quizes />} />
             <Route path="students" element={<Students />} />
             <Route path="teachers" element={<Teachers />} />
