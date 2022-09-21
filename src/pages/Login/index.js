@@ -3,36 +3,8 @@ import "./style.css";
 import { FaUser, FaKey } from "react-icons/fa";
 import { useState } from "react";
 
-export default function Login() {
+export default function Login({ onSubmit }) {
   const [formData, setFormData] = useState(null);
-
-  const checkUser = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:3500/users?username=${formData.username}&password=${formData.password}`
-      );
-
-      const data = await response.json();
-
-      if (data === "") return;
-
-      const student_id = data[0].student_id;
-
-      localStorage.setItem("student_id", student_id);
-
-      return student_id;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const submitForm = async (e) => {
-    e.preventDefault();
-
-    (await checkUser())
-      ? (window.location.pathname = "/")
-      : (window.location.pathname = "/login");
-  };
 
   return (
     <div id="loginBackground">
@@ -50,8 +22,14 @@ export default function Login() {
             <div className="login mx-auto position-absolute top-50 start-50 translate-middle">
               <div className="text-center">
                 <h2 className="loginTxt">Login</h2>
-                <form action="" onSubmit={submitForm}>
-                  <div className="container">
+                <form
+                  action=""
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    onSubmit(formData);
+                  }}
+                >
+                  <div className="container pb-5">
                     <div className="fontuser position-relative">
                       <span className="position-absolute top-50 translate-middle ms-4">
                         <FaUser />
@@ -87,7 +65,6 @@ export default function Login() {
                     <button className="loginBtn btn" type="submit">
                       Login
                     </button>
-                    <h4 className="registerBtn btn">Register</h4>
                   </div>
                   {/* <input type="text" class="my-1" placeholder="User ID">
               <input type="text" class="my-1" placeholder="Password">  */}
