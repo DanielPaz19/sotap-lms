@@ -395,6 +395,12 @@
       "student_id": 2,
       "status": "done",
       "id": 3
+    },
+    {
+      "topic_id": 8,
+      "student_id": 2,
+      "status": "viewed",
+      "id": 4
     }
   ],
   "student_exams": [],
