@@ -9,6 +9,10 @@ function Home({ user }) {
   const [open, setOpen] = useState(true);
 
   useEffect(() => {
+    if (window.screen.width < 600) setOpen(false);
+  }, []);
+
+  useEffect(() => {
     const checkLogin = () => {
       return localStorage.getItem("student_id");
     };
