@@ -43,8 +43,8 @@
 }
 
 /* Assign full width inputs*/
-input[type="text"],
-input[type="password"] {
+#inputUsername,
+#inputPassword {
   width: 80%;
   padding: 12px 40px;
   margin: 8px 0;

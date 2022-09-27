@@ -15,6 +15,7 @@ import Topics from "../Topics";
 import Quizes from "../Quizes";
 import { useEffect, useState } from "react";
 import AdminLogin from "../Admin/Login";
+import AdminHome from "../Admin/Home";
 
 function App() {
   const [user, setUser] = useState({
@@ -80,7 +81,9 @@ function App() {
             <Route path="events" element={<Events />} />
           </Route>
           <Route path="login" element={<Login onSubmit={handleSubmit} />} />
+          <Route path="admin/" element={<AdminHome />} />
           <Route path="admin/login" element={<AdminLogin />} />
+          <Route path="admin/home" element={<AdminHome />} />
         </Routes>
       </BrowserRouter>
     </>
