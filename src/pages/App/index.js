@@ -14,6 +14,7 @@ import ScrollToTop from "../../customHooks/scrollToTop";
 import Topics from "../Topics";
 import Quizes from "../Quizes";
 import { useEffect, useState } from "react";
+import AdminLogin from "../Admin/Login";
 
 function App() {
   const [user, setUser] = useState({
@@ -54,9 +55,9 @@ function App() {
   const handleSubmit = async (formData) => {
     console.log(formData);
 
-    (await checkUser(formData))
-      ? (window.location.pathname = "/")
-      : (window.location.pathname = "/login");
+    // (await checkUser(formData))
+    //   ? (window.location.pathname = "/")
+    //   : (window.location.pathname = "/login");
   };
 
   return (
@@ -79,6 +80,7 @@ function App() {
             <Route path="events" element={<Events />} />
           </Route>
           <Route path="login" element={<Login onSubmit={handleSubmit} />} />
+          <Route path="admin/login" element={<AdminLogin />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -381,26 +381,14 @@
     {
       "topic_id": 5,
       "student_id": 2,
-      "status": "played",
+      "status": "done",
       "id": 1
     },
     {
       "topic_id": 6,
       "student_id": 2,
-      "status": "viewed",
-      "id": 2
-    },
-    {
-      "topic_id": 7,
-      "student_id": 2,
       "status": "done",
-      "id": 3
-    },
-    {
-      "topic_id": 8,
-      "student_id": 2,
-      "status": "viewed",
-      "id": 4
+      "id": 2
     }
   ],
   "student_exams": [],
