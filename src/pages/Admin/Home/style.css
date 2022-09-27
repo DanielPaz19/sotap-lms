@@ -1,0 +1,29 @@
+.admin--sidebar {
+  width: 0px;
+  height: 100vh;
+  max-height: 100vh;
+  position: fixed;
+  z-index: 100;
+  transition: width 0.5s ease-out;
+}
+
+.admin--content {
+  position: absolute;
+  height: 100vh;
+  width: calc(100% - 0px);
+  right: 0;
+  transition: width 0.5s ease-out;
+  z-index: 200;
+}
+
+.admin--sidebar.active {
+  width: 250px;
+}
+
+.admin--sidebar.active ~ .admin--content {
+  width: calc(100% - 250px);
+}
+
+.admin--logout {
+  cursor: pointer;
+}
