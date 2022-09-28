@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import useLogInStatus from "../../../customHooks/useLoginStatus";
 import { ADMIN_USER } from "../../../config";
 import { useState } from "react";
@@ -71,6 +71,10 @@ function AdminHome() {
             Logout
           </span>
         </div>
+
+        <main className="container mt-3">
+          <Outlet />
+        </main>
       </div>
     </Container>
   );
