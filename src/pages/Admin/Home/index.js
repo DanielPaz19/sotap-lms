@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Link, Navigate, Outlet } from "react-router-dom";
 import useLogInStatus from "../../../customHooks/useLoginStatus";
 import { ADMIN_USER } from "../../../config";
 import { useState } from "react";
@@ -38,9 +38,18 @@ function AdminHome() {
       <div className={`${navOpen ? "active" : ""} bg-primary admin--sidebar `}>
         <Nav activeKey="#" className="flex-column mt-5">
           <Nav.Item>
-            <Nav.Link href="#" className="link-light">
-              Students
-            </Nav.Link>
+            <Link to="/admin">
+              <Nav.Link href="#admin" className="link-light">
+                Dasboard
+              </Nav.Link>
+            </Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Link to="students">
+              <Nav.Link href="#student" className="link-light">
+                Students
+              </Nav.Link>
+            </Link>
           </Nav.Item>
           <Nav.Item>
             <Nav.Link eventKey="link-1 " className="link-light">

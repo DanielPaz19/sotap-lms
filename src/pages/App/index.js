@@ -65,36 +65,32 @@ function App() {
 
   return (
     <>
-        <BrowserRouter>
-          <ScrollToTop />
-          <Routes>
-            <Route path="/" element={<Home user={user} />}>
-              <Route path="/" element={<Dashboard user={user} />} />
-              <Route path="dashboard" element={<Dashboard user={user} />} />
-              <Route path="modules" element={<Dashboard user={user} />} />
-              <Route path="modules/:id" element={<Modules user={user} />} />
-              <Route
-                path="modules/topic/:id"
-                element={<Topics user={user} />}
-              />
-              <Route path="modules/quiz/:id" element={<Quizes />} />
-              <Route path="students" element={<Students />} />
-              <Route path="teachers" element={<Teachers />} />
-              <Route path="subjects" element={<Subjects />} />
-              <Route path="grade_levels" element={<GradeLevels />} />
-              <Route path="books" element={<Books />} />
-              <Route path="events" element={<Events />} />
-            </Route>
-            <Route path="login" element={<Login onSubmit={handleSubmit} />} />
+      <BrowserRouter>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<Home user={user} />}>
+            <Route path="/" element={<Dashboard user={user} />} />
+            <Route path="dashboard" element={<Dashboard user={user} />} />
+            <Route path="modules" element={<Dashboard user={user} />} />
+            <Route path="modules/:id" element={<Modules user={user} />} />
+            <Route path="modules/topic/:id" element={<Topics user={user} />} />
+            <Route path="modules/quiz/:id" element={<Quizes />} />
+            <Route path="students" element={<Students />} />
+            <Route path="teachers" element={<Teachers />} />
+            <Route path="subjects" element={<Subjects />} />
+            <Route path="grade_levels" element={<GradeLevels />} />
+            <Route path="books" element={<Books />} />
+            <Route path="events" element={<Events />} />
+          </Route>
+          <Route path="login" element={<Login onSubmit={handleSubmit} />} />
 
-            <Route path="admin/login" element={<AdminLogin />} />
-            <Route path="/admin" element={<AdminHome />}>
-              <Route path="/admin" element={<AdminDashboard />} />
-              <Route path="home" element={<AdminDashboard />} />
-              <Route path="student" element={<AdminStudent />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
+          <Route path="admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminHome />}>
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="students" element={<AdminStudent />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

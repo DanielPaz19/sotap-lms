@@ -17,6 +17,7 @@ function AdminLogin() {
 
   // Check if user is already logged in
   const user = useLogInStatus();
+
   if (user?.id) {
     if (user?.role === ADMIN_USER) return <Navigate to="/admin" />;
   }
