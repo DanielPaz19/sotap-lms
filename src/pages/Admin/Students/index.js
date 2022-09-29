@@ -54,6 +54,11 @@ function AdminStudent() {
     // const data = await result.json();
     setShowAddStudent(false);
     setLoading(false);
+    setFormData({
+      firstname: "",
+      middlename: "",
+      lastname: "",
+    });
   };
 
   return (
