@@ -1,11 +1,64 @@
-import { Button, InputGroup, Form, Table, Pagination } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import {
+  Button,
+  InputGroup,
+  Form,
+  Table,
+  Pagination,
+  Modal,
+} from "react-bootstrap";
 import { BsPlusLg, BsSearch, BsPencilSquare } from "react-icons/bs";
+import { API_URL } from "../../../config";
 
 function AdminStudent() {
+  const [studentList, setStudentList] = useState([]);
+  const [showAddStudent, setShowAddStudent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    firstname: "",
+    middlename: "",
+    lastname: "",
+  });
+
+  console.log(formData);
+
+  const handleClose = () => setShowAddStudent(false);
+  const handleShow = () => setShowAddStudent(true);
+
+  useEffect(() => {
+    // get student list
+    (async () => {
+      const result = await fetch(`${API_URL}/students`, {
+        method: "GET",
+        credentials: "include",
+      });
+
+      const data = await result.json();
+
+      console.log(data);
+      setStudentList(data);
+    })();
+  }, [showAddStudent]);
+
+  const submitAddStudent = async () => {
+    await fetch(API_URL + `/students`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(formData),
+    });
+
+    // const data = await result.json();
+    setShowAddStudent(false);
+    setLoading(false);
+  };
+
   return (
     <>
       <div className="d-md-flex justify-content-between align-items-center mt-5">
-        <Button variant="success">
+        <Button variant="success" onClick={handleShow}>
           <BsPlusLg /> Add Student
         </Button>
 
@@ -27,59 +80,23 @@ function AdminStudent() {
             <th>First Name</th>
             <th>Middle Name</th>
             <th>Last Name</th>
-            <th>Status</th>
-            <th>Grade Level</th>
             <th>Username</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Enrolled</td>
-            <td>5</td>
-            <td>@mdo</td>
-            <td className="fs-5 text-success text-center  hover">
-              <BsPencilSquare />
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>Transferred</td>
-            <td>2</td>
-            <td>@fat</td>
-            <td className="fs-5 text-success text-center hover">
-              <BsPencilSquare />
-            </td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td colSpan={2}>Larry the Bird</td>
-            <td>@twitter</td>
-            <td>Drop</td>
-            <td>1</td>
-            <td>@twitter</td>
-            <td className="fs-5 text-success text-center hover">
-              <BsPencilSquare />
-            </td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td colSpan={2}>Larry the Bird</td>
-            <td>@twitter</td>
-            <td>Suspended</td>
-            <td>3</td>
-            <td>@twitter</td>
-            <td className="fs-5 text-success text-center hover">
-              <BsPencilSquare />
-            </td>
-          </tr>
+          {studentList.map((student) => (
+            <tr>
+              <td>{String(student.id).padStart(5, 0)}</td>
+              <td>{student.firstname}</td>
+              <td>{student.middlename}</td>
+              <td>{student.lastname}</td>
+              <td>@mdo</td>
+              <td className="fs-5 text-success text-center  hover">
+                <BsPencilSquare />
+              </td>
+            </tr>
+          ))}
         </tbody>
       </Table>
       <div className="d-md-flex justify-content-end mt-5">
@@ -100,6 +117,88 @@ function AdminStudent() {
           <Pagination.Next />
           <Pagination.Last />
         </Pagination>
+
+        <Modal
+          show={showAddStudent}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Add Student Form</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form
+              onSubmit={(e) => {
+                e.preventDefault();
+                setLoading(true);
+                submitAddStudent();
+              }}
+            >
+              <Form.Group className="mb-3">
+                <Form.Label>First Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter First Name"
+                  required
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      firstname: e.target.value,
+                    }))
+                  }
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Middle Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Middle Name"
+                  name="middlename"
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      middlename: e.target.value,
+                    }))
+                  }
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Last Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Last Name"
+                  name="lastname"
+                  required
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      lastname: e.target.value,
+                    }))
+                  }
+                />
+              </Form.Group>
+              <div className="d-md-flex justify-content-end">
+                <Button
+                  variant="danger"
+                  onClick={handleClose}
+                  disabled={loading ? true : false}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="primary"
+                  type="submit"
+                  className="ms-2"
+                  
+                  disabled={loading ? true : false}
+                >
+                  Add Student
+                </Button>
+              </div>
+            </Form>
+          </Modal.Body>
+        </Modal>
       </div>
     </>
   );
