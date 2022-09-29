@@ -8,7 +8,7 @@ import {
   Modal,
   Alert,
 } from "react-bootstrap";
-import { BsPlusLg, BsSearch, BsPencilSquare } from "react-icons/bs";
+import { BsPlusLg, BsSearch, BsFillTrashFill } from "react-icons/bs";
 import { API_URL } from "../../../config";
 
 function AdminStudent() {
@@ -39,7 +39,7 @@ function AdminStudent() {
       console.log(data);
       setStudentList(data);
     })();
-  }, [showAddStudent]);
+  }, [showAddStudent, loading]);
 
   const submitAddStudent = async () => {
     await fetch(API_URL + `/students`, {
@@ -59,6 +59,15 @@ function AdminStudent() {
       middlename: "",
       lastname: "",
     });
+  };
+
+  const deleteStudent = async (id) => {
+    await fetch(`${API_URL}/students/${id}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+
+    setLoading(false);
   };
 
   return (
@@ -98,8 +107,16 @@ function AdminStudent() {
               <td>{student.middlename}</td>
               <td>{student.lastname}</td>
               <td>@mdo</td>
-              <td className="fs-5 text-success text-center  hover">
-                <BsPencilSquare />
+              <td className="fs-5 text-danger text-center">
+                <span
+                  className="hover"
+                  onClick={() => {
+                    setLoading(true);
+                    deleteStudent(student.id);
+                  }}
+                >
+                  <BsFillTrashFill />
+                </span>
               </td>
             </tr>
           ))}
