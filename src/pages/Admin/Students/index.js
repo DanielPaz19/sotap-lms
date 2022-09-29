@@ -6,6 +6,7 @@ import {
   Table,
   Pagination,
   Modal,
+  Alert,
 } from "react-bootstrap";
 import { BsPlusLg, BsSearch, BsPencilSquare } from "react-icons/bs";
 import { API_URL } from "../../../config";
@@ -86,7 +87,7 @@ function AdminStudent() {
         </thead>
         <tbody>
           {studentList.map((student) => (
-            <tr>
+            <tr key={student.id}>
               <td>{String(student.id).padStart(5, 0)}</td>
               <td>{student.firstname}</td>
               <td>{student.middlename}</td>
@@ -99,6 +100,15 @@ function AdminStudent() {
           ))}
         </tbody>
       </Table>
+
+      {!studentList.length ? (
+        <Alert variant="danger" className="text-center">
+          No Students Found!
+        </Alert>
+      ) : (
+        ""
+      )}
+
       <div className="d-md-flex justify-content-end mt-5">
         <Pagination>
           <Pagination.First />
@@ -190,7 +200,6 @@ function AdminStudent() {
                   variant="primary"
                   type="submit"
                   className="ms-2"
-                  
                   disabled={loading ? true : false}
                 >
                   Add Student
