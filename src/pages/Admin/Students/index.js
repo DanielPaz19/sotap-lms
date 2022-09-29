@@ -28,6 +28,7 @@ function AdminStudent() {
             <th>Middle Name</th>
             <th>Last Name</th>
             <th>Status</th>
+            <th>Grade Level</th>
             <th>Username</th>
             <th></th>
           </tr>
@@ -38,7 +39,8 @@ function AdminStudent() {
             <td>Mark</td>
             <td>Otto</td>
             <td>@mdo</td>
-            <td>Active</td>
+            <td>Enrolled</td>
+            <td>5</td>
             <td>@mdo</td>
             <td className="fs-5 text-success text-center  hover">
               <BsPencilSquare />
@@ -50,6 +52,7 @@ function AdminStudent() {
             <td>Thornton</td>
             <td>@fat</td>
             <td>Transferred</td>
+            <td>2</td>
             <td>@fat</td>
             <td className="fs-5 text-success text-center hover">
               <BsPencilSquare />
@@ -60,6 +63,7 @@ function AdminStudent() {
             <td colSpan={2}>Larry the Bird</td>
             <td>@twitter</td>
             <td>Drop</td>
+            <td>1</td>
             <td>@twitter</td>
             <td className="fs-5 text-success text-center hover">
               <BsPencilSquare />
@@ -70,6 +74,7 @@ function AdminStudent() {
             <td colSpan={2}>Larry the Bird</td>
             <td>@twitter</td>
             <td>Suspended</td>
+            <td>3</td>
             <td>@twitter</td>
             <td className="fs-5 text-success text-center hover">
               <BsPencilSquare />

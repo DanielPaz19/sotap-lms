@@ -1,5 +1,5 @@
-function Home() {
-  return <h1>Admin Home</h1>;
+function AdminDashboard() {
+  return <h1>Admin Dashboad</h1>;
 }
 
-export default Home;
+export default AdminDashboard;

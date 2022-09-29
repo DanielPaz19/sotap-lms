@@ -18,7 +18,7 @@ function AdminLogin() {
   // Check if user is already logged in
   const user = useLogInStatus();
   if (user?.id) {
-    if (user?.role === ADMIN_USER) return <Navigate to="/admin/home" />;
+    if (user?.role === ADMIN_USER) return <Navigate to="/admin" />;
   }
 
   const submit = async () => {
@@ -42,7 +42,7 @@ function AdminLogin() {
     }
   };
 
-  if (auth) return <Navigate to="/admin/home" />;
+  if (auth) return <Navigate to="/admin" />;
 
   return (
     <Container className="mt-5">
