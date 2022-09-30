@@ -34,7 +34,7 @@ function AdminStudent() {
         credentials: "include",
       });
 
-      const data = await result.json();
+      const { data } = await result.json();
 
       console.log(data);
       setStudentList(data);
@@ -77,7 +77,7 @@ function AdminStudent() {
           <BsPlusLg /> Add Student
         </Button>
 
-        <InputGroup className=" w-50" size="lg">
+        {/* <InputGroup className=" w-50" size="lg">
           <Form.Control
             placeholder="Search Student"
             aria-label="Search Studen"
@@ -86,7 +86,7 @@ function AdminStudent() {
           <Button variant="primary" id="button-addon2">
             <BsSearch />
           </Button>
-        </InputGroup>
+        </InputGroup> */}
       </div>
       <Table striped bordered hover size="sm" className="mt-3">
         <thead>
@@ -106,7 +106,13 @@ function AdminStudent() {
               <td>{student.firstname}</td>
               <td>{student.middlename}</td>
               <td>{student.lastname}</td>
-              <td>@mdo</td>
+              <td className="text-center">
+                {student.user?.username ? (
+                  <span className="text-success">{student.user?.username}</span>
+                ) : (
+                  <span className="text-danger fst-italic">Not Registered</span>
+                )}
+              </td>
               <td className="fs-5 text-danger text-center">
                 <span
                   className="hover"
@@ -131,7 +137,87 @@ function AdminStudent() {
         ""
       )}
 
-      <div className="d-md-flex justify-content-end mt-5">
+      <Modal
+        show={showAddStudent}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Add Student Form</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form
+            onSubmit={(e) => {
+              e.preventDefault();
+              setLoading(true);
+              submitAddStudent();
+            }}
+          >
+            <Form.Group className="mb-3">
+              <Form.Label>First Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter First Name"
+                required
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    firstname: e.target.value,
+                  }))
+                }
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Middle Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter Middle Name"
+                name="middlename"
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    middlename: e.target.value,
+                  }))
+                }
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Last Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter Last Name"
+                name="lastname"
+                required
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    lastname: e.target.value,
+                  }))
+                }
+              />
+            </Form.Group>
+            <div className="d-md-flex justify-content-end">
+              <Button
+                variant="danger"
+                onClick={handleClose}
+                disabled={loading ? true : false}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="primary"
+                type="submit"
+                className="ms-2"
+                disabled={loading ? true : false}
+              >
+                Add Student
+              </Button>
+            </div>
+          </Form>
+        </Modal.Body>
+      </Modal>
+      {/* <div className="d-md-flex justify-content-end mt-5">
         <Pagination>
           <Pagination.First />
           <Pagination.Prev />
@@ -149,88 +235,7 @@ function AdminStudent() {
           <Pagination.Next />
           <Pagination.Last />
         </Pagination>
-
-        <Modal
-          show={showAddStudent}
-          onHide={handleClose}
-          backdrop="static"
-          keyboard={false}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Add Student Form</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form
-              onSubmit={(e) => {
-                e.preventDefault();
-                setLoading(true);
-                submitAddStudent();
-              }}
-            >
-              <Form.Group className="mb-3">
-                <Form.Label>First Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter First Name"
-                  required
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      firstname: e.target.value,
-                    }))
-                  }
-                />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>Middle Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter Middle Name"
-                  name="middlename"
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      middlename: e.target.value,
-                    }))
-                  }
-                />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>Last Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter Last Name"
-                  name="lastname"
-                  required
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      lastname: e.target.value,
-                    }))
-                  }
-                />
-              </Form.Group>
-              <div className="d-md-flex justify-content-end">
-                <Button
-                  variant="danger"
-                  onClick={handleClose}
-                  disabled={loading ? true : false}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  variant="primary"
-                  type="submit"
-                  className="ms-2"
-                  disabled={loading ? true : false}
-                >
-                  Add Student
-                </Button>
-              </div>
-            </Form>
-          </Modal.Body>
-        </Modal>
-      </div>
+      </div> */}
     </>
   );
 }
