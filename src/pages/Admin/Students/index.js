@@ -1,13 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  Button,
-  InputGroup,
-  Form,
-  Table,
-  Pagination,
-  Modal,
-  Alert,
-} from "react-bootstrap";
+import { Button, Form, Table, Modal, Alert } from "react-bootstrap";
 import { BsPlusLg, BsSearch, BsFillTrashFill } from "react-icons/bs";
 import { API_URL } from "../../../config";
 
