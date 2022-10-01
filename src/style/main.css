@@ -10942,4 +10942,8 @@ code {
 
 .input-group .btn {
   z-index: 0 !important;
+}
+
+.hover {
+  cursor: pointer;
 }/*# sourceMappingURL=main.css.map */

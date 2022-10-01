@@ -6,7 +6,11 @@ import { useState, useEffect } from "react";
 import { STUDENT_USER } from "../../config";
 
 function Home({ user }) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (window.screen.width > 600) setOpen(true);
+  }, []);
 
   useEffect(() => {
     const checkLogin = () => {
@@ -22,9 +26,18 @@ function Home({ user }) {
     if (e.target.closest(".btnToggleNav")) return setOpen(!open);
   };
 
+  const closeNav = () => {
+    if (window.screen.width < 600) setOpen(false);
+  };
+
   return (
     <>
-      <Nav user_type={STUDENT_USER} onClick={toggleNav} open={open} />
+      <Nav
+        user_type={STUDENT_USER}
+        onClick={toggleNav}
+        open={open}
+        closeNav={closeNav}
+      />
       <div className="main">
         <Header
           title={""}

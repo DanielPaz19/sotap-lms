@@ -4,10 +4,9 @@ import useGetTopicById from "../../customHooks/useGetTopicById";
 import ReactPlayer from "react-player";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { json, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Topics({ user }) {
-  const [doneWatching, setDoneWatching] = useState(false);
   const [topicStatus, setTopicStatus] = useState({});
 
   const topic = useGetTopicById();

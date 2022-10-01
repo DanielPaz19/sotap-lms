@@ -1,19 +1,23 @@
-import "./style.css";
+import { useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ScrollToTop from "../../customHooks/scrollToTop";
+import AdminHome from "../Admin/Home";
+import AdminLogin from "../Admin/Login";
+import AdminStudent from "../Admin/Students";
+import AdminDashboard from "../Admin/Dashboard";
 import Books from "../Books";
-import Events from "../Events";
 import Dashboard from "../Dashboard";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "../Login";
-import Students from "../Students";
-import Teachers from "../Teachers";
-import Subjects from "../Subjects";
+import Events from "../Events";
 import GradeLevels from "../GradeLevels";
 import Home from "../Home";
+import Login from "../Login";
 import Modules from "../Modules";
-import ScrollToTop from "../../customHooks/scrollToTop";
-import Topics from "../Topics";
 import Quizes from "../Quizes";
-import { useEffect, useState } from "react";
+import Students from "../Students";
+import Subjects from "../Subjects";
+import Teachers from "../Teachers";
+import Topics from "../Topics";
+import "./style.css";
 
 function App() {
   const [user, setUser] = useState({
@@ -31,32 +35,32 @@ function App() {
       .catch((err) => console.log(err));
   }, []);
 
-  const checkUser = async ({ username, password }) => {
-    try {
-      const response = await fetch(
-        `http://localhost:3500/users?username=${username}&password=${password}`
-      );
+  // const checkUser = async ({ username, password }) => {
+  //   try {
+  //     const response = await fetch(
+  //       `http://localhost:3500/users?username=${username}&password=${password}`
+  //     );
 
-      const data = await response.json();
+  //     const data = await response.json();
 
-      if (data === "") return;
+  //     if (data === "") return;
 
-      const student_id = data[0].student_id;
+  //     const student_id = data[0].student_id;
 
-      localStorage.setItem("student_id", student_id);
+  //     localStorage.setItem("student_id", student_id);
 
-      return student_id;
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     return student_id;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const handleSubmit = async (formData) => {
     console.log(formData);
 
-    (await checkUser(formData))
-      ? (window.location.pathname = "/")
-      : (window.location.pathname = "/login");
+    // (await checkUser(formData))
+    //   ? (window.location.pathname = "/")
+    //   : (window.location.pathname = "/login");
   };
 
   return (
@@ -79,6 +83,12 @@ function App() {
             <Route path="events" element={<Events />} />
           </Route>
           <Route path="login" element={<Login onSubmit={handleSubmit} />} />
+
+          <Route path="admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminHome />}>
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="students" element={<AdminStudent />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>

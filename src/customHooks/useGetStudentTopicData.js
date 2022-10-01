@@ -17,7 +17,7 @@ function useGetStudentTopicData(topic_id, student_id) {
     };
 
     (async () => getData())();
-  }, [student_id]);
+  });
 
   return data;
 }

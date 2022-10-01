@@ -16,7 +16,10 @@ function BtnHideNav() {
 function NavLink({ href, title, icon }) {
   return (
     <Link to={`/${href}`}>
-      <li className={`d-md-flex align-items-center ps-3 `}>
+      <li
+        className={`d-md-flex align-items-center ps-3 `}
+        style={{ minWidth: "16rem" }}
+      >
         <i className={`${icon} me-3 fs-4`}></i>
         {title}
       </li>
@@ -24,7 +27,7 @@ function NavLink({ href, title, icon }) {
   );
 }
 
-function Nav({ user_type, onClick, open }) {
+function Nav({ user_type, onClick, open, closeNav }) {
   let output;
 
   switch (user_type) {
@@ -104,7 +107,7 @@ function Nav({ user_type, onClick, open }) {
       break;
     case STUDENT_USER:
       output = (
-        <ul className="nav-items text-white mt-5 p-0">
+        <ul className="nav-items text-white mt-5 p-0" onClick={closeNav}>
           <NavLink
             href={"dashboard"}
             title={"Dashboard"}
@@ -146,7 +149,7 @@ function Nav({ user_type, onClick, open }) {
     >
       <nav className="bg-primary" onClick={onClick}>
         <BtnHideNav />
-        <div className="text-center">
+        <div className="text-center logo-container">
           <img
             src={logo}
             alt="company_logo"
