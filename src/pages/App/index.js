@@ -9,6 +9,7 @@ import Books from "../Books";
 import Dashboard from "../Dashboard";
 import Events from "../Events";
 import GradeLevels from "../GradeLevels";
+import Assignment from "../Assignment";
 import Home from "../Home";
 import Login from "../Login";
 import Modules from "../Modules";
@@ -69,6 +70,10 @@ function App() {
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home user={user} />}>
+            <Route
+              path="student_assignments"
+              element={<Assignment user={user} />}
+            />
             <Route path="/" element={<Dashboard user={user} />} />
             <Route path="dashboard" element={<Dashboard user={user} />} />
             <Route path="modules" element={<Dashboard user={user} />} />
