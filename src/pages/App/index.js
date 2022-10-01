@@ -35,32 +35,32 @@ function App() {
       .catch((err) => console.log(err));
   }, []);
 
-  // const checkUser = async ({ username, password }) => {
-  //   try {
-  //     const response = await fetch(
-  //       `http://localhost:3500/users?username=${username}&password=${password}`
-  //     );
+  const checkUser = async ({ username, password }) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3500/users?username=${username}&password=${password}`
+      );
 
-  //     const data = await response.json();
+      const data = await response.json();
 
-  //     if (data === "") return;
+      if (data === "") return;
 
-  //     const student_id = data[0].student_id;
+      const student_id = data[0].student_id;
 
-  //     localStorage.setItem("student_id", student_id);
+      localStorage.setItem("student_id", student_id);
 
-  //     return student_id;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+      return student_id;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleSubmit = async (formData) => {
-    console.log(formData);
+    // console.log(formData);
 
-    // (await checkUser(formData))
-    //   ? (window.location.pathname = "/")
-    //   : (window.location.pathname = "/login");
+    (await checkUser(formData))
+      ? (window.location.pathname = "/")
+      : (window.location.pathname = "/login");
   };
 
   return (
