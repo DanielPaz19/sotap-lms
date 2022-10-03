@@ -1,7 +1,9 @@
+import { useContext } from "react";
 import { useEffect, useState } from "react";
 import { Button, Form, Table, Modal, Alert } from "react-bootstrap";
 import { BsPlusLg, BsSearch, BsFillTrashFill } from "react-icons/bs";
 import { API_URL } from "../../../config";
+import { AdminContext } from "../../../context/AdminContextProvider";
 
 function AdminStudent() {
   const [studentList, setStudentList] = useState([]);
@@ -12,8 +14,7 @@ function AdminStudent() {
     middlename: "",
     lastname: "",
   });
-
-  console.log(formData);
+  const { addData } = useContext(AdminContext);
 
   const handleClose = () => setShowAddStudent(false);
   const handleShow = () => setShowAddStudent(true);
@@ -34,14 +35,7 @@ function AdminStudent() {
   }, [showAddStudent, loading]);
 
   const submitAddStudent = async () => {
-    await fetch(API_URL + `/students`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(formData),
-    });
+    await addData("students", formData);
 
     // const data = await result.json();
     setShowAddStudent(false);
@@ -143,6 +137,7 @@ function AdminStudent() {
             onSubmit={(e) => {
               e.preventDefault();
               setLoading(true);
+
               submitAddStudent();
             }}
           >
