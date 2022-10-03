@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Form, Table, Modal, Alert } from "react-bootstrap";
-import { BsPlusLg, BsSearch, BsFillTrashFill } from "react-icons/bs";
+import { BsPlusLg, BsFillTrashFill } from "react-icons/bs";
 import { API_URL } from "../../../config";
 
 function AdminTeacher() {

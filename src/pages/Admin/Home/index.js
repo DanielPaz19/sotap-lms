@@ -6,6 +6,7 @@ import { Button, Container, Nav } from "react-bootstrap";
 import "./style.css";
 import { FiMenu } from "react-icons/fi";
 import { IoExitOutline } from "react-icons/io5";
+import AdminContextProvider from "../../../context/AdminContextProvider";
 
 function AdminHome() {
   const [navOpen, setNavOpen] = useState(true);
@@ -86,7 +87,9 @@ function AdminHome() {
         </div>
 
         <main className="container mt-3">
-          <Outlet />
+          <AdminContextProvider>
+            <Outlet />
+          </AdminContextProvider>
         </main>
       </div>
     </Container>

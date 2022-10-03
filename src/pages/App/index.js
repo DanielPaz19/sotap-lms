@@ -20,7 +20,6 @@ import Teachers from "../Teachers";
 import Topics from "../Topics";
 import "./style.css";
 import AdminTeacher from "../Admin/Teachers";
-import AdminContextProvider from "../../context/AdminContextProvider";
 
 function App() {
   const [user, setUser] = useState({
@@ -68,42 +67,37 @@ function App() {
 
   return (
     <>
-      <AdminContextProvider>
-        <BrowserRouter>
-          <ScrollToTop />
-          <Routes>
-            <Route path="/" element={<Home user={user} />}>
-              <Route
-                path="student_assignments"
-                element={<Assignment user={user} />}
-              />
-              <Route path="/" element={<Dashboard user={user} />} />
-              <Route path="dashboard" element={<Dashboard user={user} />} />
-              <Route path="modules" element={<Dashboard user={user} />} />
-              <Route path="modules/:id" element={<Modules user={user} />} />
-              <Route
-                path="modules/topic/:id"
-                element={<Topics user={user} />}
-              />
-              <Route path="modules/quiz/:id" element={<Quizes />} />
-              <Route path="students" element={<Students />} />
-              <Route path="teachers" element={<Teachers />} />
-              <Route path="subjects" element={<Subjects />} />
-              <Route path="grade_levels" element={<GradeLevels />} />
-              <Route path="books" element={<Books />} />
-              <Route path="events" element={<Events />} />
-            </Route>
-            <Route path="login" element={<Login onSubmit={handleSubmit} />} />
+      <BrowserRouter>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<Home user={user} />}>
+            <Route
+              path="student_assignments"
+              element={<Assignment user={user} />}
+            />
+            <Route path="/" element={<Dashboard user={user} />} />
+            <Route path="dashboard" element={<Dashboard user={user} />} />
+            <Route path="modules" element={<Dashboard user={user} />} />
+            <Route path="modules/:id" element={<Modules user={user} />} />
+            <Route path="modules/topic/:id" element={<Topics user={user} />} />
+            <Route path="modules/quiz/:id" element={<Quizes />} />
+            <Route path="students" element={<Students />} />
+            <Route path="teachers" element={<Teachers />} />
+            <Route path="subjects" element={<Subjects />} />
+            <Route path="grade_levels" element={<GradeLevels />} />
+            <Route path="books" element={<Books />} />
+            <Route path="events" element={<Events />} />
+          </Route>
+          <Route path="login" element={<Login onSubmit={handleSubmit} />} />
 
-            <Route path="admin/login" element={<AdminLogin />} />
-            <Route path="/admin" element={<AdminHome />}>
-              <Route path="/admin" element={<AdminDashboard />} />
-              <Route path="students" element={<AdminStudent />} />
-              <Route path="teachers" element={<AdminTeacher />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </AdminContextProvider>
+          <Route path="admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminHome />}>
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="students" element={<AdminStudent />} />
+            <Route path="teachers" element={<AdminTeacher />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
