@@ -19,6 +19,7 @@ import Subjects from "../Subjects";
 import Teachers from "../Teachers";
 import Topics from "../Topics";
 import "./style.css";
+import AdminTeacher from "../Admin/Teachers";
 
 function App() {
   const [user, setUser] = useState({
@@ -93,6 +94,7 @@ function App() {
           <Route path="/admin" element={<AdminHome />}>
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="students" element={<AdminStudent />} />
+            <Route path="teachers" element={<AdminTeacher />} />
           </Route>
         </Routes>
       </BrowserRouter>

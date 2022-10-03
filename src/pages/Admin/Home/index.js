@@ -39,27 +39,31 @@ function AdminHome() {
         <Nav activeKey="#" className="flex-column mt-5">
           <Nav.Item>
             <Link to="/admin">
-              <Nav.Link href="#admin" className="link-light">
+              <Nav.Link as="li" className="link-light">
                 Dasboard
               </Nav.Link>
             </Link>
           </Nav.Item>
           <Nav.Item>
             <Link to="students">
-              <Nav.Link href="#student" className="link-light">
+              <Nav.Link as="li" className="link-light">
                 Students
               </Nav.Link>
             </Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey="link-1 " className="link-light">
-              Teachers
-            </Nav.Link>
+            <Link to="teachers">
+              <Nav.Link as="li" className="link-light">
+                Teachers
+              </Nav.Link>
+            </Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey="link-2" className="link-light">
-              Subjects
-            </Nav.Link>
+            <Link to="subjects">
+              <Nav.Link as="li" className="link-light">
+                Subjects
+              </Nav.Link>
+            </Link>
           </Nav.Item>
         </Nav>
       </div>
