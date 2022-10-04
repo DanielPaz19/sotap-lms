@@ -1,65 +1,34 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button, Form, Table, Modal, Alert } from "react-bootstrap";
 import { BsPlusLg, BsFillTrashFill } from "react-icons/bs";
-import { API_URL } from "../../../config";
+import useAdmin from "../../../context/AdminContextProvider";
 
 function AdminTeacher() {
-  const [teacherList, setTeacherList] = useState([]);
   const [showAddTeacherModal, setShowAddTeacherModal] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     firstname: "",
     middlename: "",
     lastname: "",
   });
 
-  console.log(formData);
+  const { addData, state, deleteData } = useAdmin();
 
   const handleClose = () => setShowAddTeacherModal(false);
+
   const handleShow = () => setShowAddTeacherModal(true);
 
-  useEffect(() => {
-    // get student list
-    (async () => {
-      const result = await fetch(`${API_URL}/teachers`, {
-        method: "GET",
-        credentials: "include",
-      });
-
-      const { data } = await result.json();
-
-      console.log(data);
-      setTeacherList(data);
-    })();
-  }, [showAddTeacherModal, loading]);
-
   const submitAddTeacher = async () => {
-    await fetch(API_URL + `/teachers`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(formData),
-    });
+    await addData("teachers", formData);
 
-    // const data = await result.json();
+    // Hide modal
     setShowAddTeacherModal(false);
-    setLoading(false);
+
+    // Reset FormData Default value
     setFormData({
       firstname: "",
       middlename: "",
       lastname: "",
     });
-  };
-
-  const deleteTeacher = async (id) => {
-    await fetch(`${API_URL}/teachers/${id}`, {
-      method: "DELETE",
-      credentials: "include",
-    });
-
-    setLoading(false);
   };
 
   return (
@@ -81,7 +50,7 @@ function AdminTeacher() {
           </tr>
         </thead>
         <tbody>
-          {teacherList.map((teacher) => (
+          {state.teachers.map((teacher) => (
             <tr key={teacher.id}>
               <td>{String(teacher.id).padStart(5, 0)}</td>
               <td>{teacher.firstname}</td>
@@ -98,8 +67,7 @@ function AdminTeacher() {
                 <span
                   className="hover"
                   onClick={() => {
-                    setLoading(true);
-                    deleteTeacher(teacher.id);
+                    deleteData("teachers", teacher.id);
                   }}
                 >
                   <BsFillTrashFill />
@@ -110,7 +78,7 @@ function AdminTeacher() {
         </tbody>
       </Table>
 
-      {!teacherList.length ? (
+      {!state.teachers.length ? (
         <Alert variant="danger" className="text-center">
           No Teachers Found!
         </Alert>
@@ -131,7 +99,6 @@ function AdminTeacher() {
           <Form
             onSubmit={(e) => {
               e.preventDefault();
-              setLoading(true);
               submitAddTeacher();
             }}
           >
@@ -182,7 +149,7 @@ function AdminTeacher() {
               <Button
                 variant="danger"
                 onClick={handleClose}
-                disabled={loading ? true : false}
+                disabled={state.loading ? true : false}
               >
                 Cancel
               </Button>
@@ -190,7 +157,7 @@ function AdminTeacher() {
                 variant="primary"
                 type="submit"
                 className="ms-2"
-                disabled={loading ? true : false}
+                disabled={state.loading ? true : false}
               >
                 Add Teacher
               </Button>

@@ -1,59 +1,36 @@
-import { useContext } from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button, Form, Table, Modal, Alert } from "react-bootstrap";
 import { BsPlusLg, BsFillTrashFill } from "react-icons/bs";
-import { API_URL } from "../../../config";
-import { AdminContext } from "../../../context/AdminContextProvider";
+import useAdmin from "../../../context/AdminContextProvider";
 
 function AdminStudent() {
-  const [studentList, setStudentList] = useState([]);
   const [showAddStudent, setShowAddStudent] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     firstname: "",
     middlename: "",
     lastname: "",
   });
-  const { addData } = useContext(AdminContext);
 
+  const { addData, state, deleteData } = useAdmin();
+
+  // close Modal
   const handleClose = () => setShowAddStudent(false);
+
+  // Open Modal
   const handleShow = () => setShowAddStudent(true);
-
-  useEffect(() => {
-    // get student list
-    (async () => {
-      const result = await fetch(`${API_URL}/students`, {
-        method: "GET",
-        credentials: "include",
-      });
-
-      const { data } = await result.json();
-
-      console.log(data);
-      setStudentList(data);
-    })();
-  }, [showAddStudent, loading]);
 
   const submitAddStudent = async () => {
     await addData("students", formData);
 
-    // const data = await result.json();
+    // Hide modal
     setShowAddStudent(false);
-    setLoading(false);
+
+    // Reset FormData Default value
     setFormData({
       firstname: "",
       middlename: "",
       lastname: "",
     });
-  };
-
-  const deleteStudent = async (id) => {
-    await fetch(`${API_URL}/students/${id}`, {
-      method: "DELETE",
-      credentials: "include",
-    });
-
-    setLoading(false);
   };
 
   return (
@@ -62,17 +39,6 @@ function AdminStudent() {
         <Button variant="success" onClick={handleShow}>
           <BsPlusLg /> Add Student
         </Button>
-
-        {/* <InputGroup className=" w-50" size="lg">
-          <Form.Control
-            placeholder="Search Student"
-            aria-label="Search Studen"
-            aria-describedby="basic-addon2"
-          />
-          <Button variant="primary" id="button-addon2">
-            <BsSearch />
-          </Button>
-        </InputGroup> */}
       </div>
       <Table striped bordered hover size="sm" className="mt-3">
         <thead>
@@ -86,7 +52,7 @@ function AdminStudent() {
           </tr>
         </thead>
         <tbody>
-          {studentList.map((student) => (
+          {state.students.map((student) => (
             <tr key={student.id}>
               <td>{String(student.id).padStart(5, 0)}</td>
               <td>{student.firstname}</td>
@@ -103,8 +69,7 @@ function AdminStudent() {
                 <span
                   className="hover"
                   onClick={() => {
-                    setLoading(true);
-                    deleteStudent(student.id);
+                    deleteData("students", student.id);
                   }}
                 >
                   <BsFillTrashFill />
@@ -115,7 +80,7 @@ function AdminStudent() {
         </tbody>
       </Table>
 
-      {!studentList.length ? (
+      {!state.students.length ? (
         <Alert variant="danger" className="text-center">
           No Students Found!
         </Alert>
@@ -136,8 +101,6 @@ function AdminStudent() {
           <Form
             onSubmit={(e) => {
               e.preventDefault();
-              setLoading(true);
-
               submitAddStudent();
             }}
           >
@@ -188,7 +151,7 @@ function AdminStudent() {
               <Button
                 variant="danger"
                 onClick={handleClose}
-                disabled={loading ? true : false}
+                disabled={state?.loading ? true : false}
               >
                 Cancel
               </Button>
@@ -196,7 +159,7 @@ function AdminStudent() {
                 variant="primary"
                 type="submit"
                 className="ms-2"
-                disabled={loading ? true : false}
+                disabled={state?.loading ? true : false}
               >
                 Add Student
               </Button>
@@ -204,25 +167,6 @@ function AdminStudent() {
           </Form>
         </Modal.Body>
       </Modal>
-      {/* <div className="d-md-flex justify-content-end mt-5">
-        <Pagination>
-          <Pagination.First />
-          <Pagination.Prev />
-          <Pagination.Item>{1}</Pagination.Item>
-          <Pagination.Ellipsis />
-
-          <Pagination.Item>{10}</Pagination.Item>
-          <Pagination.Item>{11}</Pagination.Item>
-          <Pagination.Item active>{12}</Pagination.Item>
-          <Pagination.Item>{13}</Pagination.Item>
-          <Pagination.Item disabled>{14}</Pagination.Item>
-
-          <Pagination.Ellipsis />
-          <Pagination.Item>{20}</Pagination.Item>
-          <Pagination.Next />
-          <Pagination.Last />
-        </Pagination>
-      </div> */}
     </>
   );
 }
