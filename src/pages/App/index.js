@@ -21,6 +21,7 @@ import Topics from "../Topics";
 import "./style.css";
 import AdminTeacher from "../Admin/Teachers";
 import AdminSubject from "../Admin/Subjects";
+import AdminGradeLevels from "../Admin/GradeLevels";
 
 function App() {
   const [user, setUser] = useState({
@@ -97,6 +98,7 @@ function App() {
             <Route path="students" element={<AdminStudent />} />
             <Route path="teachers" element={<AdminTeacher />} />
             <Route path="subjects" element={<AdminSubject />} />
+            <Route path="grade_levels" element={<AdminGradeLevels />} />
           </Route>
         </Routes>
       </BrowserRouter>
