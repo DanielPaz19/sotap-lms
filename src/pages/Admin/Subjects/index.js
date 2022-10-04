@@ -3,33 +3,31 @@ import { Button, Form, Table, Modal, Alert } from "react-bootstrap";
 import { BsPlusLg, BsFillTrashFill } from "react-icons/bs";
 import useAdmin from "../../../context/AdminContextProvider";
 
-function AdminStudent() {
-  const [showAddStudent, setShowAddStudent] = useState(false);
+function AdminSubject() {
+  const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
-    firstname: "",
-    middlename: "",
-    lastname: "",
+    subject_code: "",
+    subject_name: "",
+    subject_description: "",
   });
 
   const { addData, state, deleteData } = useAdmin();
 
-  // close Modal
-  const handleClose = () => setShowAddStudent(false);
+  const handleClose = () => setShowModal(false);
 
-  // Open Modal
-  const handleShow = () => setShowAddStudent(true);
+  const handleShow = () => setShowModal(true);
 
-  const submitAddStudent = async () => {
-    await addData("students", formData);
+  const submitForm = async () => {
+    await addData("subjects", formData);
 
     // Hide modal
-    setShowAddStudent(false);
+    setShowModal(false);
 
     // Reset FormData Default value
     setFormData({
-      firstname: "",
-      middlename: "",
-      lastname: "",
+      subject_code: "",
+      subject_name: "",
+      subject_description: "",
     });
   };
 
@@ -37,39 +35,31 @@ function AdminStudent() {
     <>
       <div className="d-md-flex justify-content-between align-items-center mt-5">
         <Button variant="success" onClick={handleShow}>
-          <BsPlusLg /> Add Student
+          <BsPlusLg /> Add Subject
         </Button>
       </div>
       <Table striped bordered hover size="sm" className="mt-3">
         <thead>
           <tr>
-            <th>SID</th>
-            <th>First Name</th>
-            <th>Middle Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
+            <th>Subject ID</th>
+            <th>Subject Code</th>
+            <th>Subject Name</th>
+            <th>Subject Description</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          {state.students.map((student) => (
-            <tr key={student.id}>
-              <td>{String(student.id).padStart(5, 0)}</td>
-              <td>{student.firstname}</td>
-              <td>{student.middlename}</td>
-              <td>{student.lastname}</td>
-              <td className="text-center">
-                {student.user?.username ? (
-                  <span className="text-success">{student.user?.username}</span>
-                ) : (
-                  <span className="text-danger fst-italic">Not Registered</span>
-                )}
-              </td>
+          {state.subjects.map((subject) => (
+            <tr key={subject.id}>
+              <td>{String(subject.id).padStart(5, 0)}</td>
+              <td>{subject.subject_code}</td>
+              <td>{subject.subject_name}</td>
+              <td>{subject.subject_description}</td>
               <td className="fs-5 text-danger text-center">
                 <span
                   className="hover"
                   onClick={() => {
-                    deleteData("students", student.id);
+                    deleteData("subjects", subject.id);
                   }}
                 >
                   <BsFillTrashFill />
@@ -80,69 +70,68 @@ function AdminStudent() {
         </tbody>
       </Table>
 
-      {!state.students.length ? (
+      {!state.subjects.length ? (
         <Alert variant="danger" className="text-center">
-          No Students Found!
+          No Subject Found!
         </Alert>
       ) : (
         ""
       )}
 
       <Modal
-        show={showAddStudent}
+        show={showModal}
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Add Student Form</Modal.Title>
+          <Modal.Title>Add Subject Form</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form
             onSubmit={(e) => {
               e.preventDefault();
-              submitAddStudent();
+              submitForm();
             }}
           >
             <Form.Group className="mb-3">
-              <Form.Label>First Name</Form.Label>
+              <Form.Label>Subject Code</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter First Name"
+                placeholder="Enter Subject Code"
                 required
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
-                    firstname: e.target.value,
+                    subject_code: e.target.value,
                   }))
                 }
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Middle Name</Form.Label>
+              <Form.Label>Subject Name</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter Middle Name"
-                name="middlename"
+                placeholder="Enter Subject Name"
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
-                    middlename: e.target.value,
+                    subject_name: e.target.value,
                   }))
                 }
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Last Name</Form.Label>
+              <Form.Label>Subject Description</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter Last Name"
-                name="lastname"
+                placeholder="Enter Description"
+                name="subject_description"
                 required
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
-                    lastname: e.target.value,
+                    subject_description: e.target.value,
                   }))
                 }
               />
@@ -151,7 +140,7 @@ function AdminStudent() {
               <Button
                 variant="danger"
                 onClick={handleClose}
-                disabled={state?.loading ? true : false}
+                disabled={state.loading ? true : false}
               >
                 Cancel
               </Button>
@@ -159,9 +148,9 @@ function AdminStudent() {
                 variant="primary"
                 type="submit"
                 className="ms-2"
-                disabled={state?.loading ? true : false}
+                disabled={state.loading ? true : false}
               >
-                Add Student
+                Add Subject
               </Button>
             </div>
           </Form>
@@ -171,4 +160,4 @@ function AdminStudent() {
   );
 }
 
-export default AdminStudent;
+export default AdminSubject;

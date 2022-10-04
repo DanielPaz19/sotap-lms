@@ -3,8 +3,8 @@ import { Button, Form, Table, Modal, Alert } from "react-bootstrap";
 import { BsPlusLg, BsFillTrashFill } from "react-icons/bs";
 import useAdmin from "../../../context/AdminContextProvider";
 
-function AdminStudent() {
-  const [showAddStudent, setShowAddStudent] = useState(false);
+function AdminTeacher() {
+  const [showAddTeacherModal, setShowAddTeacherModal] = useState(false);
   const [formData, setFormData] = useState({
     firstname: "",
     middlename: "",
@@ -13,17 +13,15 @@ function AdminStudent() {
 
   const { addData, state, deleteData } = useAdmin();
 
-  // close Modal
-  const handleClose = () => setShowAddStudent(false);
+  const handleClose = () => setShowAddTeacherModal(false);
 
-  // Open Modal
-  const handleShow = () => setShowAddStudent(true);
+  const handleShow = () => setShowAddTeacherModal(true);
 
-  const submitAddStudent = async () => {
-    await addData("students", formData);
+  const submitAddTeacher = async () => {
+    await addData("teachers", formData);
 
     // Hide modal
-    setShowAddStudent(false);
+    setShowAddTeacherModal(false);
 
     // Reset FormData Default value
     setFormData({
@@ -37,13 +35,13 @@ function AdminStudent() {
     <>
       <div className="d-md-flex justify-content-between align-items-center mt-5">
         <Button variant="success" onClick={handleShow}>
-          <BsPlusLg /> Add Student
+          <BsPlusLg /> Add Teacher
         </Button>
       </div>
       <Table striped bordered hover size="sm" className="mt-3">
         <thead>
           <tr>
-            <th>SID</th>
+            <th>TID</th>
             <th>First Name</th>
             <th>Middle Name</th>
             <th>Last Name</th>
@@ -52,15 +50,15 @@ function AdminStudent() {
           </tr>
         </thead>
         <tbody>
-          {state.students.map((student) => (
-            <tr key={student.id}>
-              <td>{String(student.id).padStart(5, 0)}</td>
-              <td>{student.firstname}</td>
-              <td>{student.middlename}</td>
-              <td>{student.lastname}</td>
+          {state.teachers.map((teacher) => (
+            <tr key={teacher.id}>
+              <td>{String(teacher.id).padStart(5, 0)}</td>
+              <td>{teacher.firstname}</td>
+              <td>{teacher.middlename}</td>
+              <td>{teacher.lastname}</td>
               <td className="text-center">
-                {student.user?.username ? (
-                  <span className="text-success">{student.user?.username}</span>
+                {teacher.user?.username ? (
+                  <span className="text-success">{teacher.user?.username}</span>
                 ) : (
                   <span className="text-danger fst-italic">Not Registered</span>
                 )}
@@ -69,7 +67,7 @@ function AdminStudent() {
                 <span
                   className="hover"
                   onClick={() => {
-                    deleteData("students", student.id);
+                    deleteData("teachers", teacher.id);
                   }}
                 >
                   <BsFillTrashFill />
@@ -80,28 +78,28 @@ function AdminStudent() {
         </tbody>
       </Table>
 
-      {!state.students.length ? (
+      {!state.teachers.length ? (
         <Alert variant="danger" className="text-center">
-          No Students Found!
+          No Teachers Found!
         </Alert>
       ) : (
         ""
       )}
 
       <Modal
-        show={showAddStudent}
+        show={showAddTeacherModal}
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Add Student Form</Modal.Title>
+          <Modal.Title>Add Teacher Form</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form
             onSubmit={(e) => {
               e.preventDefault();
-              submitAddStudent();
+              submitAddTeacher();
             }}
           >
             <Form.Group className="mb-3">
@@ -151,7 +149,7 @@ function AdminStudent() {
               <Button
                 variant="danger"
                 onClick={handleClose}
-                disabled={state?.loading ? true : false}
+                disabled={state.loading ? true : false}
               >
                 Cancel
               </Button>
@@ -159,16 +157,35 @@ function AdminStudent() {
                 variant="primary"
                 type="submit"
                 className="ms-2"
-                disabled={state?.loading ? true : false}
+                disabled={state.loading ? true : false}
               >
-                Add Student
+                Add Teacher
               </Button>
             </div>
           </Form>
         </Modal.Body>
       </Modal>
+      {/* <div className="d-md-flex justify-content-end mt-5">
+        <Pagination>
+          <Pagination.First />
+          <Pagination.Prev />
+          <Pagination.Item>{1}</Pagination.Item>
+          <Pagination.Ellipsis />
+
+          <Pagination.Item>{10}</Pagination.Item>
+          <Pagination.Item>{11}</Pagination.Item>
+          <Pagination.Item active>{12}</Pagination.Item>
+          <Pagination.Item>{13}</Pagination.Item>
+          <Pagination.Item disabled>{14}</Pagination.Item>
+
+          <Pagination.Ellipsis />
+          <Pagination.Item>{20}</Pagination.Item>
+          <Pagination.Next />
+          <Pagination.Last />
+        </Pagination>
+      </div> */}
     </>
   );
 }
 
-export default AdminStudent;
+export default AdminTeacher;
