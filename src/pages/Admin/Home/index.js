@@ -35,64 +35,66 @@ function AdminHome() {
     return <Navigate to="/admin/login?error=unauthorized" />;
 
   return (
-    <Container fluid className="px-0">
-      <div className={`${navOpen ? "active" : ""} bg-primary admin--sidebar `}>
-        <Nav activeKey="#" className="flex-column mt-5">
-          <Nav.Item>
-            <Link to="/admin">
-              <Nav.Link as="li" className="link-light">
-                Dasboard
-              </Nav.Link>
-            </Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Link to="students">
-              <Nav.Link as="li" className="link-light">
-                Students
-              </Nav.Link>
-            </Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Link to="teachers">
-              <Nav.Link as="li" className="link-light">
-                Teachers
-              </Nav.Link>
-            </Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Link to="subjects">
-              <Nav.Link as="li" className="link-light">
-                Subjects
-              </Nav.Link>
-            </Link>
-          </Nav.Item>
-        </Nav>
-      </div>
-
-      <div className="bg-light admin--content">
-        <div className="admin--header d-md-flex justify-content-between ">
-          <Button
-            onClick={toggleNav}
-            className="px-2 m-2 py-0 fs-4 admin--nav__toggle btn-primary"
-          >
-            <FiMenu />
-          </Button>
-          <span
-            className="admin--logout link-danger align-self-center me-3"
-            onClick={logout}
-          >
-            <IoExitOutline className="fs-4 me-2" />
-            Logout
-          </span>
+    <AdminContextProvider>
+      <Container fluid className="px-0">
+        <div
+          className={`${navOpen ? "active" : ""} bg-primary admin--sidebar `}
+        >
+          <Nav activeKey="#" className="flex-column mt-5">
+            <Nav.Item>
+              <Link to="/admin">
+                <Nav.Link as="li" className="link-light">
+                  Dasboard
+                </Nav.Link>
+              </Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Link to="students">
+                <Nav.Link as="li" className="link-light">
+                  Students
+                </Nav.Link>
+              </Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Link to="teachers">
+                <Nav.Link as="li" className="link-light">
+                  Teachers
+                </Nav.Link>
+              </Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Link to="subjects">
+                <Nav.Link as="li" className="link-light">
+                  Subjects
+                </Nav.Link>
+              </Link>
+            </Nav.Item>
+          </Nav>
         </div>
 
-        <main className="container mt-3">
-          <AdminContextProvider>
+        <div className="bg-light admin--content">
+          <div className="admin--header d-md-flex justify-content-between ">
+            <Button
+              onClick={toggleNav}
+              className="px-2 m-2 py-0 fs-4 admin--nav__toggle btn-primary"
+            >
+              <FiMenu />
+            </Button>
+            <span
+              className="admin--logout link-danger align-self-center me-3"
+              onClick={logout}
+            >
+              <IoExitOutline className="fs-4 me-2" />
+              Logout
+            </span>
+          </div>
+
+          <main className="container mt-3">
             <Outlet />
-          </AdminContextProvider>
-        </main>
-      </div>
-    </Container>
+          </main>
+        </div>
+      </Container>
+    </AdminContextProvider>
   );
 }
 
