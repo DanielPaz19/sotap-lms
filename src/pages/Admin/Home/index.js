@@ -81,6 +81,9 @@ function AdminHome() {
                 Grade Levels
               </Dropdown.Toggle>
               <Dropdown.Menu className="ms-5">
+                <Link to="grade_levels/add">
+                  <Dropdown.Item as="li">Add Level +</Dropdown.Item>
+                </Link>
                 <Link to="grade_levels/1">
                   <Dropdown.Item as="li">Grade 1</Dropdown.Item>
                 </Link>
