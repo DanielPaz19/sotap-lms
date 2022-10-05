@@ -1,31 +1,26 @@
 import { Tab, Tabs, Container, Row, Col } from "react-bootstrap";
+import AdminStudentTable from "../../../components/AdminStudentTable";
+import AdminTeacherTable from "../../../components/AdminTeacherTable";
 
 function AdminGradeLevels() {
   return (
     <>
-      <Container fluid="md">
-        <Row>
-          <Col md={2}>1 of 1</Col>
-          <Col>
-            <Tabs
-              defaultActiveKey="profile"
-              id="fill-tab-example"
-              className="mt-4 "
-              fill
-            >
-              <Tab eventKey="home" title="Students">
-                <div className="bg-white p-3">Student List</div>
-              </Tab>
-              <Tab eventKey="profile" title="Teachers">
-                Sample Tab 2
-              </Tab>
-              <Tab eventKey="longer-tab" title="Subjects">
-                Sample Tab 3
-              </Tab>
-            </Tabs>
-          </Col>
-        </Row>
-      </Container>
+      <h3 className="text-center">Grade 1</h3>
+
+      <Tabs
+        defaultActiveKey="profile"
+        id="fill-tab-example"
+        className="mt-3"
+        fill
+      >
+        <Tab eventKey="home" title="Students">
+          <AdminStudentTable />
+        </Tab>
+        <Tab eventKey="profile" title="Teachers">
+          <AdminTeacherTable />
+        </Tab>
+        <Tab eventKey="longer-tab" title="Subjects"></Tab>
+      </Tabs>
     </>
   );
 }

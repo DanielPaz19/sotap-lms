@@ -2,7 +2,14 @@ import { Link, Navigate, Outlet } from "react-router-dom";
 import useLogInStatus from "../../../customHooks/useLoginStatus";
 import { ADMIN_USER } from "../../../config";
 import { useState } from "react";
-import { Button, Container, Nav } from "react-bootstrap";
+import {
+  Button,
+  Container,
+  Nav,
+  Dropdown,
+  NavItem,
+  NavLink,
+} from "react-bootstrap";
 import "./style.css";
 import { FiMenu } from "react-icons/fi";
 import { IoExitOutline } from "react-icons/io5";
@@ -69,13 +76,19 @@ function AdminHome() {
                 </Nav.Link>
               </Link>
             </Nav.Item>
-            <Nav.Item>
-              <Link to="grade_levels">
-                <Nav.Link as="li" className="link-light">
-                  Grade Levels
-                </Nav.Link>
-              </Link>
-            </Nav.Item>
+            <Dropdown as={NavItem}>
+              <Dropdown.Toggle as={NavLink} className="link-light">
+                Grade Levels
+              </Dropdown.Toggle>
+              <Dropdown.Menu className="ms-5">
+                <Link to="grade_levels/1">
+                  <Dropdown.Item as="li">Grade 1</Dropdown.Item>
+                </Link>
+                <Dropdown.Item as="li">Grade 2</Dropdown.Item>
+                <Dropdown.Item as="li">Grade 3</Dropdown.Item>
+                <Dropdown.Item as="li">Grade 4</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </Nav>
         </div>
 
