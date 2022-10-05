@@ -1,5 +1,6 @@
 import { Tab, Tabs, Container, Row, Col } from "react-bootstrap";
 import AdminStudentTable from "../../../components/AdminStudentTable";
+import AdminSubjectTable from "../../../components/AdminSubjectTable";
 import AdminTeacherTable from "../../../components/AdminTeacherTable";
 
 function AdminGradeLevels() {
@@ -19,7 +20,9 @@ function AdminGradeLevels() {
         <Tab eventKey="profile" title="Teachers">
           <AdminTeacherTable />
         </Tab>
-        <Tab eventKey="longer-tab" title="Subjects"></Tab>
+        <Tab eventKey="longer-tab" title="Subjects">
+          <AdminSubjectTable />
+        </Tab>
       </Tabs>
     </>
   );

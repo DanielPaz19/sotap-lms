@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, Form, Table, Modal, Alert } from "react-bootstrap";
 import { BsPlusLg, BsFillTrashFill } from "react-icons/bs";
+import AdminSubjectTable from "../../../components/AdminSubjectTable";
 import useAdmin from "../../../context/AdminContextProvider";
 
 function AdminSubject() {
@@ -38,37 +39,7 @@ function AdminSubject() {
           <BsPlusLg /> Add Subject
         </Button>
       </div>
-      <Table striped bordered hover size="sm" className="mt-3">
-        <thead>
-          <tr>
-            <th>Subject ID</th>
-            <th>Subject Code</th>
-            <th>Subject Name</th>
-            <th>Subject Description</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {state.subjects.map((subject) => (
-            <tr key={subject.id}>
-              <td>{String(subject.id).padStart(5, 0)}</td>
-              <td>{subject.subject_code}</td>
-              <td>{subject.subject_name}</td>
-              <td>{subject.subject_description}</td>
-              <td className="fs-5 text-danger text-center">
-                <span
-                  className="hover"
-                  onClick={() => {
-                    deleteData("subjects", subject.id);
-                  }}
-                >
-                  <BsFillTrashFill />
-                </span>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      <AdminSubjectTable />
 
       {!state.subjects.length ? (
         <Alert variant="danger" className="text-center">
