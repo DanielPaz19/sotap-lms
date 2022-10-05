@@ -1,12 +1,23 @@
-import { Tab, Tabs, Container, Row, Col } from "react-bootstrap";
-import AdminStudentTable from "../../../components/AdminStudentTable";
-import AdminSubjectTable from "../../../components/AdminSubjectTable";
-import AdminTeacherTable from "../../../components/AdminTeacherTable";
+// import { Tab, Tabs, Container, Row, Col } from "react-bootstrap";
+// import AdminStudentTable from "../../../components/AdminStudentTable";
+// import AdminSubjectTable from "../../../components/AdminSubjectTable";
+// import AdminTeacherTable from "../../../components/AdminTeacherTable";
+
+import { Button } from "react-bootstrap";
+import { BsPlusLg } from "react-icons/bs";
+import AdminGradeTable from "../../../components/AdminGradeTable";
 
 function AdminGradeLevels() {
   return (
     <>
-      <h3 className="text-center">Grade 1</h3>
+      <div className="d-md-flex justify-content-between align-items-center mt-5">
+        <Button variant="success">
+          <BsPlusLg /> Add Grade Level
+        </Button>
+      </div>
+
+      <AdminGradeTable />
+      {/* <h3 className="text-center">Grade 1</h3>
 
       <Tabs
         defaultActiveKey="profile"
@@ -23,7 +34,7 @@ function AdminGradeLevels() {
         <Tab eventKey="longer-tab" title="Subjects">
           <AdminSubjectTable />
         </Tab>
-      </Tabs>
+      </Tabs> */}
     </>
   );
 }

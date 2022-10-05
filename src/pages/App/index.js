@@ -98,7 +98,7 @@ function App() {
             <Route path="students" element={<AdminStudent />} />
             <Route path="teachers" element={<AdminTeacher />} />
             <Route path="subjects" element={<AdminSubject />} />
-            <Route path="grade_levels/:id" element={<AdminGradeLevels />} />
+            <Route path="grade_levels" element={<AdminGradeLevels />} />
           </Route>
         </Routes>
       </BrowserRouter>

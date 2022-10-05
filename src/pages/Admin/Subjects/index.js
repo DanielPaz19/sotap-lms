@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Button, Form, Table, Modal, Alert } from "react-bootstrap";
-import { BsPlusLg, BsFillTrashFill } from "react-icons/bs";
+import { Button, Form, Modal, Alert } from "react-bootstrap";
+import { BsPlusLg } from "react-icons/bs";
 import AdminSubjectTable from "../../../components/AdminSubjectTable";
 import useAdmin from "../../../context/AdminContextProvider";
 
@@ -12,7 +12,7 @@ function AdminSubject() {
     subject_description: "",
   });
 
-  const { addData, state, deleteData } = useAdmin();
+  const { addData, state } = useAdmin();
 
   const handleClose = () => setShowModal(false);
 

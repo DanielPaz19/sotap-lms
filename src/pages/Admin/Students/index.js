@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Button, Form, Table, Modal, Alert } from "react-bootstrap";
-import { BsPlusLg, BsFillTrashFill } from "react-icons/bs";
+import { Button, Form, Modal, Alert } from "react-bootstrap";
+import { BsPlusLg } from "react-icons/bs";
 import AdminStudentTable from "../../../components/AdminStudentTable";
 import useAdmin from "../../../context/AdminContextProvider";
 
@@ -12,7 +12,7 @@ function AdminStudent() {
     lastname: "",
   });
 
-  const { addData, state, deleteData } = useAdmin();
+  const { addData, state } = useAdmin();
 
   // close Modal
   const handleClose = () => setShowAddStudent(false);
