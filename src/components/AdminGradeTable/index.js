@@ -11,6 +11,7 @@ function AdminGradeTable() {
       <thead>
         <tr>
           <th>Grade Level ID</th>
+
           <th>Level</th>
           <th>Description</th>
           <th>Students</th>
@@ -26,7 +27,7 @@ function AdminGradeTable() {
             <td>{grade.level}</td>
             <td>{grade.name}</td>
             <td>{grade.students.length}</td>
-            <td>{}</td>
+            <td>{grade.teachers.length}</td>
             <td>{grade.subjects.length}</td>
             <td className="fs-5 text-danger text-center">
               <span
