@@ -39,7 +39,7 @@ function AdminSubject() {
           <BsPlusLg /> Add Subject
         </Button>
       </div>
-      <AdminSubjectTable />
+      <AdminSubjectTable subjects={state.subjects} />
 
       {!state.subjects.length ? (
         <Alert variant="danger" className="text-center">

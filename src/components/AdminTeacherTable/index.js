@@ -1,6 +1,7 @@
 import useAdmin from "../../context/AdminContextProvider";
 import { Table } from "react-bootstrap";
-import { BsFillTrashFill } from "react-icons/bs";
+import { BsFillTrashFill, BsEye } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 function AdminTeacherTable() {
   const { state, deleteData } = useAdmin();
@@ -31,9 +32,14 @@ function AdminTeacherTable() {
                 <span className="text-danger fst-italic">Not Registered</span>
               )}
             </td>
-            <td className="fs-5 text-danger text-center">
+            <td className="fs-5  text-center">
+              <Link to={`${teacher.id}`}>
+                <span className="hover text-info me-3">
+                  <BsEye />
+                </span>
+              </Link>
               <span
-                className="hover"
+                className="hover text-danger"
                 onClick={() => {
                   deleteData("teachers", teacher.id);
                 }}
