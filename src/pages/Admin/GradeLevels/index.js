@@ -1,34 +1,34 @@
-import { useState } from "react";
-import { Button, Form, Modal, Alert } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import { BsPlusLg } from "react-icons/bs";
-import AdminSubjectTable from "../../../components/AdminSubjectTable";
+import AdminGradeTable from "../../../components/AdminGradeTable";
+import { useState } from "react";
 import useAdmin from "../../../context/AdminContextProvider";
 
-function AdminSubject() {
+function AdminGradeLevels() {
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
-    subject_code: "",
-    subject_name: "",
-    subject_description: "",
+    grade_level: "",
+    name: "",
   });
 
   const { addData, state } = useAdmin();
 
+  // close Modal
   const handleClose = () => setShowModal(false);
 
+  // Open Modal
   const handleShow = () => setShowModal(true);
 
-  const submitForm = async () => {
-    await addData("subjects", formData);
+  const submitData = async () => {
+    await addData("grade_levels", formData);
 
     // Hide modal
     setShowModal(false);
 
     // Reset FormData Default value
     setFormData({
-      subject_code: "",
-      subject_name: "",
-      subject_description: "",
+      grade_level: "",
+      name: "",
     });
   };
 
@@ -36,18 +36,11 @@ function AdminSubject() {
     <>
       <div className="d-md-flex justify-content-between align-items-center mt-5">
         <Button variant="success" onClick={handleShow}>
-          <BsPlusLg /> Add Subject
+          <BsPlusLg /> Add Grade Level
         </Button>
       </div>
-      <AdminSubjectTable />
 
-      {!state.subjects.length ? (
-        <Alert variant="danger" className="text-center">
-          No Subject Found!
-        </Alert>
-      ) : (
-        ""
-      )}
+      <AdminGradeTable />
 
       <Modal
         show={showModal}
@@ -56,53 +49,38 @@ function AdminSubject() {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Add Subject Form</Modal.Title>
+          <Modal.Title>Add Grade Level</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form
             onSubmit={(e) => {
               e.preventDefault();
-              submitForm();
+              submitData();
             }}
           >
             <Form.Group className="mb-3">
-              <Form.Label>Subject Code</Form.Label>
+              <Form.Label>Level</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter Subject Code"
+                placeholder="Enter Level"
                 required
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
-                    subject_code: e.target.value,
+                    level: e.target.value,
                   }))
                 }
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Subject Name</Form.Label>
+              <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter Subject Name"
+                placeholder="Enter Name"
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
-                    subject_name: e.target.value,
-                  }))
-                }
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Subject Description</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Description"
-                name="subject_description"
-                required
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    subject_description: e.target.value,
+                    name: e.target.value,
                   }))
                 }
               />
@@ -111,7 +89,7 @@ function AdminSubject() {
               <Button
                 variant="danger"
                 onClick={handleClose}
-                disabled={state.loading ? true : false}
+                disabled={state?.loading ? true : false}
               >
                 Cancel
               </Button>
@@ -119,9 +97,9 @@ function AdminSubject() {
                 variant="primary"
                 type="submit"
                 className="ms-2"
-                disabled={state.loading ? true : false}
+                disabled={state?.loading ? true : false}
               >
-                Add Subject
+                Add Grade Level
               </Button>
             </div>
           </Form>
@@ -131,4 +109,4 @@ function AdminSubject() {
   );
 }
 
-export default AdminSubject;
+export default AdminGradeLevels;

@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Button, Form, Table, Modal, Alert } from "react-bootstrap";
-import { BsPlusLg, BsFillTrashFill } from "react-icons/bs";
+import { Button, Form, Modal, Alert } from "react-bootstrap";
+import { BsPlusLg } from "react-icons/bs";
+import AdminTeacherTable from "../../../components/AdminTeacherTable";
 import useAdmin from "../../../context/AdminContextProvider";
 
 function AdminTeacher() {
@@ -11,7 +12,7 @@ function AdminTeacher() {
     lastname: "",
   });
 
-  const { addData, state, deleteData } = useAdmin();
+  const { addData, state } = useAdmin();
 
   const handleClose = () => setShowAddTeacherModal(false);
 
@@ -38,45 +39,7 @@ function AdminTeacher() {
           <BsPlusLg /> Add Teacher
         </Button>
       </div>
-      <Table striped bordered hover size="sm" className="mt-3">
-        <thead>
-          <tr>
-            <th>TID</th>
-            <th>First Name</th>
-            <th>Middle Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {state.teachers.map((teacher) => (
-            <tr key={teacher.id}>
-              <td>{String(teacher.id).padStart(5, 0)}</td>
-              <td>{teacher.firstname}</td>
-              <td>{teacher.middlename}</td>
-              <td>{teacher.lastname}</td>
-              <td className="text-center">
-                {teacher.user?.username ? (
-                  <span className="text-success">{teacher.user?.username}</span>
-                ) : (
-                  <span className="text-danger fst-italic">Not Registered</span>
-                )}
-              </td>
-              <td className="fs-5 text-danger text-center">
-                <span
-                  className="hover"
-                  onClick={() => {
-                    deleteData("teachers", teacher.id);
-                  }}
-                >
-                  <BsFillTrashFill />
-                </span>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      <AdminTeacherTable />
 
       {!state.teachers.length ? (
         <Alert variant="danger" className="text-center">

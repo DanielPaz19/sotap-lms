@@ -13,6 +13,7 @@ export function AdminContextProvider({ children }) {
     updateData("students");
     updateData("teachers");
     updateData("subjects");
+    updateData("grade_levels");
   }, []);
 
   const addData = async (type, data) => {
