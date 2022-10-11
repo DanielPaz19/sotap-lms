@@ -11,20 +11,20 @@ function AdminTeacherTable() {
       <thead>
         <tr>
           <th>TID</th>
-          <th>First Name</th>
-          <th>Middle Name</th>
-          <th>Last Name</th>
+          <th>Full Name</th>
           <th>Username</th>
-          <th></th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         {state.teachers.map((teacher) => (
           <tr key={teacher.id}>
             <td>{String(teacher.id).padStart(5, 0)}</td>
-            <td>{teacher.firstname}</td>
-            <td>{teacher.middlename}</td>
-            <td>{teacher.lastname}</td>
+            <td>
+              {teacher.firstname + " "}
+              {teacher.middlename ? teacher.middlename + " " : ""}
+              {teacher.lastname}
+            </td>
             <td className="text-center">
               {teacher.user?.username ? (
                 <span className="text-success">{teacher.user?.username}</span>

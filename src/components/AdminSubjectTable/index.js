@@ -17,7 +17,7 @@ function AdminSubjectTable({ subjects, hasDelete }) {
         </tr>
       </thead>
       <tbody>
-        {subjects.map((subject) => (
+        {subjects?.map((subject) => (
           <tr key={subject.id}>
             <td>{String(subject.id).padStart(5, 0)}</td>
             <td>{subject.subject_code}</td>
