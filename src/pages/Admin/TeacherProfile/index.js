@@ -7,15 +7,23 @@ import { useState } from "react";
 
 function TeacherProfile() {
   const { id } = useParams(); // Get URL Params
-  const { state } = useAdmin(); // Custom Admin Context
+  const { state, addData } = useAdmin(); // Custom Admin Context
   const [teacher] = state?.teachers?.filter(
     (teacher) => teacher.id === Number(id)
   ); // Filter the teacher Base on ID
-
   const [show, setShow] = useState(false);
+  const [formData, setFormData] = useState({ teacher_id: id, subject_id: "" });
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleSubmit = async () => {
+    await addData("teachers", formData, "/add_subject");
+
+    setShow(false);
+
+    setFormData({ teacher_id: id, subject_id: "" });
+  };
 
   return (
     <>
@@ -35,8 +43,13 @@ function TeacherProfile() {
           <Modal.Title>Add Subject</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+          <Form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSubmit();
+            }}
+          >
+            <Form.Group className="mb-3">
               <Form.Label>Teacher</Form.Label>
               <Form.Control
                 type="text"
@@ -49,14 +62,21 @@ function TeacherProfile() {
                 }
               />
             </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
+            <Form.Group className="mb-3">
               <Form.Label>Subjects</Form.Label>
 
-              <Form.Select aria-label="Default select example" autoFocus>
-                <option value="" disabled selected>
+              <Form.Select
+                required
+                defaultValue=""
+                autoFocus
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    subject_id: e.target.value,
+                  }))
+                }
+              >
+                <option disabled selected value="">
                   Choose Subject
                 </option>
                 {state?.subjects
@@ -73,16 +93,20 @@ function TeacherProfile() {
                   ))}
               </Form.Select>
             </Form.Group>
+            <div className="d-md-flex justify-content-end mt-4">
+              <Button
+                variant="secondary"
+                onClick={handleClose}
+                className="me-1"
+              >
+                Close
+              </Button>
+              <Button type="submit" variant="success">
+                Add Subject
+              </Button>
+            </div>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="success" onClick={handleClose}>
-            Add Subject
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );

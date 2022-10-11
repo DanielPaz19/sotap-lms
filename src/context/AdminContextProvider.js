@@ -16,9 +16,9 @@ export function AdminContextProvider({ children }) {
     updateData("grade_levels");
   }, []);
 
-  const addData = async (type, data) => {
+  const addData = async (type, data, func = null) => {
     dispatch({ type: "REQUESTED" });
-    await fetch(API_URL + `/${type}`, {
+    await fetch(API_URL + `/${type}` + (func || ""), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
