@@ -53,9 +53,11 @@ function TeacherProfile() {
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
             >
+              <Form.Label>Subjects</Form.Label>
+
               <Form.Select aria-label="Default select example" autoFocus>
                 <option value="" disabled selected>
-                  Open this select menu
+                  Choose Subject
                 </option>
                 {state?.subjects
                   ?.filter(
@@ -77,8 +79,8 @@ function TeacherProfile() {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
+          <Button variant="success" onClick={handleClose}>
+            Add Subject
           </Button>
         </Modal.Footer>
       </Modal>
