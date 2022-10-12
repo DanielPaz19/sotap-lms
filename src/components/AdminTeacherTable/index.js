@@ -3,8 +3,8 @@ import { Table } from "react-bootstrap";
 import { BsFillTrashFill, BsPencilSquare } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
-function AdminTeacherTable({ teachers }) {
-  const { deleteData } = useAdmin();
+function AdminTeacherTable({ teachers, subject_id }) {
+  const { deleteData, removeSubjectToTeacher } = useAdmin();
 
   return (
     <Table striped bordered hover size="sm" className="mt-3">
@@ -41,7 +41,12 @@ function AdminTeacherTable({ teachers }) {
               <span
                 className="hover text-danger"
                 onClick={() => {
-                  deleteData("teachers", teacher.id);
+                  subject_id
+                    ? removeSubjectToTeacher({
+                        subject_id,
+                        teacher_id: teacher.id,
+                      })
+                    : deleteData("teachers", teacher.id);
                 }}
               >
                 <BsFillTrashFill />
@@ -53,5 +58,9 @@ function AdminTeacherTable({ teachers }) {
     </Table>
   );
 }
+
+AdminTeacherTable.defaultProps = {
+  subject_id: null,
+};
 
 export default AdminTeacherTable;

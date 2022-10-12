@@ -1,7 +1,6 @@
 import { useReducer } from "react";
 import { useEffect } from "react";
 import { createContext, useContext } from "react";
-import { json } from "react-router-dom";
 import { API_URL } from "../config";
 import adminReducer, { initialState } from "./adminReducer";
 
@@ -29,6 +28,21 @@ export function AdminContextProvider({ children }) {
     });
 
     await updateData(type);
+  };
+
+  const addSubjectTeacher = async (data) => {
+    dispatch({ type: "REQUESTED" });
+    await fetch(API_URL + "/teachers/add_subject", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(data),
+    });
+
+    await updateData("teachers");
+    await updateData("subjects");
   };
 
   const removeSubjectToTeacher = async (data) => {
@@ -76,6 +90,7 @@ export function AdminContextProvider({ children }) {
     updateData,
     deleteData,
     removeSubjectToTeacher,
+    addSubjectTeacher,
   };
 
   return (
