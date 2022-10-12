@@ -45,7 +45,7 @@ function AdminTeacher() {
           <span className="ms-1 fs-6">New Teacher</span>
         </Button>
       </div>
-      <AdminTeacherTable />
+      <AdminTeacherTable teachers={state?.teachers} />
 
       {!state.teachers.length ? (
         <Alert variant="danger" className="text-center">

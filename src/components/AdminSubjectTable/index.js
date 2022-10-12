@@ -1,6 +1,6 @@
 import useAdmin from "../../context/AdminContextProvider";
 import { Table } from "react-bootstrap";
-import { BsFillTrashFill, BsEye } from "react-icons/bs";
+import { BsFillTrashFill, BsPencilSquare } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
 function AdminSubjectTable({ subjects, teacher_id, hasDelete, variant }) {
@@ -10,17 +10,17 @@ function AdminSubjectTable({ subjects, teacher_id, hasDelete, variant }) {
     <Table striped bordered hover size="sm" className="mt-3">
       <thead>
         <tr>
-          <th>Subject ID</th>
-          <th>Subject Code</th>
-          <th>Subject Name</th>
-          <th>Subject Description</th>
-          {hasDelete ? <th></th> : ""}
+          <th className="text-center">Subject ID</th>
+          <th className="text-center">Subject Code</th>
+          <th className="text-center">Subject Name</th>
+          <th className="text-center">Subject Description</th>
+          {hasDelete ? <th className="text-center">Actions</th> : ""}
         </tr>
       </thead>
       <tbody>
         {subjects?.map((subject) => (
           <tr key={subject.id}>
-            <td>{String(subject.id).padStart(5, 0)}</td>
+            <td className="text-center">{String(subject.id).padStart(5, 0)}</td>
             <td>{subject.subject_code}</td>
             <td>{subject.subject_name}</td>
             <td>{subject.subject_description}</td>
@@ -28,9 +28,9 @@ function AdminSubjectTable({ subjects, teacher_id, hasDelete, variant }) {
               {variant === "teacher_profile" ? (
                 ""
               ) : (
-                <Link to={`${subject.id}`}>
+                <Link to={`/admin/subjects/${subject.id}`}>
                   <span className="hover text-info me-3">
-                    <BsEye />
+                    <BsPencilSquare />
                   </span>
                 </Link>
               )}

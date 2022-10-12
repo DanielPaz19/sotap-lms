@@ -1,25 +1,25 @@
 import useAdmin from "../../context/AdminContextProvider";
 import { Table } from "react-bootstrap";
-import { BsFillTrashFill, BsEye } from "react-icons/bs";
+import { BsFillTrashFill, BsPencilSquare } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
-function AdminTeacherTable() {
-  const { state, deleteData } = useAdmin();
+function AdminTeacherTable({ teachers }) {
+  const { deleteData } = useAdmin();
 
   return (
     <Table striped bordered hover size="sm" className="mt-3">
       <thead>
         <tr>
-          <th>TID</th>
-          <th>Full Name</th>
-          <th>Username</th>
-          <th>Actions</th>
+          <th className="text-center">TID</th>
+          <th className="text-center">Full Name</th>
+          <th className="text-center">Username</th>
+          <th className="text-center">Actions</th>
         </tr>
       </thead>
       <tbody>
-        {state.teachers.map((teacher) => (
+        {teachers?.map((teacher) => (
           <tr key={teacher.id}>
-            <td>{String(teacher.id).padStart(5, 0)}</td>
+            <td className="text-center">{String(teacher.id).padStart(5, 0)}</td>
             <td>
               {teacher.firstname + " "}
               {teacher.middlename ? teacher.middlename + " " : ""}
@@ -33,9 +33,9 @@ function AdminTeacherTable() {
               )}
             </td>
             <td className="fs-5  text-center">
-              <Link to={`${teacher.id}`}>
+              <Link to={`/admin/teachers/${teacher.id}`}>
                 <span className="hover text-info me-3">
-                  <BsEye />
+                  <BsPencilSquare />
                 </span>
               </Link>
               <span
