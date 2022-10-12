@@ -22,6 +22,7 @@ import "./style.css";
 import AdminTeacher from "../Admin/Teachers";
 import AdminSubject from "../Admin/Subjects";
 import AdminGradeLevels from "../Admin/GradeLevels";
+import TeacherProfile from "../Admin/TeacherProfile";
 
 function App() {
   const [user, setUser] = useState({
@@ -97,6 +98,7 @@ function App() {
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="students" element={<AdminStudent />} />
             <Route path="teachers" element={<AdminTeacher />} />
+            <Route path="teachers/:id" element={<TeacherProfile />} />
             <Route path="subjects" element={<AdminSubject />} />
             <Route path="grade_levels" element={<AdminGradeLevels />} />
           </Route>

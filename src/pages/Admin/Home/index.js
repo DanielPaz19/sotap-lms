@@ -69,29 +69,13 @@ function AdminHome() {
                 </Nav.Link>
               </Link>
             </Nav.Item>
-            <Nav.Item>
+            {/* <Nav.Item >
               <Link to="grade_levels">
                 <Nav.Link as="li" className="link-light">
                   Grade Levels
                 </Nav.Link>
               </Link>
-            </Nav.Item>
-            {/* <Dropdown as={NavItem}>
-              <Dropdown.Toggle as={NavLink} className="link-light">
-                Grade Levels
-              </Dropdown.Toggle>
-              <Dropdown.Menu className="ms-5">
-                <Link to="grade_levels/add">
-                  <Dropdown.Item as="li">Add Level +</Dropdown.Item>
-                </Link>
-                <Link to="grade_levels/1">
-                  <Dropdown.Item as="li">Grade 1</Dropdown.Item>
-                </Link>
-                <Dropdown.Item as="li">Grade 2</Dropdown.Item>
-                <Dropdown.Item as="li">Grade 3</Dropdown.Item>
-                <Dropdown.Item as="li">Grade 4</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown> */}
+            </Nav.Item> */}
           </Nav>
         </div>
 
