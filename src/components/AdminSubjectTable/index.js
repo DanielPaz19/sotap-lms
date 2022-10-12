@@ -1,6 +1,7 @@
 import useAdmin from "../../context/AdminContextProvider";
 import { Table } from "react-bootstrap";
-import { BsFillTrashFill } from "react-icons/bs";
+import { BsFillTrashFill, BsEye } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 function AdminSubjectTable({ subjects, teacher_id, hasDelete, variant }) {
   const { deleteData, removeSubjectToTeacher } = useAdmin();
@@ -23,8 +24,17 @@ function AdminSubjectTable({ subjects, teacher_id, hasDelete, variant }) {
             <td>{subject.subject_code}</td>
             <td>{subject.subject_name}</td>
             <td>{subject.subject_description}</td>
-            {hasDelete ? (
-              <td className="fs-5 text-danger text-center">
+            <td className="fs-5 text-danger text-center">
+              {variant === "teacher_profile" ? (
+                ""
+              ) : (
+                <Link to={`${subject.id}`}>
+                  <span className="hover text-info me-3">
+                    <BsEye />
+                  </span>
+                </Link>
+              )}
+              {hasDelete ? (
                 <span
                   className="hover"
                   onClick={() => {
@@ -38,10 +48,10 @@ function AdminSubjectTable({ subjects, teacher_id, hasDelete, variant }) {
                 >
                   <BsFillTrashFill />
                 </span>
-              </td>
-            ) : (
-              ""
-            )}
+              ) : (
+                ""
+              )}
+            </td>
           </tr>
         ))}
       </tbody>

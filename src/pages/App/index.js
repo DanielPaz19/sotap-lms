@@ -23,6 +23,7 @@ import AdminTeacher from "../Admin/Teachers";
 import AdminSubject from "../Admin/Subjects";
 import AdminGradeLevels from "../Admin/GradeLevels";
 import TeacherProfile from "../Admin/TeacherProfile";
+import SubjectDetails from "../Admin/SubjectDetails";
 
 function App() {
   const [user, setUser] = useState({
@@ -61,8 +62,6 @@ function App() {
   };
 
   const handleSubmit = async (formData) => {
-    // console.log(formData);
-
     (await checkUser(formData))
       ? (window.location.pathname = "/")
       : (window.location.pathname = "/login");
@@ -100,6 +99,7 @@ function App() {
             <Route path="teachers" element={<AdminTeacher />} />
             <Route path="teachers/:id" element={<TeacherProfile />} />
             <Route path="subjects" element={<AdminSubject />} />
+            <Route path="subjects/:id" element={<SubjectDetails />} />
             <Route path="grade_levels" element={<AdminGradeLevels />} />
           </Route>
         </Routes>
