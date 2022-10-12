@@ -34,11 +34,18 @@ function AdminSubject() {
 
   return (
     <>
-      <div className="d-md-flex justify-content-between align-items-center mt-5">
-        <Button variant="success" onClick={handleShow}>
-          <BsPlusLg /> Add Subject
+      <div className="d-md-flex justify-content-between align-items-center mt-5 ">
+        <h4 className="fw-bolder text-primary">Subject List</h4>
+        <Button
+          variant="success"
+          onClick={handleShow}
+          className="d-md-flex justify-content-between align-items-center"
+        >
+          <BsPlusLg />
+          <span className="ms-1 fs-6">New Subject</span>
         </Button>
       </div>
+
       <AdminSubjectTable subjects={state.subjects} />
 
       {!state.subjects.length ? (
