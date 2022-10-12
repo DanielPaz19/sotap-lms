@@ -36,7 +36,11 @@ function TeacherProfile() {
         </Button>
       </div>
 
-      <AdminSubjectTable subjects={teacher?.subjects} hasDelete={false} />
+      <AdminSubjectTable
+        teacher_id={id}
+        subjects={teacher?.subjects}
+        variant="teacher_profile"
+      />
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

@@ -2,8 +2,8 @@ import useAdmin from "../../context/AdminContextProvider";
 import { Table } from "react-bootstrap";
 import { BsFillTrashFill } from "react-icons/bs";
 
-function AdminSubjectTable({ subjects, hasDelete }) {
-  const { deleteData } = useAdmin();
+function AdminSubjectTable({ subjects, teacher_id, hasDelete, variant }) {
+  const { deleteData, removeSubjectToTeacher } = useAdmin();
 
   return (
     <Table striped bordered hover size="sm" className="mt-3">
@@ -28,7 +28,12 @@ function AdminSubjectTable({ subjects, hasDelete }) {
                 <span
                   className="hover"
                   onClick={() => {
-                    deleteData("subjects", subject.id);
+                    variant === "teacher_profile"
+                      ? removeSubjectToTeacher({
+                          teacher_id: teacher_id,
+                          subject_id: subject.id,
+                        })
+                      : deleteData("subjects", subject.id);
                   }}
                 >
                   <BsFillTrashFill />
@@ -47,6 +52,7 @@ function AdminSubjectTable({ subjects, hasDelete }) {
 AdminSubjectTable.defaultProps = {
   filter: null,
   hasDelete: true,
+  variant: "subjects",
 };
 
 export default AdminSubjectTable;
