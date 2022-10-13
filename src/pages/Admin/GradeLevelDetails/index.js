@@ -1,56 +1,79 @@
+import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { BsPlusLg } from "react-icons/bs";
-import AdminGradeTable from "../../../components/AdminGradeTable";
-import { useState } from "react";
+import { useParams } from "react-router-dom";
+import AdminStudentTable from "../../../components/AdminStudentTable";
 import useAdmin from "../../../context/AdminContextProvider";
 
-function AdminGradeLevels() {
+function GradeLevelDetails() {
+  const { id } = useParams();
+  const { state, addStudentToGrade } = useAdmin();
+  const [grade_level] = state?.grade_levels.filter(
+    (grade) => grade.id === Number(id)
+  );
+
+  const [error, setError] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
-    grade_level: "",
-    name: "",
+    grade_id: id,
+    student_id: [],
   });
 
-  const { addData, state } = useAdmin();
-
   // close Modal
-  const handleClose = () => setShowModal(false);
+  const handleClose = () => {
+    setShowModal(false);
+    setError(false);
+  };
 
   // Open Modal
   const handleShow = () => setShowModal(true);
 
   const submitData = async () => {
-    await addData("grade_levels", formData);
+    if (!formData.student_id.length) return setError(true);
+
+    await addStudentToGrade(formData);
 
     // Hide modal
     setShowModal(false);
 
     // Reset FormData Default value
     setFormData({
-      grade_level: "",
-      name: "",
+      grade_id: id,
+      student_id: [],
     });
+  };
+
+  const handleCheckBox = (e) => {
+    setError(false);
+    const checked = [];
+
+    // Loop through all input checks
+    document
+      .querySelectorAll("#checkStudent")
+      .forEach((item) => item.checked && checked.push(Number(item.value)));
+
+    setFormData((prev) => ({ ...prev, student_id: checked }));
   };
 
   return (
     <>
       <div className="d-md-flex justify-content-between align-items-center mt-5">
-        <h4 className="fw-bolder text-primary">Grade Levels</h4>
+        <h4 className="fw-bolder text-primary">{grade_level?.name}</h4>;
         <Button variant="success" onClick={handleShow}>
-          <BsPlusLg /> Add Grade Level
+          <BsPlusLg /> Add Students
         </Button>
       </div>
-
-      <AdminGradeTable />
+      <AdminStudentTable students={grade_level?.students} />
 
       <Modal
         show={showModal}
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
+        size="xl"
       >
         <Modal.Header closeButton>
-          <Modal.Title>Add Grade Level</Modal.Title>
+          <Modal.Title>Add Student</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form
@@ -59,18 +82,25 @@ function AdminGradeLevels() {
               submitData();
             }}
           >
+            <AdminStudentTable
+              students={state?.students.filter(
+                (student) =>
+                  !grade_level?.students
+                    .map((item) => item.id)
+                    .includes(student.id)
+              )}
+              checkbox={true}
+              handleCheckBox={handleCheckBox}
+              error={error}
+            />
+            {/* 
             <Form.Group className="mb-3">
               <Form.Label>Level</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter Level"
-                required
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    level: e.target.value,
-                  }))
-                }
+                defaultValue={grade_level?.name}
+                disabled
               />
             </Form.Group>
             <Form.Group className="mb-3">
@@ -85,8 +115,16 @@ function AdminGradeLevels() {
                   }))
                 }
               />
-            </Form.Group>
+            </Form.Group> 
+          */}
             <div className="d-md-flex justify-content-end">
+              {error ? (
+                <span className="text-danger me-5">
+                  Select atleast one (1) student to Proceed!
+                </span>
+              ) : (
+                ""
+              )}
               <Button
                 variant="danger"
                 onClick={handleClose}
@@ -100,7 +138,7 @@ function AdminGradeLevels() {
                 className="ms-2"
                 disabled={state?.loading ? true : false}
               >
-                Add Grade Level
+                Add to {grade_level?.name}
               </Button>
             </div>
           </Form>
@@ -110,4 +148,4 @@ function AdminGradeLevels() {
   );
 }
 
-export default AdminGradeLevels;
+export default GradeLevelDetails;

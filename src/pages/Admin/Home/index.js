@@ -69,13 +69,13 @@ function AdminHome() {
                 </Nav.Link>
               </Link>
             </Nav.Item>
-            {/* <Nav.Item >
+            <Nav.Item>
               <Link to="grade_levels">
                 <Nav.Link as="li" className="link-light">
                   Grade Levels
                 </Nav.Link>
               </Link>
-            </Nav.Item> */}
+            </Nav.Item>
           </Nav>
         </div>
 

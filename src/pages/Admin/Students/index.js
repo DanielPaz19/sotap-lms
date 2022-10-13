@@ -42,7 +42,7 @@ function AdminStudent() {
         </Button>
       </div>
 
-      <AdminStudentTable />
+      <AdminStudentTable students={state.students} />
 
       {!state.students.length ? (
         <Alert variant="danger" className="text-center">

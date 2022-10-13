@@ -24,6 +24,7 @@ import AdminSubject from "../Admin/Subjects";
 import AdminGradeLevels from "../Admin/GradeLevels";
 import TeacherProfile from "../Admin/TeacherProfile";
 import SubjectDetails from "../Admin/SubjectDetails";
+import GradeLevelDetails from "../Admin/GradeLevelDetails";
 
 function App() {
   const [user, setUser] = useState({
@@ -101,6 +102,7 @@ function App() {
             <Route path="subjects" element={<AdminSubject />} />
             <Route path="subjects/:id" element={<SubjectDetails />} />
             <Route path="grade_levels" element={<AdminGradeLevels />} />
+            <Route path="grade_levels/:id" element={<GradeLevelDetails />} />
           </Route>
         </Routes>
       </BrowserRouter>
