@@ -63,7 +63,11 @@ function GradeLevelDetails() {
           <BsPlusLg /> Add Students
         </Button>
       </div>
-      <AdminStudentTable students={grade_level?.students} />
+      <AdminStudentTable
+        students={grade_level?.students}
+        grade_id={id}
+        onGradeLevels={true}
+      />
 
       <Modal
         show={showModal}

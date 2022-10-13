@@ -2,8 +2,15 @@ import { Form, Table } from "react-bootstrap";
 import { BsFillTrashFill } from "react-icons/bs";
 import useAdmin from "../../context/AdminContextProvider";
 
-function AdminStudentTable({ students, checkbox, handleCheckBox, error }) {
-  const { deleteData } = useAdmin();
+function AdminStudentTable({
+  students,
+  checkbox,
+  handleCheckBox,
+  error,
+  onGradeLevels,
+  grade_id,
+}) {
+  const { deleteData, removeStudentFromGradeLevel } = useAdmin();
 
   return (
     <Table striped bordered hover size="sm" className="mt-3">
@@ -70,7 +77,12 @@ function AdminStudentTable({ students, checkbox, handleCheckBox, error }) {
                   <span
                     className="hover"
                     onClick={() => {
-                      deleteData("students", student.id);
+                      onGradeLevels
+                        ? removeStudentFromGradeLevel({
+                            grade_id: grade_id,
+                            students: [student.id],
+                          })
+                        : deleteData("students", student.id);
                     }}
                   >
                     <BsFillTrashFill />
@@ -87,6 +99,7 @@ function AdminStudentTable({ students, checkbox, handleCheckBox, error }) {
 
 AdminStudentTable.defaultProps = {
   checkbox: false,
+  onGradeLevels: false,
 };
 
 export default AdminStudentTable;
