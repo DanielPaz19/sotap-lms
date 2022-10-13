@@ -9,17 +9,17 @@ function AdminStudentTable({ students, checkbox, handleCheckBox, error }) {
     <Table striped bordered hover size="sm" className="mt-3">
       <thead>
         <tr>
-          {checkbox ? <th></th> : ""}
-          <th>SID</th>
-          <th>First Name</th>
-          <th>Middle Name</th>
-          <th>Last Name</th>
+          {checkbox ? <th className="text-center"></th> : ""}
+          <th className="text-center">SID</th>
+          <th className="text-center">First Name</th>
+          <th className="text-center">Middle Name</th>
+          <th className="text-center">Last Name</th>
           {checkbox ? (
             ""
           ) : (
             <>
-              <th>Username</th>
-              <th></th>
+              <th className="text-center">Username</th>
+              <th className="text-center">Actions</th>
             </>
           )}
         </tr>
@@ -47,7 +47,7 @@ function AdminStudentTable({ students, checkbox, handleCheckBox, error }) {
             ) : (
               ""
             )}
-            <td>{String(student.id).padStart(5, 0)}</td>
+            <td className="text-center">{String(student.id).padStart(5, 0)}</td>
             <td>{student.firstname}</td>
             <td>{student.middlename}</td>
             <td>{student.lastname}</td>

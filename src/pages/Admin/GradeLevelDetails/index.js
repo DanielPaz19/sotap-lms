@@ -84,39 +84,13 @@ function GradeLevelDetails() {
           >
             <AdminStudentTable
               students={state?.students.filter(
-                (student) =>
-                  !grade_level?.students
-                    .map((item) => item.id)
-                    .includes(student.id)
+                (student) => !student.grade_level.length
               )}
               checkbox={true}
               handleCheckBox={handleCheckBox}
               error={error}
             />
-            {/* 
-            <Form.Group className="mb-3">
-              <Form.Label>Level</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Level"
-                defaultValue={grade_level?.name}
-                disabled
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Name"
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    name: e.target.value,
-                  }))
-                }
-              />
-            </Form.Group> 
-          */}
+
             <div className="d-md-flex justify-content-end">
               {error ? (
                 <span className="text-danger me-5">
