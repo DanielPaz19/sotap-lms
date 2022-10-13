@@ -13,6 +13,8 @@ function AdminGradeLevels() {
 
   const { addData, state } = useAdmin();
 
+  console.log(state);
+
   // close Modal
   const handleClose = () => setShowModal(false);
 
@@ -35,6 +37,7 @@ function AdminGradeLevels() {
   return (
     <>
       <div className="d-md-flex justify-content-between align-items-center mt-5">
+        <h4 className="fw-bolder text-primary">Grade Levels</h4>
         <Button variant="success" onClick={handleShow}>
           <BsPlusLg /> Add Grade Level
         </Button>
