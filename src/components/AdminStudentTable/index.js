@@ -2,8 +2,8 @@ import { Table } from "react-bootstrap";
 import { BsFillTrashFill } from "react-icons/bs";
 import useAdmin from "../../context/AdminContextProvider";
 
-function AdminStudentTable() {
-  const { state, deleteData } = useAdmin();
+function AdminStudentTable({ students }) {
+  const { deleteData } = useAdmin();
 
   return (
     <Table striped bordered hover size="sm" className="mt-3">
@@ -18,7 +18,7 @@ function AdminStudentTable() {
         </tr>
       </thead>
       <tbody>
-        {state.students.map((student) => (
+        {students?.map((student) => (
           <tr key={student.id}>
             <td>{String(student.id).padStart(5, 0)}</td>
             <td>{student.firstname}</td>

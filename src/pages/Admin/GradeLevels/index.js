@@ -13,8 +13,6 @@ function AdminGradeLevels() {
 
   const { addData, state } = useAdmin();
 
-  console.log(state);
-
   // close Modal
   const handleClose = () => setShowModal(false);
 

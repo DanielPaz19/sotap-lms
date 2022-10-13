@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 function AdminGradeTable() {
   const { state, deleteData } = useAdmin();
 
-  console.log(state);
   return (
     <Table striped bordered hover size="sm" className="mt-3">
       <thead>
