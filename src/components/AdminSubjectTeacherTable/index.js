@@ -1,9 +1,7 @@
 import { Table } from "react-bootstrap";
 import { BsFillTrashFill } from "react-icons/bs";
-import useAdmin from "../../context/AdminContextProvider";
 
 function AdminSubjectTeacherTable({ subject_teachers }) {
-  console.log(subject_teachers);
   return (
     <>
       <Table striped bordered hover size="sm" className=" mt-3 bg-white">

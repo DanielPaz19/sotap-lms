@@ -13,14 +13,12 @@ const adminReducer = (state, action) => {
 
   switch (type) {
     case "REQUESTED":
-      console.log("requesting...");
       return {
         ...state,
         loading: true,
       };
 
     case "UPDATE_DATA":
-      console.log("updated...");
       return {
         ...state,
         [payload.key]: payload.value,
