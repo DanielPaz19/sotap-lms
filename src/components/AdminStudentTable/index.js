@@ -2,24 +2,31 @@ import { Form, Table } from "react-bootstrap";
 import { BsFillTrashFill } from "react-icons/bs";
 import useAdmin from "../../context/AdminContextProvider";
 
-function AdminStudentTable({ students, checkbox, handleCheckBox, error }) {
-  const { deleteData } = useAdmin();
+function AdminStudentTable({
+  students,
+  checkbox,
+  handleCheckBox,
+  error,
+  onGradeLevels,
+  grade_id,
+}) {
+  const { deleteData, removeStudentFromGradeLevel } = useAdmin();
 
   return (
-    <Table striped bordered hover size="sm" className="mt-3">
+    <Table striped bordered hover size="sm" className="mt-3 bg-white">
       <thead>
         <tr>
-          {checkbox ? <th></th> : ""}
-          <th>SID</th>
-          <th>First Name</th>
-          <th>Middle Name</th>
-          <th>Last Name</th>
+          {checkbox ? <th className="text-center"></th> : ""}
+          <th className="text-center">SID</th>
+          <th className="text-center">First Name</th>
+          <th className="text-center">Middle Name</th>
+          <th className="text-center">Last Name</th>
           {checkbox ? (
             ""
           ) : (
             <>
-              <th>Username</th>
-              <th></th>
+              <th className="text-center">Username</th>
+              <th className="text-center">Actions</th>
             </>
           )}
         </tr>
@@ -47,7 +54,7 @@ function AdminStudentTable({ students, checkbox, handleCheckBox, error }) {
             ) : (
               ""
             )}
-            <td>{String(student.id).padStart(5, 0)}</td>
+            <td className="text-center">{String(student.id).padStart(5, 0)}</td>
             <td>{student.firstname}</td>
             <td>{student.middlename}</td>
             <td>{student.lastname}</td>
@@ -70,7 +77,12 @@ function AdminStudentTable({ students, checkbox, handleCheckBox, error }) {
                   <span
                     className="hover"
                     onClick={() => {
-                      deleteData("students", student.id);
+                      onGradeLevels
+                        ? removeStudentFromGradeLevel({
+                            grade_id: grade_id,
+                            students: [student.id],
+                          })
+                        : deleteData("students", student.id);
                     }}
                   >
                     <BsFillTrashFill />
@@ -87,6 +99,7 @@ function AdminStudentTable({ students, checkbox, handleCheckBox, error }) {
 
 AdminStudentTable.defaultProps = {
   checkbox: false,
+  onGradeLevels: false,
 };
 
 export default AdminStudentTable;

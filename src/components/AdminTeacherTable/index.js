@@ -7,7 +7,7 @@ function AdminTeacherTable({ teachers, subject_id }) {
   const { deleteData, removeSubjectToTeacher } = useAdmin();
 
   return (
-    <Table striped bordered hover size="sm" className="mt-3">
+    <Table striped bordered hover size="sm" className="mt-3 bg-white">
       <thead>
         <tr>
           <th className="text-center">TID</th>

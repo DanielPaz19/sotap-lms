@@ -3,6 +3,7 @@ export const initialState = {
   teachers: [],
   subjects: [],
   grade_levels: [],
+  subject_teacher: [],
   loading: false,
   error: "",
 };

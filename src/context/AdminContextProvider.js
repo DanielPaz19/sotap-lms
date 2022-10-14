@@ -14,7 +14,16 @@ export function AdminContextProvider({ children }) {
     updateData("teachers");
     updateData("subjects");
     updateData("grade_levels");
+    updateData("subject_teacher");
   }, []);
+
+  const updateAll = async () => {
+    await updateData("students");
+    await updateData("teachers");
+    await updateData("subjects");
+    await updateData("grade_levels");
+    await updateData("subject_teacher");
+  };
 
   const addData = async (type, data, func = null) => {
     dispatch({ type: "REQUESTED" });
@@ -56,8 +65,7 @@ export function AdminContextProvider({ children }) {
       body: JSON.stringify(data),
     });
 
-    await updateData("teachers");
-    await updateData("subjects");
+    await updateAll();
   };
 
   const addStudentToGrade = async (data) => {
@@ -71,8 +79,22 @@ export function AdminContextProvider({ children }) {
       body: JSON.stringify(data),
     });
 
-    await updateData("grade_levels");
-    await updateData("students");
+    await updateAll();
+  };
+
+  const removeStudentFromGradeLevel = async (data) => {
+    console.log(data);
+    dispatch({ type: "REQUESTED" });
+    await fetch(`${API_URL}/grade_levels/remove_students`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    await updateAll();
   };
 
   const deleteData = async (type, id) => {
@@ -82,7 +104,7 @@ export function AdminContextProvider({ children }) {
       credentials: "include",
     });
 
-    await updateData(type);
+    await updateAll();
   };
 
   const updateData = async (data_type) => {
@@ -107,6 +129,7 @@ export function AdminContextProvider({ children }) {
     removeSubjectToTeacher,
     addSubjectTeacher,
     addStudentToGrade,
+    removeStudentFromGradeLevel,
   };
 
   return (
