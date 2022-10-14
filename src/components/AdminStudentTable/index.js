@@ -13,7 +13,7 @@ function AdminStudentTable({
   const { deleteData, removeStudentFromGradeLevel } = useAdmin();
 
   return (
-    <Table striped bordered hover size="sm" className="mt-3">
+    <Table striped bordered hover size="sm" className="mt-3 bg-white">
       <thead>
         <tr>
           {checkbox ? <th className="text-center"></th> : ""}

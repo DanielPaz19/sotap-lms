@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Button, Form, Modal, Tab, Tabs } from "react-bootstrap";
 import { BsPlusLg } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import AdminStudentTable from "../../../components/AdminStudentTable";
@@ -58,16 +58,29 @@ function GradeLevelDetails() {
   return (
     <>
       <div className="d-md-flex justify-content-between align-items-center mt-5">
-        <h4 className="fw-bolder text-primary">{grade_level?.name}</h4>;
+        <h4 className="fw-bolder text-primary">{grade_level?.name}</h4>
         <Button variant="success" onClick={handleShow}>
           <BsPlusLg /> Add Students
         </Button>
       </div>
-      <AdminStudentTable
-        students={grade_level?.students}
-        grade_id={id}
-        onGradeLevels={true}
-      />
+
+      <Tabs
+        defaultActiveKey="students"
+        id="uncontrolled-tab-example"
+        className="mt-5"
+        variant="pills"
+      >
+        <Tab eventKey="students" title="Students" className="pt-3">
+          <AdminStudentTable
+            students={grade_level?.students}
+            grade_id={id}
+            onGradeLevels={true}
+          />
+        </Tab>
+        <Tab eventKey="teachers" title="Teachers">
+          Tab2
+        </Tab>
+      </Tabs>
 
       <Modal
         show={showModal}
