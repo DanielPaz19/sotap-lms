@@ -14,13 +14,15 @@ export function AdminContextProvider({ children }) {
     updateData("teachers");
     updateData("subjects");
     updateData("grade_levels");
+    updateData("subject_teacher");
   }, []);
 
-  const updateAll = () => {
-    updateData("students");
-    updateData("teachers");
-    updateData("subjects");
-    updateData("grade_levels");
+  const updateAll = async () => {
+    await updateData("students");
+    await updateData("teachers");
+    await updateData("subjects");
+    await updateData("grade_levels");
+    await updateData("subject_teacher");
   };
 
   const addData = async (type, data, func = null) => {
@@ -63,8 +65,7 @@ export function AdminContextProvider({ children }) {
       body: JSON.stringify(data),
     });
 
-    await updateData("teachers");
-    await updateData("subjects");
+    await updateAll();
   };
 
   const addStudentToGrade = async (data) => {
@@ -78,8 +79,7 @@ export function AdminContextProvider({ children }) {
       body: JSON.stringify(data),
     });
 
-    await updateData("grade_levels");
-    await updateData("students");
+    await updateAll();
   };
 
   const removeStudentFromGradeLevel = async (data) => {
@@ -94,8 +94,7 @@ export function AdminContextProvider({ children }) {
       body: JSON.stringify(data),
     });
 
-    await updateData("grade_levels");
-    await updateData("students");
+    await updateAll();
   };
 
   const deleteData = async (type, id) => {

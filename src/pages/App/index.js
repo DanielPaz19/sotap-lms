@@ -85,6 +85,7 @@ function App() {
             <Route path="modules/topic/:id" element={<Topics user={user} />} />
             <Route path="modules/quiz/:id" element={<Quizes />} />
             <Route path="students" element={<Students />} />
+            <Route path="student_quizes" element={<Quizes />} />
             <Route path="teachers" element={<Teachers />} />
             <Route path="subjects" element={<Subjects />} />
             <Route path="grade_levels" element={<GradeLevels />} />

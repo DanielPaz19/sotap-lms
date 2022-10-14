@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Button, Form, Modal, Tab, Tabs } from "react-bootstrap";
+import { Button, FloatingLabel, Form, Modal, Tab, Tabs } from "react-bootstrap";
 import { BsPlusLg } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import AdminStudentTable from "../../../components/AdminStudentTable";
+import AdminSubjectTeacherTable from "../../../components/AdminSubjectTeacherTable";
 import useAdmin from "../../../context/AdminContextProvider";
 
 function GradeLevelDetails() {
@@ -12,21 +13,28 @@ function GradeLevelDetails() {
     (grade) => grade.id === Number(id)
   );
 
+  console.log(state);
+
   const [error, setError] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [showAddStudentModal, setShowAddStudentModal] = useState(false);
+  const [showAddSubjectModal, setShowAddSubjectModal] = useState(false);
   const [formData, setFormData] = useState({
     grade_id: id,
     student_id: [],
   });
 
+  const [subjectId, setSubjectId] = useState();
+
   // close Modal
   const handleClose = () => {
-    setShowModal(false);
+    setShowAddStudentModal(false);
+    setShowAddSubjectModal(false);
     setError(false);
   };
 
   // Open Modal
-  const handleShow = () => setShowModal(true);
+  const handleStudentModalShow = () => setShowAddStudentModal(true);
+  const handleSubjectModalShow = () => setShowAddSubjectModal(true);
 
   const submitData = async () => {
     if (!formData.student_id.length) return setError(true);
@@ -34,7 +42,7 @@ function GradeLevelDetails() {
     await addStudentToGrade(formData);
 
     // Hide modal
-    setShowModal(false);
+    setShowAddStudentModal(false);
 
     // Reset FormData Default value
     setFormData({
@@ -59,9 +67,6 @@ function GradeLevelDetails() {
     <>
       <div className="d-md-flex justify-content-between align-items-center mt-5">
         <h4 className="fw-bolder text-primary">{grade_level?.name}</h4>
-        <Button variant="success" onClick={handleShow}>
-          <BsPlusLg /> Add Students
-        </Button>
       </div>
 
       <Tabs
@@ -71,19 +76,35 @@ function GradeLevelDetails() {
         variant="pills"
       >
         <Tab eventKey="students" title="Students" className="pt-3">
+          <Button
+            variant="success"
+            onClick={handleStudentModalShow}
+            className="float-end mb-3"
+          >
+            <BsPlusLg /> Add Students
+          </Button>
           <AdminStudentTable
             students={grade_level?.students}
             grade_id={id}
             onGradeLevels={true}
           />
         </Tab>
-        <Tab eventKey="teachers" title="Teachers">
-          Tab2
+        <Tab eventKey="teachers" title="Subjects" className="pt-3">
+          <Button
+            variant="success"
+            onClick={handleSubjectModalShow}
+            className="float-end mb-3"
+          >
+            <BsPlusLg /> Add Subject
+          </Button>
+          <AdminSubjectTeacherTable
+            subject_teachers={grade_level?.subject_teachers}
+          />
         </Tab>
       </Tabs>
 
       <Modal
-        show={showModal}
+        show={showAddStudentModal}
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
@@ -129,7 +150,97 @@ function GradeLevelDetails() {
                 className="ms-2"
                 disabled={state?.loading ? true : false}
               >
-                Add to {grade_level?.name}
+                Add Student to {grade_level?.name}
+              </Button>
+            </div>
+          </Form>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        show={showAddSubjectModal}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+        size=""
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Add Subject</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form
+            onSubmit={(e) => {
+              e.preventDefault();
+              submitData();
+            }}
+          >
+            <FloatingLabel
+              controlId="floatingSelect"
+              label="Subject"
+              className="mb-3"
+            >
+              <Form.Select
+                aria-label="Floating label select example"
+                defaultValue="0"
+                onChange={(e) => setSubjectId(e.target.value)}
+              >
+                <option value="0" disabled>
+                  Select Subject
+                </option>
+                {state?.subjects.map((subject) => (
+                  <option value={subject.id}>{subject.subject_name}</option>
+                ))}
+              </Form.Select>
+            </FloatingLabel>
+
+            <FloatingLabel
+              controlId="floatingSelect"
+              label="Teacher"
+              className="mb-3"
+            >
+              <Form.Select
+                aria-label="Floating label select example"
+                defaultValue="0"
+              >
+                <option value="0" disabled>
+                  Select Teacher
+                </option>
+
+                {state?.teachers
+                  .filter((teacher) =>
+                    teacher.subjects
+                      .map((subject) => subject.id)
+                      .includes(Number(subjectId))
+                  )
+                  .map((teacher) => (
+                    <option value={teacher.id}>
+                      {teacher.firstname} {teacher.lastname}
+                    </option>
+                  ))}
+              </Form.Select>
+            </FloatingLabel>
+
+            <div className="d-md-flex justify-content-end">
+              {error ? (
+                <span className="text-danger me-5">
+                  Select atleast one (1) student to Proceed!
+                </span>
+              ) : (
+                ""
+              )}
+              <Button
+                variant="danger"
+                onClick={handleClose}
+                disabled={state?.loading ? true : false}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="primary"
+                type="submit"
+                className="ms-2"
+                disabled={state?.loading ? true : false}
+              >
+                Add Subject to {grade_level?.name}
               </Button>
             </div>
           </Form>
