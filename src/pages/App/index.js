@@ -10,6 +10,7 @@ import Dashboard from "../Dashboard";
 import Assignment from "../Assignment";
 import Events from "../Events";
 import GradeLevels from "../GradeLevels";
+import Assignment from "../Assignment";
 import Home from "../Home";
 import Login from "../Login";
 import Modules from "../Modules";
@@ -19,6 +20,12 @@ import Subjects from "../Subjects";
 import Teachers from "../Teachers";
 import Topics from "../Topics";
 import "./style.css";
+import AdminTeacher from "../Admin/Teachers";
+import AdminSubject from "../Admin/Subjects";
+import AdminGradeLevels from "../Admin/GradeLevels";
+import TeacherProfile from "../Admin/TeacherProfile";
+import SubjectDetails from "../Admin/SubjectDetails";
+import GradeLevelDetails from "../Admin/GradeLevelDetails";
 
 function App() {
   const [user, setUser] = useState({
@@ -57,8 +64,6 @@ function App() {
   };
 
   const handleSubmit = async (formData) => {
-    // console.log(formData);
-
     (await checkUser(formData))
       ? (window.location.pathname = "/")
       : (window.location.pathname = "/login");
@@ -70,6 +75,10 @@ function App() {
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home user={user} />}>
+            <Route
+              path="student_assignments"
+              element={<Assignment user={user} />}
+            />
             <Route path="/" element={<Dashboard user={user} />} />
             <Route path="dashboard" element={<Dashboard user={user} />} />
             <Route path="student_assignments" element={<Assignment user={user} />} />
@@ -79,6 +88,7 @@ function App() {
             <Route path="modules/topic/:id" element={<Topics user={user} />} />
             <Route path="modules/quiz/:id" element={<Quizes />} />
             <Route path="students" element={<Students />} />
+            <Route path="student_quizes" element={<Quizes />} />
             <Route path="teachers" element={<Teachers />} />
             <Route path="subjects" element={<Subjects />} />
             <Route path="grade_levels" element={<GradeLevels />} />
@@ -91,6 +101,12 @@ function App() {
           <Route path="/admin" element={<AdminHome />}>
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="students" element={<AdminStudent />} />
+            <Route path="teachers" element={<AdminTeacher />} />
+            <Route path="teachers/:id" element={<TeacherProfile />} />
+            <Route path="subjects" element={<AdminSubject />} />
+            <Route path="subjects/:id" element={<SubjectDetails />} />
+            <Route path="grade_levels" element={<AdminGradeLevels />} />
+            <Route path="grade_levels/:id" element={<GradeLevelDetails />} />
           </Route>
         </Routes>
       </BrowserRouter>

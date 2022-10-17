@@ -389,6 +389,41 @@
       "student_id": 2,
       "status": "done",
       "id": 2
+    },
+    {
+      "topic_id": 3,
+      "student_id": 1,
+      "status": "viewed",
+      "id": 3
+    },
+    {
+      "topic_id": 1,
+      "student_id": 1,
+      "status": "viewed",
+      "id": 4
+    },
+    {
+      "topic_id": 7,
+      "student_id": 2,
+      "status": "viewed",
+      "id": 5
+    },
+    {
+      "topic_id": 11,
+      "student_id": 2,
+      "status": "viewed",
+      "id": 6
+    },
+    {
+      "topic_id": 12,
+      "student_id": 2,
+      "status": "viewed",
+      "id": 7
+    },
+    {
+      "student_id": 2,
+      "status": "viewed",
+      "id": 8
     }
   ],
   "student_exams": [],

@@ -1,112 +1,115 @@
 import { useState } from "react";
 import { Button, Form, Modal, Alert } from "react-bootstrap";
 import { BsPlusLg } from "react-icons/bs";
-import AdminStudentTable from "../../../components/AdminStudentTable";
+import AdminSubjectTable from "../../../components/AdminSubjectTable";
 import useAdmin from "../../../context/AdminContextProvider";
 
-function AdminStudent() {
-  const [showAddStudent, setShowAddStudent] = useState(false);
+function AdminSubject() {
+  const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
-    firstname: "",
-    middlename: "",
-    lastname: "",
+    subject_code: "",
+    subject_name: "",
+    subject_description: "",
   });
 
   const { addData, state } = useAdmin();
 
-  // close Modal
-  const handleClose = () => setShowAddStudent(false);
+  const handleClose = () => setShowModal(false);
 
-  // Open Modal
-  const handleShow = () => setShowAddStudent(true);
+  const handleShow = () => setShowModal(true);
 
-  const submitAddStudent = async () => {
-    await addData("students", formData);
+  const submitForm = async () => {
+    await addData("subjects", formData);
 
     // Hide modal
-    setShowAddStudent(false);
+    setShowModal(false);
 
     // Reset FormData Default value
     setFormData({
-      firstname: "",
-      middlename: "",
-      lastname: "",
+      subject_code: "",
+      subject_name: "",
+      subject_description: "",
     });
   };
 
   return (
     <>
-      <div className="d-md-flex justify-content-between align-items-center mt-5">
-        <Button variant="success" onClick={handleShow}>
-          <BsPlusLg /> Add Student
+      <div className="d-md-flex justify-content-between align-items-center mt-5 ">
+        <h4 className="fw-bolder text-primary">Subject List</h4>
+        <Button
+          variant="success"
+          onClick={handleShow}
+          className="d-md-flex justify-content-between align-items-center"
+        >
+          <BsPlusLg />
+          <span className="ms-1 fs-6">New Subject</span>
         </Button>
       </div>
 
-      <AdminStudentTable students={state.students} />
+      <AdminSubjectTable subjects={state.subjects} />
 
-      {!state.students.length ? (
+      {!state.subjects.length ? (
         <Alert variant="danger" className="text-center">
-          No Students Found!
+          No Subject Found!
         </Alert>
       ) : (
         ""
       )}
 
       <Modal
-        show={showAddStudent}
+        show={showModal}
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Add Student Form</Modal.Title>
+          <Modal.Title>Add Subject Form</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form
             onSubmit={(e) => {
               e.preventDefault();
-              submitAddStudent();
+              submitForm();
             }}
           >
             <Form.Group className="mb-3">
-              <Form.Label>First Name</Form.Label>
+              <Form.Label>Subject Code</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter First Name"
+                placeholder="Enter Subject Code"
                 required
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
-                    firstname: e.target.value,
+                    subject_code: e.target.value,
                   }))
                 }
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Middle Name</Form.Label>
+              <Form.Label>Subject Name</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter Middle Name"
-                name="middlename"
+                placeholder="Enter Subject Name"
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
-                    middlename: e.target.value,
+                    subject_name: e.target.value,
                   }))
                 }
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Last Name</Form.Label>
+              <Form.Label>Subject Description</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter Last Name"
-                name="lastname"
+                placeholder="Enter Description"
+                name="subject_description"
                 required
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
-                    lastname: e.target.value,
+                    subject_description: e.target.value,
                   }))
                 }
               />
@@ -115,7 +118,7 @@ function AdminStudent() {
               <Button
                 variant="danger"
                 onClick={handleClose}
-                disabled={state?.loading ? true : false}
+                disabled={state.loading ? true : false}
               >
                 Cancel
               </Button>
@@ -123,9 +126,9 @@ function AdminStudent() {
                 variant="primary"
                 type="submit"
                 className="ms-2"
-                disabled={state?.loading ? true : false}
+                disabled={state.loading ? true : false}
               >
-                Add Student
+                Add Subject
               </Button>
             </div>
           </Form>
@@ -135,4 +138,4 @@ function AdminStudent() {
   );
 }
 
-export default AdminStudent;
+export default AdminSubject;

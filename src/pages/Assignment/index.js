@@ -1,12 +1,11 @@
-import './style.css';
+import "./style.css";
 
-function Assignment() {
-    return ( 
-        <h2>Assignments</h2>
-        
-        
-        
-     );
+function Assignment({ user }) {
+  return (
+    <h1>
+      Hello From Assignment, {user?.firstname} {user?.lastname}
+    </h1>
+  );
 }
 
 export default Assignment;

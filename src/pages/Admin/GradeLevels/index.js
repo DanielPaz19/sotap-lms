@@ -1,112 +1,87 @@
-import { useState } from "react";
-import { Button, Form, Modal, Alert } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import { BsPlusLg } from "react-icons/bs";
-import AdminStudentTable from "../../../components/AdminStudentTable";
+import AdminGradeTable from "../../../components/AdminGradeTable";
+import { useState } from "react";
 import useAdmin from "../../../context/AdminContextProvider";
 
-function AdminStudent() {
-  const [showAddStudent, setShowAddStudent] = useState(false);
+function AdminGradeLevels() {
+  const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
-    firstname: "",
-    middlename: "",
-    lastname: "",
+    grade_level: "",
+    name: "",
   });
 
   const { addData, state } = useAdmin();
 
   // close Modal
-  const handleClose = () => setShowAddStudent(false);
+  const handleClose = () => setShowModal(false);
 
   // Open Modal
-  const handleShow = () => setShowAddStudent(true);
+  const handleShow = () => setShowModal(true);
 
-  const submitAddStudent = async () => {
-    await addData("students", formData);
+  const submitData = async () => {
+    await addData("grade_levels", formData);
 
     // Hide modal
-    setShowAddStudent(false);
+    setShowModal(false);
 
     // Reset FormData Default value
     setFormData({
-      firstname: "",
-      middlename: "",
-      lastname: "",
+      grade_level: "",
+      name: "",
     });
   };
 
   return (
     <>
       <div className="d-md-flex justify-content-between align-items-center mt-5">
+        <h4 className="fw-bolder text-primary">Grade Levels</h4>
         <Button variant="success" onClick={handleShow}>
-          <BsPlusLg /> Add Student
+          <BsPlusLg /> Add Grade Level
         </Button>
       </div>
 
-      <AdminStudentTable students={state.students} />
-
-      {!state.students.length ? (
-        <Alert variant="danger" className="text-center">
-          No Students Found!
-        </Alert>
-      ) : (
-        ""
-      )}
+      <AdminGradeTable />
 
       <Modal
-        show={showAddStudent}
+        show={showModal}
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Add Student Form</Modal.Title>
+          <Modal.Title>Add Grade Level</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form
             onSubmit={(e) => {
               e.preventDefault();
-              submitAddStudent();
+              submitData();
             }}
           >
             <Form.Group className="mb-3">
-              <Form.Label>First Name</Form.Label>
+              <Form.Label>Level</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter First Name"
+                placeholder="Enter Level"
                 required
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
-                    firstname: e.target.value,
+                    level: e.target.value,
                   }))
                 }
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Middle Name</Form.Label>
+              <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter Middle Name"
-                name="middlename"
+                placeholder="Enter Name"
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
-                    middlename: e.target.value,
-                  }))
-                }
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Last Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Last Name"
-                name="lastname"
-                required
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    lastname: e.target.value,
+                    name: e.target.value,
                   }))
                 }
               />
@@ -125,7 +100,7 @@ function AdminStudent() {
                 className="ms-2"
                 disabled={state?.loading ? true : false}
               >
-                Add Student
+                Add Grade Level
               </Button>
             </div>
           </Form>
@@ -135,4 +110,4 @@ function AdminStudent() {
   );
 }
 
-export default AdminStudent;
+export default AdminGradeLevels;
