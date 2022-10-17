@@ -1,0 +1,397 @@
+{
+  "subjects": [
+    {
+      "id": 1,
+      "title": "Filipino",
+      "img_src": "https://i.picsum.photos/id/113/400/400.jpg?hmac=hCg1mc0JZPvlwmU2b7Lu17RjRcBxyHCdgiF1URs9PuE"
+    },
+    {
+      "id": 3,
+      "title": "English",
+      "img_src": "https://i.picsum.photos/id/1073/400/400.jpg?hmac=f6uVVSIVpsisQfVhgtzBmx0u4UN6cyk-9xlcYFUZQx8"
+    },
+    {
+      "id": 4,
+      "title": "Mathematics",
+      "img_src": "https://i.picsum.photos/id/806/400/400.jpg?hmac=VeG2sErI6YRzsbOA4DRntIdRi0UWSuEwv-mhVl-5fH4"
+    },
+    {
+      "id": 5,
+      "title": "Science",
+      "img_src": "https://i.picsum.photos/id/209/400/400.jpg?hmac=IBHpIypp8TujrSksgY-r2LInxWn0aG5JszlY1fYCX1w"
+    },
+    {
+      "id": 6,
+      "title": "Araling Panlipunan",
+      "img_src": "https://i.picsum.photos/id/876/400/400.jpg?hmac=imQToW5wHP779RXmoWeh3eS12TZmqOgaEIUvzezJjvo"
+    },
+    {
+      "id": 7,
+      "title": "Music",
+      "img_src": "https://i.picsum.photos/id/946/400/400.jpg?hmac=OIFhfY6uakvcZHLno1BBpniWThLrbbCdSkmg0Qcr2ow"
+    },
+    {
+      "id": 8,
+      "title": "Arts",
+      "img_src": "https://i.picsum.photos/id/577/400/400.jpg?hmac=K0Xk30Jb9dDeSpkd0fVFulvrmTvK7XrN6ogsmdNYS_I"
+    },
+    {
+      "id": 9,
+      "title": "Physical Education",
+      "img_src": "https://i.picsum.photos/id/133/400/400.jpg?hmac=fqf6pjgv90K_96eKCtqAuhE_nKHguVxewB1fx1euQJs"
+    },
+    {
+      "id": 10,
+      "title": "Health",
+      "img_src": "https://i.picsum.photos/id/473/400/400.jpg?hmac=HWMbh4K_zIcw3MTFZgkZ1cVrggkB4TxpazKEQs3fglU"
+    },
+    {
+      "id": 11,
+      "title": "Mother Tongue",
+      "img_src": "https://i.picsum.photos/id/115/400/400.jpg?hmac=nWHNT5wyI521-uVsjVF2GI0q7l_YCNntQ0_uoSOFUI4"
+    }
+  ],
+  "students": [
+    {
+      "id": 1,
+      "firstname": "Simon",
+      "lastname": "Elorde"
+    },
+    {
+      "id": 2,
+      "firstname": "Jopet",
+      "lastname": "Mejos"
+    },
+    {
+      "id": 3,
+      "firstname": "Danielle",
+      "lastname": "Paz"
+    }
+  ],
+  "student_subjects": [
+    {
+      "id": 1,
+      "student_id": 1,
+      "subjects_id": [
+        1,
+        5,
+        7,
+        4,
+        3
+      ]
+    },
+    {
+      "id": 2,
+      "student_id": 2,
+      "subjects_id": [
+        2,
+        6,
+        8,
+        9,
+        10
+      ]
+    },
+    {
+      "id": 3,
+      "student_id": 3,
+      "subjects_id": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "student1",
+      "password": "123456",
+      "student_id": 1
+    },
+    {
+      "id": 2,
+      "username": "student2",
+      "password": "123456",
+      "student_id": 2
+    },
+    {
+      "id": 3,
+      "username": "student3",
+      "password": "123456",
+      "student_id": 3
+    }
+  ],
+  "topics": [
+    {
+      "id": 1,
+      "title": "Filipino Sample Title 1",
+      "subject_id": 1
+    },
+    {
+      "title": "Filipino Sample Topic 2",
+      "subject_id": "1",
+      "id": 2
+    },
+    {
+      "title": "Filipino Sample Topic 3",
+      "subject_id": "1",
+      "id": 3
+    },
+    {
+      "title": "Filipino Sample Topic 4",
+      "subject_id": "1",
+      "id": 4
+    },
+    {
+      "title": "Aralin Panlipunan Sample Topic 1",
+      "subject_id": "6",
+      "id": 5,
+      "video_url": "https://www.youtube.com/watch?v=cWExc9Y6sLA"
+    },
+    {
+      "title": "Aralin Panlipunan Sample Topic 2",
+      "subject_id": "6",
+      "id": 6
+    },
+    {
+      "title": "Aralin Panlipunan Sample Topic 3",
+      "subject_id": "6",
+      "id": 7
+    },
+    {
+      "title": "Arts Topic 1",
+      "subject_id": "8",
+      "id": 8
+    },
+    {
+      "title": "Arts Topic 2",
+      "subject_id": "8",
+      "id": 9
+    },
+    {
+      "title": "Arts Topic 3",
+      "subject_id": "8",
+      "id": 10
+    },
+    {
+      "title": "Physical Education Topic 1",
+      "subject_id": "9",
+      "id": 11
+    },
+    {
+      "title": "Physical Education Topic 2",
+      "subject_id": "9",
+      "id": 12
+    },
+    {
+      "title": "Physical Education Topic 3",
+      "subject_id": "9",
+      "id": 13
+    },
+    {
+      "title": "Health Topic 1",
+      "subject_id": "10",
+      "id": 14
+    },
+    {
+      "title": "Health Topic 2",
+      "subject_id": "10",
+      "id": 15
+    },
+    {
+      "title": "Health Topic 3",
+      "subject_id": "10",
+      "id": 16
+    }
+  ],
+  "assignments": [
+    {
+      "title": "Health Assignment 1",
+      "subject_id": "10",
+      "id": 1
+    },
+    {
+      "title": "Health Assignment 2",
+      "subject_id": "10",
+      "id": 2
+    },
+    {
+      "title": "Health Assignment 3",
+      "subject_id": "10",
+      "id": 3
+    },
+    {
+      "title": "PE Assignment 1",
+      "subject_id": "9",
+      "id": 4
+    },
+    {
+      "title": "PE Assignment 2",
+      "subject_id": "9",
+      "id": 5
+    },
+    {
+      "title": "PE Assignment 3",
+      "subject_id": "9",
+      "id": 6
+    },
+    {
+      "title": "Arts Assignment 1",
+      "subject_id": "8",
+      "id": 7
+    },
+    {
+      "title": "Arts Assignment 2",
+      "subject_id": "8",
+      "id": 8
+    },
+    {
+      "title": "Arts Assignment 3",
+      "subject_id": "8",
+      "id": 9
+    },
+    {
+      "title": "Arts Assignment 4",
+      "subject_id": "8",
+      "id": 10
+    },
+    {
+      "title": "AP Assignment 1",
+      "subject_id": "6",
+      "id": 11
+    },
+    {
+      "title": "AP Assignment 2",
+      "subject_id": "6",
+      "id": 12
+    }
+  ],
+  "quizes": [
+    {
+      "title": "AP Quiz 1",
+      "subject_id": "6",
+      "id": 1
+    },
+    {
+      "title": "AP Quiz 2",
+      "subject_id": "6",
+      "id": 2
+    },
+    {
+      "title": "Arts Quiz 1",
+      "subject_id": "8",
+      "id": 3
+    },
+    {
+      "title": "Arts Quiz 2",
+      "subject_id": "8",
+      "id": 4
+    },
+    {
+      "title": "Arts Quiz 3",
+      "subject_id": "8",
+      "id": 5
+    },
+    {
+      "title": "Physical Education Quiz 1",
+      "subject_id": "9",
+      "id": 6
+    },
+    {
+      "title": "Physical Education Quiz 2",
+      "subject_id": "9",
+      "id": 7
+    },
+    {
+      "title": "Health Quiz 1",
+      "subject_id": "10",
+      "id": 8
+    },
+    {
+      "title": "Health Quiz 2",
+      "subject_id": "10",
+      "id": 9
+    },
+    {
+      "title": "Health Quiz 3",
+      "subject_id": "10",
+      "id": 10
+    }
+  ],
+  "exams": [
+    {
+      "title": "AP Exam 1",
+      "subject_id": "6",
+      "id": 1
+    },
+    {
+      "title": "AP Exam 2",
+      "subject_id": "6",
+      "id": 2
+    },
+    {
+      "title": "AP Exam 3",
+      "subject_id": "6",
+      "id": 3
+    },
+    {
+      "title": "AP Exam 4",
+      "subject_id": "6",
+      "id": 4
+    },
+    {
+      "title": "Arts Exam 1",
+      "subject_id": "8",
+      "id": 5
+    },
+    {
+      "title": "Arts Exam 2",
+      "subject_id": "8",
+      "id": 6
+    },
+    {
+      "title": "Physical Education Exam 1",
+      "subject_id": "9",
+      "id": 7
+    },
+    {
+      "title": "Physical Education Exam 2",
+      "subject_id": "9",
+      "id": 8
+    },
+    {
+      "title": "Health Exam 1",
+      "subject_id": "10",
+      "id": 9
+    },
+    {
+      "title": "Health Exam 2",
+      "subject_id": "10",
+      "id": 10
+    }
+  ],
+  "student_topics": [
+    {
+      "topic_id": 5,
+      "student_id": 2,
+      "status": "done",
+      "id": 1
+    },
+    {
+      "topic_id": 6,
+      "student_id": 2,
+      "status": "done",
+      "id": 2
+    }
+  ],
+  "student_exams": [],
+  "student_quizes": [],
+  "student_assignments": []
+}
