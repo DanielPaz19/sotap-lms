@@ -13,10 +13,6 @@ function GradeLevelDetails() {
     (grade) => grade.id === Number(id)
   );
 
-  console.log(
-    grade_level?.subject_teachers.map((subteach) => subteach.subject.id)
-  );
-
   const [error, setError] = useState(false);
   const [showAddStudentModal, setShowAddStudentModal] = useState(false);
   const [showAddSubjectModal, setShowAddSubjectModal] = useState(false);
