@@ -1,7 +1,14 @@
 import { Table } from "react-bootstrap";
 import { BsFillTrashFill } from "react-icons/bs";
+import useAdmin from "../../context/AdminContextProvider";
 
-function AdminSubjectTeacherTable({ subject_teachers }) {
+function AdminSubjectTeacherTable({ subject_teachers, grade_id }) {
+  const { removeSubjectToGrade } = useAdmin();
+
+  const handleDelete = async (id) => {
+    await removeSubjectToGrade({ grade_id, subject_teacher_id: id });
+  };
+
   return (
     <>
       <Table striped bordered hover size="sm" className=" mt-3 bg-white">
@@ -16,7 +23,7 @@ function AdminSubjectTeacherTable({ subject_teachers }) {
         </thead>
         <tbody>
           {subject_teachers?.map((item) => (
-            <tr>
+            <tr key={item.id}>
               <td className="text-center">
                 {String(item.subject?.id).padStart(4, 0)}
               </td>
@@ -26,7 +33,10 @@ function AdminSubjectTeacherTable({ subject_teachers }) {
                 {item.teacher?.firstname} {item.teacher?.lastname}
               </td>
               <td className="fs-5  text-center">
-                <span className="hover text-danger">
+                <span
+                  className="hover text-danger"
+                  onClick={() => handleDelete(item.id)}
+                >
                   <BsFillTrashFill />
                 </span>
               </td>

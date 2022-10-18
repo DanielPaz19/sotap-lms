@@ -121,6 +121,7 @@ function GradeLevelDetails() {
           </Button>
           <AdminSubjectTeacherTable
             subject_teachers={grade_level?.subject_teachers}
+            grade_id={id}
           />
         </Tab>
       </Tabs>
