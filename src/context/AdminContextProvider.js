@@ -83,7 +83,6 @@ export function AdminContextProvider({ children }) {
   };
 
   const removeStudentFromGradeLevel = async (data) => {
-    console.log(data);
     dispatch({ type: "REQUESTED" });
     await fetch(`${API_URL}/grade_levels/remove_students`, {
       method: "POST",
