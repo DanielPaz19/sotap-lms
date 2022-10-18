@@ -10950,4 +10950,12 @@ code {
 
 .hover {
   cursor: pointer;
+}
+
+tbody {
+  font-size: 0.875rem;
+}
+
+table {
+  background-color: white;
 }/*# sourceMappingURL=main.css.map */

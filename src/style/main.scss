@@ -37,3 +37,11 @@ code {
 .hover {
   cursor: pointer;
 }
+
+tbody {
+  font-size: $font-size-sm;
+}
+
+table {
+  background-color: white;
+}
