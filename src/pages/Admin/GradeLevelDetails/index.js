@@ -8,7 +8,7 @@ import useAdmin from "../../../context/AdminContextProvider";
 
 function GradeLevelDetails() {
   const { id } = useParams();
-  const { state, addStudentToGrade } = useAdmin();
+  const { state, addStudentToGrade, addSubjectToGrade } = useAdmin();
   const [grade_level] = state?.grade_levels.filter(
     (grade) => grade.id === Number(id)
   );
@@ -20,8 +20,11 @@ function GradeLevelDetails() {
     grade_id: id,
     student_id: [],
   });
-
-  const [subjectId, setSubjectId] = useState();
+  const [formSubjectTeacher, setFormSubjectTeacher] = useState({
+    grade_id: id,
+    subject_id: "",
+    teacher_id: "",
+  });
 
   // close Modal
   const handleClose = () => {
@@ -47,6 +50,27 @@ function GradeLevelDetails() {
       grade_id: id,
       student_id: [],
     });
+  };
+
+  const handleSubmitSubjectTeacher = async () => {
+    const [subject_teacher] = state.subject_teacher
+      .map((item) => ({
+        id: item.id,
+        subject_id: item.subject.id,
+        teacher_id: item.teacher.id,
+      }))
+      .filter(
+        (item) =>
+          item.subject_id === Number(formSubjectTeacher.subject_id) &&
+          item.teacher_id === Number(formSubjectTeacher.teacher_id)
+      );
+
+    await addSubjectToGrade({
+      grade_id: id,
+      subject_teacher_id: subject_teacher.id,
+    });
+
+    handleClose();
   };
 
   const handleCheckBox = (e) => {
@@ -168,7 +192,7 @@ function GradeLevelDetails() {
           <Form
             onSubmit={(e) => {
               e.preventDefault();
-              submitData();
+              handleSubmitSubjectTeacher();
             }}
           >
             <FloatingLabel
@@ -177,13 +201,18 @@ function GradeLevelDetails() {
               className="mb-3"
             >
               <Form.Select
+                required
                 aria-label="Floating label select example"
-                defaultValue="0"
-                onChange={(e) => setSubjectId(e.target.value)}
+                defaultValue=""
+                onChange={(e) =>
+                  setFormSubjectTeacher((prev) => ({
+                    ...prev,
+                    subject_id: e.target.value,
+                    teacher_id: "",
+                  }))
+                }
               >
-                <option value="0" disabled>
-                  Select Subject
-                </option>
+                <option value="">Select Subject</option>
                 {state?.subjects.map((subject) => (
                   <option key={subject.id} value={subject.id}>
                     {subject.subject_name}
@@ -193,23 +222,29 @@ function GradeLevelDetails() {
             </FloatingLabel>
 
             <FloatingLabel
+              required
               controlId="floatingSelect"
               label="Teacher"
               className="mb-3"
             >
               <Form.Select
+                required
                 aria-label="Floating label select example"
-                defaultValue="0"
+                value={formSubjectTeacher.teacher_id}
+                onChange={(e) =>
+                  setFormSubjectTeacher((prev) => ({
+                    ...prev,
+                    teacher_id: e.target.value,
+                  }))
+                }
               >
-                <option value="0" disabled>
-                  Select Teacher
-                </option>
+                <option value="">Select Teacher</option>
 
                 {state?.teachers
                   .filter((teacher) =>
                     teacher.subjects
                       .map((subject) => subject.id)
-                      .includes(Number(subjectId))
+                      .includes(Number(formSubjectTeacher.subject_id))
                   )
                   .map((teacher) => (
                     <option key={teacher.id} value={teacher.id}>
