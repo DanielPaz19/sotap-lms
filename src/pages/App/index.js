@@ -10,7 +10,6 @@ import Dashboard from "../Dashboard";
 import Assignment from "../Assignment";
 import Events from "../Events";
 import GradeLevels from "../GradeLevels";
-import Assignment from "../Assignment";
 import Home from "../Home";
 import Login from "../Login";
 import Modules from "../Modules";
@@ -81,7 +80,10 @@ function App() {
             />
             <Route path="/" element={<Dashboard user={user} />} />
             <Route path="dashboard" element={<Dashboard user={user} />} />
-            <Route path="student_assignments" element={<Assignment user={user} />} />
+            <Route
+              path="student_assignments"
+              element={<Assignment user={user} />}
+            />
             <Route path="student_quizes" element={<Quizes user={user} />} />
             <Route path="modules" element={<Dashboard user={user} />} />
             <Route path="modules/:id" element={<Modules user={user} />} />
