@@ -5,6 +5,17 @@ $accordion-icon-active-color: $light;
 $accordion-button-active-color: $light;
 $accordion-button-active-bg: $primary;
 
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+
+// Create your own map
+$custom-font-size: (
+  7: $font-size-sm,
+);
+
+// Merge the maps
+$font-sizes: map-merge($font-sizes, $custom-font-size);
+
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,500;0,600;0,700;0,900;1,300;1,400;1,500;1,600&display=swap");
