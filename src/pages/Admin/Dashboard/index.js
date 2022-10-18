@@ -1,5 +1,36 @@
+import { Col, Container, Row } from "react-bootstrap";
+import CountUp from "react-countup";
+import useAdmin from "../../../context/AdminContextProvider";
+
+function DataCounter({ data, title }) {
+  return (
+    <Col md={3} className="mb-4">
+      <div className="text-center">
+        <CountUp end={data} duration={0.75} className="display-3" /> <br />
+        <span>{title}</span>
+      </div>
+    </Col>
+  );
+}
+
 function AdminDashboard() {
-  return <h1>Admin Dashboad</h1>;
+  const { state } = useAdmin();
+  return (
+    <>
+      <Container>
+        <Row>
+          <DataCounter data={state.students.length} title="Students" />
+          <DataCounter data={state.teachers.length} title="Teachers" />
+          <DataCounter data={state.subjects.length} title="Subjects" />
+          <DataCounter data={state.grade_levels.length} title="Grade Levels" />
+          <Col md={3}></Col>
+          <DataCounter data={10} title="Registered Teachers" />
+          <DataCounter data={10} title="Registered Students" />
+          <Col md={3}></Col>
+        </Row>
+      </Container>
+    </>
+  );
 }
 
 export default AdminDashboard;
