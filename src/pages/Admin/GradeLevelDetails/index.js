@@ -13,6 +13,10 @@ function GradeLevelDetails() {
     (grade) => grade.id === Number(id)
   );
 
+  console.log(
+    grade_level?.subject_teachers.map((subteach) => subteach.subject.id)
+  );
+
   const [error, setError] = useState(false);
   const [showAddStudentModal, setShowAddStudentModal] = useState(false);
   const [showAddSubjectModal, setShowAddSubjectModal] = useState(false);
@@ -213,11 +217,18 @@ function GradeLevelDetails() {
                 }
               >
                 <option value="">Select Subject</option>
-                {state?.subjects.map((subject) => (
-                  <option key={subject.id} value={subject.id}>
-                    {subject.subject_name}
-                  </option>
-                ))}
+                {state?.subjects
+                  .filter(
+                    (subject) =>
+                      !grade_level?.subject_teachers
+                        .map((subteach) => subteach.subject.id)
+                        .includes(subject.id)
+                  )
+                  .map((subject) => (
+                    <option key={subject.id} value={subject.id}>
+                      {subject.subject_name}
+                    </option>
+                  ))}
               </Form.Select>
             </FloatingLabel>
 
