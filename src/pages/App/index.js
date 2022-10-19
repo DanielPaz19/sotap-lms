@@ -25,6 +25,7 @@ import AdminGradeLevels from "../Admin/GradeLevels";
 import TeacherProfile from "../Admin/TeacherProfile";
 import SubjectDetails from "../Admin/SubjectDetails";
 import GradeLevelDetails from "../Admin/GradeLevelDetails";
+import Registration from "../Registration";
 
 function App() {
   const [user, setUser] = useState({
@@ -97,7 +98,9 @@ function App() {
             <Route path="books" element={<Books />} />
             <Route path="events" element={<Events />} />
           </Route>
-          <Route path="login" element={<Login onSubmit={handleSubmit} />} />
+
+          <Route path="/login" element={<Login onSubmit={handleSubmit} />} />
+          <Route path="/registration" element={<Registration />} />
 
           <Route path="admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminHome />}>
