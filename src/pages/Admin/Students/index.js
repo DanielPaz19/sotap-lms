@@ -37,6 +37,7 @@ function AdminStudent() {
   return (
     <>
       <div className="d-md-flex justify-content-between align-items-center mt-5">
+        <h4 className="text-primary fw-bolder">Student List</h4>
         <Button variant="success" onClick={handleShow}>
           <BsPlusLg /> Add Student
         </Button>
