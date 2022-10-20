@@ -2,6 +2,7 @@ import logo from "../../img/company-logo.png";
 import "./style.css";
 import { FaUser, FaKey } from "react-icons/fa";
 import { useState } from "react";
+import { Link, Outlet } from "react-router-dom";
 
 export default function Login({ onSubmit }) {
   const [formData, setFormData] = useState(null);
@@ -18,7 +19,7 @@ export default function Login({ onSubmit }) {
               </h1>
             </div>
           </div>
-          <div className="col-md-5 col-12 position-relative">
+          {/* <div className="col-md-5 col-12 position-relative">
             <div className="login mx-auto position-absolute top-50 start-50 translate-middle">
               <div className="text-center">
                 <h2 className="loginTxt">Login</h2>
@@ -35,7 +36,7 @@ export default function Login({ onSubmit }) {
                         <FaUser />
                       </span>
                       <input
-                        autoComplete="false"
+                        autoComplete="off"
                         type="text"
                         placeholder="User ID"
                         name="uname"
@@ -65,13 +66,13 @@ export default function Login({ onSubmit }) {
                     <button className="loginBtn btn" type="submit">
                       Login
                     </button>
+                    <Link to="/registration">Register</Link>
                   </div>
-                  {/* <input type="text" class="my-1" placeholder="User ID">
-              <input type="text" class="my-1" placeholder="Password">  */}
                 </form>
               </div>
             </div>
-          </div>
+          </div> */}
+          <Outlet />
         </div>
       </div>
     </div>
