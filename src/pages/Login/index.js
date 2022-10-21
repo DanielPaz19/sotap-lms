@@ -1,12 +1,8 @@
 import logo from "../../img/company-logo.png";
 import "./style.css";
-import { FaUser, FaKey } from "react-icons/fa";
-import { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 export default function Login({ onSubmit }) {
-  const [formData, setFormData] = useState(null);
-
   return (
     <div id="loginBackground">
       <div className="container p-0">
