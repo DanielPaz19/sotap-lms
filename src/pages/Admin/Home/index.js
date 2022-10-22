@@ -25,7 +25,7 @@ function AdminHome() {
     setNavOpen(!navOpen);
   };
 
-  const user =  useLogInStatus();
+  const user = useLogInStatus();
 
   if (loggedOut) return <Navigate to="/admin/login" />;
 
@@ -41,6 +41,7 @@ function AdminHome() {
           className={`${navOpen ? "active" : ""} bg-primary admin--sidebar `}
         >
           <Nav activeKey="#" className="flex-column mt-5">
+            <div>Image Sample</div>
             <Nav.Item>
               <Link to="/admin">
                 <Nav.Link as="li" className="link-light">
