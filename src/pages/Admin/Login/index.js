@@ -7,7 +7,7 @@ import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import useLogInStatus from "../../../customHooks/useLoginStatus";
-import { ADMIN_USER } from "../../../config";
+import { ADMIN_USER, API_URL } from "../../../config";
 
 function AdminLogin() {
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -24,13 +24,13 @@ function AdminLogin() {
 
   const submit = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/login", {
+      const response = await fetch(API_URL + "/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
         body: JSON.stringify(formData),
+        credentials: "include",
       });
 
       const status = response.status;

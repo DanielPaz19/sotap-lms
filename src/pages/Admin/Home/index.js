@@ -1,6 +1,6 @@
 import { Link, Navigate, Outlet } from "react-router-dom";
 import useLogInStatus from "../../../customHooks/useLoginStatus";
-import { ADMIN_USER } from "../../../config";
+import { ADMIN_USER, API_URL } from "../../../config";
 import { useState } from "react";
 import { Button, Container, Nav } from "react-bootstrap";
 import "./style.css";
@@ -13,7 +13,7 @@ function AdminHome() {
   const [loggedOut, setLoggedOut] = useState(false);
 
   const logout = async () => {
-    await fetch("http://localhost:8000/api/logout", {
+    await fetch(API_URL + "/logout", {
       method: "POST",
       credentials: "include",
     });
@@ -25,7 +25,7 @@ function AdminHome() {
     setNavOpen(!navOpen);
   };
 
-  const user = useLogInStatus();
+  const user =  useLogInStatus();
 
   if (loggedOut) return <Navigate to="/admin/login" />;
 
