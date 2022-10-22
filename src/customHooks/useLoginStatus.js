@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_URL } from "../config";
 
 function useLogInStatus() {
   const [user, setUser] = useState(null);
@@ -7,7 +8,7 @@ function useLogInStatus() {
   useEffect(() => {
     (async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/user", {
+        const response = await fetch(API_URL + "/user", {
           credentials: "include",
         });
 
