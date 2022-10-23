@@ -50,12 +50,16 @@ function App() {
         `http://localhost:3500/users?username=${username}&password=${password}`
       );
 
+      // get data
       const data = await response.json();
 
+      // exit if no data
       if (data === "") return;
 
+      // get student_id
       const student_id = data[0].student_id;
 
+      // store student_id to local storage
       localStorage.setItem("student_id", student_id);
 
       return student_id;
@@ -105,10 +109,7 @@ function App() {
               path="/login"
               element={<LoginForm onSubmit={handleSubmit} />}
             />
-            <Route
-              path="/login/registration"
-              element={<RegistrationForm onSubmit={handleSubmit} />}
-            />
+            <Route path="/login/registration" element={<RegistrationForm />} />
           </Route>
 
           <Route path="admin/login" element={<AdminLogin />} />
