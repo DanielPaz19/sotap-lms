@@ -20,13 +20,13 @@ export function UserContextProvider({ children }) {
       credentials: "include",
     });
 
-    const data = await res.json();
+    const { data } = await res.json();
 
-    console.log(data);
+    console.log(data[0]);
 
     dispatch({
       type: "UPDATE_DATA",
-      payload: { value: data },
+      payload: data[0],
     });
   };
 

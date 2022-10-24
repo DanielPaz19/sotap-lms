@@ -1,5 +1,4 @@
 export const initialState = {
-  id: null,
   loading: false,
   error: "",
 };
@@ -15,9 +14,10 @@ const userReducer = (state, action) => {
       };
 
     case "UPDATE_DATA":
+      console.log(payload);
       return {
         ...state,
-        ...payload.value,
+        ...payload,
         loading: false,
       };
 
