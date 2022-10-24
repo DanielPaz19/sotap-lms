@@ -14,7 +14,6 @@ const userReducer = (state, action) => {
       };
 
     case "UPDATE_DATA":
-      console.log(payload);
       return {
         ...state,
         ...payload,

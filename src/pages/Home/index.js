@@ -1,9 +1,10 @@
 import "./style.css";
 import Nav from "../../components/Nav";
 import Header from "../../components/Header";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { STUDENT_USER } from "../../config";
+import useUser from "../../context/UserContextProvider";
 
 function Home({ user }) {
   const [open, setOpen] = useState(false);
@@ -13,15 +14,15 @@ function Home({ user }) {
     if (window.screen.width > 600) setOpen(true);
   }, []);
 
-  useEffect(() => {
-    const checkLogin = () => {
-      return localStorage.getItem("student_id");
-    };
+  // useEffect(() => {
+  //   const checkLogin = () => {
+  //     return localStorage.getItem("student_id");
+  //   };
 
-    checkLogin()
-      ? console.log("Welcome to SOTAP LMS")
-      : (window.location.pathname = "/login");
-  }, []);
+  //   checkLogin()
+  //     ? console.log("Welcome to SOTAP LMS")
+  //     : (window.location.pathname = "/login");
+  // }, []);
 
   const toggleNav = (e) => {
     if (e.target.closest(".btnToggleNav")) return setOpen(!open);
@@ -30,6 +31,10 @@ function Home({ user }) {
   const closeNav = () => {
     if (window.screen.width < 600) setOpen(false);
   };
+
+  const { state } = useUser();
+
+  if (!state?.user_id) return <Navigate to="/login" />;
 
   return (
     <>

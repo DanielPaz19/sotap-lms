@@ -7,10 +7,13 @@ import "./style.css";
 import { FiMenu } from "react-icons/fi";
 import { IoExitOutline } from "react-icons/io5";
 import { AdminContextProvider } from "../../../context/AdminContextProvider";
+import useUser from "../../../context/UserContextProvider";
 
 function AdminHome() {
   const [navOpen, setNavOpen] = useState(true);
   const [loggedOut, setLoggedOut] = useState(false);
+
+  const { state } = useUser();
 
   const logout = async () => {
     await fetch(API_URL + "/logout", {
@@ -25,13 +28,13 @@ function AdminHome() {
     setNavOpen(!navOpen);
   };
 
-  const user =  useLogInStatus();
+  const user = useLogInStatus();
 
   if (loggedOut) return <Navigate to="/admin/login" />;
 
-  if (!user) return <h1>Loading...</h1>;
+  if (!state?.user_id) return <h1>Loading...</h1>;
 
-  if (!user.id || user.role > ADMIN_USER)
+  if (!state?.user_id || state?.role > ADMIN_USER)
     return <Navigate to="/admin/login?error=unauthorized" />;
 
   return (

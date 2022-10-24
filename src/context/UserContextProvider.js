@@ -30,8 +30,23 @@ export function UserContextProvider({ children }) {
     });
   };
 
+  const login = async (formData) => {
+    dispatch({ type: "REQUESTED" });
+    await fetch(API_URL + "/login", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    await updateUser();
+  };
+
   const value = {
     state,
+    login,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

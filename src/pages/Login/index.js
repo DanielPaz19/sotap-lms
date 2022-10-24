@@ -1,8 +1,13 @@
 import logo from "../../img/company-logo.png";
 import "./style.css";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
+import useUser from "../../context/UserContextProvider";
 
 export default function Login({ onSubmit }) {
+  const { state } = useUser();
+
+  if (state?.user_id) return <Navigate to="/" />;
+
   return (
     <div id="loginBackground">
       <div className="container p-0">

@@ -8,18 +8,26 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import useLogInStatus from "../../../customHooks/useLoginStatus";
 import { ADMIN_USER, API_URL } from "../../../config";
+import useUser from "../../../context/UserContextProvider";
 
 function AdminLogin() {
-  const [formData, setFormData] = useState({ username: "", password: "" });
-  const [auth, setAuth] = useState(false);
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+    role: 3,
+  });
 
+  const { state } = useUser();
+
+  const [auth, setAuth] = useState(false);
   const [error, setError] = useState(false);
 
   // Check if user is already logged in
-  const user = useLogInStatus();
 
-  if (user?.id) {
-    if (user?.role === ADMIN_USER) return <Navigate to="/admin" />;
+  console.log(state);
+
+  if (state?.user_id) {
+    if (state?.role === ADMIN_USER) return <Navigate to="/admin" />;
   }
 
   const submit = async () => {

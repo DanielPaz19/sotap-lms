@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { useState } from "react";
 import { Button, FloatingLabel, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import useUser from "../../context/UserContextProvider";
 
 function LoginForm({ onSubmit }) {
   const [formData, setFormData] = useState({
@@ -10,11 +11,17 @@ function LoginForm({ onSubmit }) {
     password: "",
   });
 
+  const { login } = useUser();
+
   // Set focus on input Select
   const inputSelect = useRef();
   useEffect(() => {
     inputSelect.current.focus();
   }, []);
+
+  const handleSubmit = async () => {
+    await login(formData);
+  };
 
   return (
     <div className="col-md-5 col-12 position-relative">
@@ -25,7 +32,7 @@ function LoginForm({ onSubmit }) {
             action=""
             onSubmit={(e) => {
               e.preventDefault();
-              onSubmit(formData);
+              handleSubmit();
             }}
           >
             <div className="container pb-5">
