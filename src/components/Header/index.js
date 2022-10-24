@@ -3,21 +3,25 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { ImExit } from "react-icons/im";
 import { useState } from "react";
 import { Collapse } from "react-bootstrap";
+import { ADMIN_USER, STUDENT_USER, TEACHER_USER } from "../../config";
+import useUser from "../../context/UserContextProvider";
 
 function Header({ title, user_type, toggleNav, user }) {
   const [dropDownIsOpen, setDropDownIsOpen] = useState(false);
+
+  const { state, logout } = useUser();
 
   const toggleDropDown = () => {
     setDropDownIsOpen(!dropDownIsOpen);
   };
 
-  const setUserType = () => {
+  const setUserType = (user_type) => {
     switch (user_type) {
-      case 1:
+      case ADMIN_USER:
         return "Admin";
-      case 2:
+      case TEACHER_USER:
         return "Teacher";
-      case 3:
+      case STUDENT_USER:
         return "Student";
 
       default:
@@ -25,11 +29,8 @@ function Header({ title, user_type, toggleNav, user }) {
     }
   };
 
-  const logoutUser = () => {
-    // Destroy LocalStorage ID
-    localStorage.clear();
-    // Route to Login
-    window.location.pathname = "/login";
+  const logoutUser = async () => {
+    await logout();
   };
 
   return (
@@ -50,9 +51,9 @@ function Header({ title, user_type, toggleNav, user }) {
         />
         <div className="me-3 d-none d-md-block">
           <p className="fs-6 fw-bold text-primary my-0 user-name">
-            {user.firstname} {user.lastname}
+            {state?.firstname} {state?.lastname}
           </p>
-          <p className="user-role my-0">{setUserType()}</p>
+          <p className="user-role my-0">{setUserType(state?.user.role)}</p>
         </div>
         <div className="me-3 user-dropdown " onClick={toggleDropDown}>
           <i className="bi bi-chevron-down fs-5"></i>
@@ -65,7 +66,7 @@ function Header({ title, user_type, toggleNav, user }) {
           id="accountDropDown"
         >
           <div className="text-center fw-bold text-primary mt-1  d-block d-md-none">
-            {user.firstname} {user.lastname}
+            {state?.firstname} {state?.lastname}
             <hr />
           </div>
           <div className="pb-3 pt-md-3 fs-6 text-center" onClick={logoutUser}>
