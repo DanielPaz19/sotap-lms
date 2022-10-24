@@ -8,6 +8,7 @@ import { STUDENT_USER } from "../../config";
 function Home({ user }) {
   const [open, setOpen] = useState(false);
 
+  // Auto open nav
   useEffect(() => {
     if (window.screen.width > 600) setOpen(true);
   }, []);

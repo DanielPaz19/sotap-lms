@@ -27,6 +27,7 @@ import SubjectDetails from "../Admin/SubjectDetails";
 import GradeLevelDetails from "../Admin/GradeLevelDetails";
 import LoginForm from "../../components/LoginForm";
 import RegistrationForm from "../../components/RegistrationForm";
+import { UserContextProvider } from "../../context/UserContextProvider";
 
 function App() {
   const [user, setUser] = useState({
@@ -78,52 +79,59 @@ function App() {
     <>
       <BrowserRouter>
         <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Home user={user} />}>
-            <Route
-              path="student_assignments"
-              element={<Assignment user={user} />}
-            />
-            <Route path="/" element={<Dashboard user={user} />} />
-            <Route path="dashboard" element={<Dashboard user={user} />} />
-            <Route
-              path="student_assignments"
-              element={<Assignment user={user} />}
-            />
-            <Route path="student_quizes" element={<Quizes user={user} />} />
-            <Route path="modules" element={<Dashboard user={user} />} />
-            <Route path="modules/:id" element={<Modules user={user} />} />
-            <Route path="modules/topic/:id" element={<Topics user={user} />} />
-            <Route path="modules/quiz/:id" element={<Quizes />} />
-            <Route path="students" element={<Students />} />
-            <Route path="student_quizes" element={<Quizes />} />
-            <Route path="teachers" element={<Teachers />} />
-            <Route path="subjects" element={<Subjects />} />
-            <Route path="grade_levels" element={<GradeLevels />} />
-            <Route path="books" element={<Books />} />
-            <Route path="events" element={<Events />} />
-          </Route>
+        <UserContextProvider>
+          <Routes>
+            <Route path="/" element={<Home user={user} />}>
+              <Route
+                path="student_assignments"
+                element={<Assignment user={user} />}
+              />
+              <Route path="/" element={<Dashboard user={user} />} />
+              <Route path="dashboard" element={<Dashboard user={user} />} />
+              <Route
+                path="student_assignments"
+                element={<Assignment user={user} />}
+              />
+              <Route path="student_quizes" element={<Quizes user={user} />} />
+              <Route path="modules" element={<Dashboard user={user} />} />
+              <Route path="modules/:id" element={<Modules user={user} />} />
+              <Route
+                path="modules/topic/:id"
+                element={<Topics user={user} />}
+              />
+              <Route path="modules/quiz/:id" element={<Quizes />} />
+              <Route path="students" element={<Students />} />
+              <Route path="student_quizes" element={<Quizes />} />
+              <Route path="teachers" element={<Teachers />} />
+              <Route path="subjects" element={<Subjects />} />
+              <Route path="grade_levels" element={<GradeLevels />} />
+              <Route path="books" element={<Books />} />
+              <Route path="events" element={<Events />} />
+            </Route>
+            <Route path="/login" element={<Login onSubmit={handleSubmit} />}>
+              <Route
+                path="/login"
+                element={<LoginForm onSubmit={handleSubmit} />}
+              />
+              <Route
+                path="/login/registration"
+                element={<RegistrationForm />}
+              />
+            </Route>
 
-          <Route path="/login" element={<Login onSubmit={handleSubmit} />}>
-            <Route
-              path="/login"
-              element={<LoginForm onSubmit={handleSubmit} />}
-            />
-            <Route path="/login/registration" element={<RegistrationForm />} />
-          </Route>
-
-          <Route path="admin/login" element={<AdminLogin />} />
-          <Route path="/admin" element={<AdminHome />}>
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="students" element={<AdminStudent />} />
-            <Route path="teachers" element={<AdminTeacher />} />
-            <Route path="teachers/:id" element={<TeacherProfile />} />
-            <Route path="subjects" element={<AdminSubject />} />
-            <Route path="subjects/:id" element={<SubjectDetails />} />
-            <Route path="grade_levels" element={<AdminGradeLevels />} />
-            <Route path="grade_levels/:id" element={<GradeLevelDetails />} />
-          </Route>
-        </Routes>
+            <Route path="admin/login" element={<AdminLogin />} />
+            <Route path="/admin" element={<AdminHome />}>
+              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="students" element={<AdminStudent />} />
+              <Route path="teachers" element={<AdminTeacher />} />
+              <Route path="teachers/:id" element={<TeacherProfile />} />
+              <Route path="subjects" element={<AdminSubject />} />
+              <Route path="subjects/:id" element={<SubjectDetails />} />
+              <Route path="grade_levels" element={<AdminGradeLevels />} />
+              <Route path="grade_levels/:id" element={<GradeLevelDetails />} />
+            </Route>
+          </Routes>
+        </UserContextProvider>
       </BrowserRouter>
     </>
   );
