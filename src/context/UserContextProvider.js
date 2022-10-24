@@ -44,9 +44,19 @@ export function UserContextProvider({ children }) {
     await updateUser();
   };
 
+  const logout = async () => {
+    await fetch(API_URL + "/logout", {
+      method: "POST",
+      credentials: "include",
+    });
+
+    dispatch({ type: "RESET_STATE", payload: initialState });
+  };
+
   const value = {
     state,
     login,
+    logout,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

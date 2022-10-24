@@ -14,10 +14,10 @@ function AdminLogin() {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
-    role: 3,
+    role: 1,
   });
 
-  const { state } = useUser();
+  const { state, login } = useUser();
 
   const [auth, setAuth] = useState(false);
   const [error, setError] = useState(false);
@@ -30,25 +30,8 @@ function AdminLogin() {
     if (state?.role === ADMIN_USER) return <Navigate to="/admin" />;
   }
 
-  const submit = async () => {
-    try {
-      const response = await fetch(API_URL + "/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-        credentials: "include",
-      });
-
-      const status = response.status;
-
-      if (status === 200) return setAuth(true);
-
-      return setError(true);
-    } catch (err) {
-      console.log(err);
-    }
+  const handleSubmit = async () => {
+    await login(formData);
   };
 
   if (auth) return <Navigate to="/admin" />;
@@ -58,35 +41,45 @@ function AdminLogin() {
       <Row>
         <Col md={3}></Col>
         <Col md={6}>
-          <FloatingLabel
-            controlId="floatingInput"
-            label="Username"
-            className="mb-3"
+          <Form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSubmit();
+            }}
           >
-            <Form.Control
-              type="text"
-              placeholder="Username"
-              onChange={(e) => {
-                setError(false);
-                setFormData((prev) => ({ ...prev, username: e.target.value }));
-              }}
-            />
-          </FloatingLabel>
-          <FloatingLabel controlId="floatingPassword" label="Password">
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              onChange={(e) =>
-                setFormData((prev) => ({
-                  ...prev,
-                  password: e.target.value,
-                }))
-              }
-            />
-          </FloatingLabel>
-          <Button variant="primary w-100 mt-3" size="lg" onClick={submit}>
-            Login
-          </Button>
+            <FloatingLabel
+              controlId="floatingInput"
+              label="Username"
+              className="mb-3"
+            >
+              <Form.Control
+                type="text"
+                placeholder="Username"
+                onChange={(e) => {
+                  setError(false);
+                  setFormData((prev) => ({
+                    ...prev,
+                    username: e.target.value,
+                  }));
+                }}
+              />
+            </FloatingLabel>
+            <FloatingLabel controlId="floatingPassword" label="Password">
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    password: e.target.value,
+                  }))
+                }
+              />
+            </FloatingLabel>
+            <Button variant="primary w-100 mt-3" size="lg" type="submit">
+              Login
+            </Button>
+          </Form>
         </Col>
         <Col md={3}></Col>
       </Row>

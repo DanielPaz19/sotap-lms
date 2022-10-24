@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "../../customHooks/scrollToTop";
 import AdminHome from "../Admin/Home";
@@ -30,21 +30,6 @@ import RegistrationForm from "../../components/RegistrationForm";
 import { UserContextProvider } from "../../context/UserContextProvider";
 
 function App() {
-  const [user, setUser] = useState({
-    id: null,
-    firstname: "",
-    lastname: "",
-  });
-
-  useEffect(() => {
-    const id = localStorage.getItem("student_id");
-
-    fetch(`http://localhost:3500/students?id=${id}`)
-      .then((res) => res.json())
-      .then((data) => setUser(data[0]))
-      .catch((err) => console.log(err));
-  }, []);
-
   const checkUser = async ({ username, password }) => {
     try {
       const response = await fetch(
@@ -81,24 +66,15 @@ function App() {
         <ScrollToTop />
         <UserContextProvider>
           <Routes>
-            <Route path="/" element={<Home user={user} />}>
-              <Route
-                path="student_assignments"
-                element={<Assignment user={user} />}
-              />
-              <Route path="/" element={<Dashboard user={user} />} />
-              <Route path="dashboard" element={<Dashboard user={user} />} />
-              <Route
-                path="student_assignments"
-                element={<Assignment user={user} />}
-              />
-              <Route path="student_quizes" element={<Quizes user={user} />} />
-              <Route path="modules" element={<Dashboard user={user} />} />
-              <Route path="modules/:id" element={<Modules user={user} />} />
-              <Route
-                path="modules/topic/:id"
-                element={<Topics user={user} />}
-              />
+            <Route path="/" element={<Home />}>
+              <Route path="student_assignments" element={<Assignment />} />
+              <Route path="/" element={<Dashboard />} />
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="student_assignments" element={<Assignment />} />
+              <Route path="student_quizes" element={<Quizes />} />
+              <Route path="modules" element={<Dashboard />} />
+              <Route path="modules/:id" element={<Modules />} />
+              <Route path="modules/topic/:id" element={<Topics />} />
               <Route path="modules/quiz/:id" element={<Quizes />} />
               <Route path="students" element={<Students />} />
               <Route path="student_quizes" element={<Quizes />} />

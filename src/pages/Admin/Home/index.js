@@ -13,26 +13,20 @@ function AdminHome() {
   const [navOpen, setNavOpen] = useState(true);
   const [loggedOut, setLoggedOut] = useState(false);
 
-  const { state } = useUser();
-
-  const logout = async () => {
-    await fetch(API_URL + "/logout", {
-      method: "POST",
-      credentials: "include",
-    });
-
-    setLoggedOut(true);
-  };
+  const { state, logout } = useUser();
 
   const toggleNav = () => {
     setNavOpen(!navOpen);
   };
 
-  const user = useLogInStatus();
+  const handleLogout = async () => {
+    await logout();
+    setLoggedOut(true);
+  };
 
   if (loggedOut) return <Navigate to="/admin/login" />;
 
-  if (!state?.user_id) return <h1>Loading...</h1>;
+  if (!state?.user_id) return <Navigate to="/admin/login" />;
 
   if (!state?.user_id || state?.role > ADMIN_USER)
     return <Navigate to="/admin/login?error=unauthorized" />;
@@ -92,7 +86,7 @@ function AdminHome() {
             </Button>
             <span
               className="admin--logout link-danger align-self-center me-3"
-              onClick={logout}
+              onClick={handleLogout}
             >
               <IoExitOutline className="fs-4 me-2" />
               Logout

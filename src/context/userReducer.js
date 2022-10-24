@@ -20,6 +20,11 @@ const userReducer = (state, action) => {
         loading: false,
       };
 
+    case "RESET_STATE":
+      return {
+        ...payload,
+      };
+
     default:
       return state;
   }
