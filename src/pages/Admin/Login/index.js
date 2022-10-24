@@ -6,8 +6,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
-import useLogInStatus from "../../../customHooks/useLoginStatus";
-import { ADMIN_USER, API_URL } from "../../../config";
+import { ADMIN_USER } from "../../../config";
 import useUser from "../../../context/UserContextProvider";
 
 function AdminLogin() {
@@ -19,7 +18,6 @@ function AdminLogin() {
 
   const { state, login } = useUser();
 
-  const [auth, setAuth] = useState(false);
   const [error, setError] = useState(false);
 
   // Check if user is already logged in
@@ -33,8 +31,6 @@ function AdminLogin() {
   const handleSubmit = async () => {
     await login(formData);
   };
-
-  if (auth) return <Navigate to="/admin" />;
 
   return (
     <Container className="mt-5">
