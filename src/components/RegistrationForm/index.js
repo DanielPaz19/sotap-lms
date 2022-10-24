@@ -3,7 +3,7 @@ import { Button, FloatingLabel, Form, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { API_URL } from "../../config";
 
-function RegistrationForm({ onSubmit }) {
+function RegistrationForm() {
   const [formData, setFormData] = useState({
     role: 0,
     user_id: 0,
