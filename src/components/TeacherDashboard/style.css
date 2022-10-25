@@ -1,0 +1,7 @@
+.card--grade__card {
+  transition: all ease-out 0.2s;
+}
+
+.card--grade__card:hover {
+  transform: translateY(-5px);
+}

@@ -1,5 +1,42 @@
+import { Card, Col, Container, Row } from "react-bootstrap";
+import "./style.css";
+
+function GradeCard({ title }) {
+  return (
+    <Col lg={3} md={4} sm={6}>
+      <Card className="shadow card--grade__card">
+        <Card.Body>
+          <Card.Title>
+            <div className="text-center text-primary fw-bold">{title}</div>
+          </Card.Title>
+        </Card.Body>
+        <Card.Footer>
+          <div
+            className="text-center text-secondary"
+            style={{ fontSize: ".8rem" }}
+          >
+            Click to View Details
+          </div>
+        </Card.Footer>
+      </Card>
+    </Col>
+  );
+}
+
 function TeacherDashboard() {
-  return <h1>Teacher Dashboard</h1>;
+  return (
+    <Container className="pt-4 container--grade__card">
+      <Row className="g-4">
+        <GradeCard title="Grade 1" />
+        <GradeCard title="Grade 1" />
+        <GradeCard title="Grade 1" />
+        <GradeCard title="Grade 1" />
+        <GradeCard title="Grade 1" />
+        <GradeCard title="Grade 1" />
+        <GradeCard title="Grade 1" />
+      </Row>
+    </Container>
+  );
 }
 
 export default TeacherDashboard;
