@@ -1,6 +1,7 @@
 import { useReducer } from "react";
 import { useEffect } from "react";
 import { createContext, useContext } from "react";
+import { isCompositeComponent } from "react-dom/test-utils";
 import { API_URL } from "../config";
 import userReducer, { initialState } from "./userReducer";
 
@@ -22,8 +23,6 @@ export function UserContextProvider({ children }) {
 
     const { data } = await res.json();
 
-    console.log(data[0]);
-
     dispatch({
       type: "UPDATE_DATA",
       payload: data[0],
@@ -32,7 +31,8 @@ export function UserContextProvider({ children }) {
 
   const login = async (formData) => {
     dispatch({ type: "REQUESTED" });
-    await fetch(API_URL + "/login", {
+
+    const res = await fetch(API_URL + "/login", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -40,6 +40,12 @@ export function UserContextProvider({ children }) {
       },
       body: JSON.stringify(formData),
     });
+
+    if (res.status === 401) {
+      const data = await res.json();
+
+      return dispatch({ type: "ERROR_REQUEST", payload: { value: data } });
+    }
 
     await updateUser();
   };
