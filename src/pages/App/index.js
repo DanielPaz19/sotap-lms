@@ -79,7 +79,7 @@ function App() {
               <Route path="student_quizes" element={<Quizes />} />
               <Route path="teachers" element={<Teachers />} />
               <Route path="subjects" element={<Subjects />} />
-              <Route path="grade_levels" element={<GradeLevels />} />
+              <Route path="grade_levels/:id" element={<GradeLevels />} />
               <Route path="books" element={<Books />} />
               <Route path="events" element={<Events />} />
             </Route>
