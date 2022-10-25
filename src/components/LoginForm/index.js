@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useState } from "react";
-import { Button, FloatingLabel, Form } from "react-bootstrap";
+import { Button, FloatingLabel, Form, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import useUser from "../../context/UserContextProvider";
 
@@ -12,6 +12,8 @@ function LoginForm({ onSubmit }) {
   });
   const [clearError, setClearError] = useState(false);
   const { login, state: userState } = useUser();
+
+  console.log(userState);
 
   // Set focus on input Select
   const inputSelect = useRef();
@@ -78,8 +80,17 @@ function LoginForm({ onSubmit }) {
                 />
               </FloatingLabel>
 
-              <Button type="submit" className="w-100 mb-2" size="lg">
-                Login
+              <Button
+                type="submit"
+                className="w-100 mb-2"
+                size="lg"
+                disabled={userState?.loading ? true : false}
+              >
+                {userState?.loading ? (
+                  <Spinner as="span" animation="border" size="sm" />
+                ) : (
+                  "Login"
+                )}
               </Button>
 
               <Link to="/login/registration">Register</Link>
