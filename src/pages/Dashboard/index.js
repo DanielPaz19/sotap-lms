@@ -5,7 +5,6 @@ import { FaSearch } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import useUser from "../../context/UserContextProvider";
 import TeacherDashboard from "../../components/TeacherDashboard";
-import { TeacherContextProvider } from "../../context/TeacherContextProvider";
 
 function Dashboard({ user }) {
   const [subjects, setSubjects] = useState([]);

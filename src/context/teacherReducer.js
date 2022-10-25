@@ -9,7 +9,6 @@ const teacherReducer = (state, action) => {
 
   switch (type) {
     case "REQUESTED":
-      console.log("requestiong");
       return {
         ...state,
         loading: true,

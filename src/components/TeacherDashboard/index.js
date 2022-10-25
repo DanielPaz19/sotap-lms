@@ -1,7 +1,6 @@
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import useTeacher from "../../context/TeacherContextProvider";
-import teacherReducer from "../../context/teacherReducer";
 import "./style.css";
 
 function GradeCard({ title, id }) {
@@ -31,13 +30,11 @@ function GradeCard({ title, id }) {
 function TeacherDashboard() {
   const { state: teacherState } = useTeacher();
 
-  console.log(teacherState.grade_levels);
-
   return (
     <Container className="pt-4 container--grade__card">
       <Row className="g-4">
         {teacherState?.grade_levels.map((grade) => (
-          <GradeCard title={grade.name} id={grade.id} />
+          <GradeCard key={grade.id} title={grade.name} id={grade.id} />
         ))}
       </Row>
     </Container>
