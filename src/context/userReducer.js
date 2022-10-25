@@ -25,6 +25,13 @@ const userReducer = (state, action) => {
         ...payload,
       };
 
+    case "ERROR_REQUEST":
+      return {
+        ...state,
+        error: payload.value,
+        loading: false,
+      };
+
     default:
       return state;
   }

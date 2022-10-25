@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useState } from "react";
-import { Button, FloatingLabel, Form } from "react-bootstrap";
+import { Button, FloatingLabel, Form, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import useUser from "../../context/UserContextProvider";
 
@@ -10,8 +10,10 @@ function LoginForm({ onSubmit }) {
     username: "",
     password: "",
   });
+  const [clearError, setClearError] = useState(false);
+  const { login, state: userState } = useUser();
 
-  const { login } = useUser();
+  console.log(userState);
 
   // Set focus on input Select
   const inputSelect = useRef();
@@ -21,6 +23,7 @@ function LoginForm({ onSubmit }) {
 
   const handleSubmit = async () => {
     await login(formData);
+    setClearError(false);
   };
 
   return (
@@ -41,6 +44,7 @@ function LoginForm({ onSubmit }) {
                   ref={inputSelect}
                   aria-label="Floating label select example"
                   onChange={(e) => {
+                    setClearError(true);
                     setFormData((prev) => ({
                       ...prev,
                       role: Number(e.target.value),
@@ -54,65 +58,46 @@ function LoginForm({ onSubmit }) {
 
               <FloatingLabel label="Username" className="text-secondary mb-2">
                 <Form.Control
+                  isInvalid={!clearError ? userState?.error && true : false}
                   type="text"
                   placeholder="Username"
-                  onChange={(e) =>
-                    setFormData({ ...formData, username: e.target.value })
-                  }
+                  onChange={(e) => {
+                    setClearError(true);
+                    setFormData({ ...formData, username: e.target.value });
+                  }}
                 />
               </FloatingLabel>
 
               <FloatingLabel label="Password" className="text-secondary mb-2">
                 <Form.Control
+                  isInvalid={!clearError ? userState?.error && true : false}
                   type="password"
                   placeholder="Password"
-                  onChange={(e) =>
-                    setFormData({ ...formData, password: e.target.value })
-                  }
+                  onChange={(e) => {
+                    setClearError(true);
+                    setFormData({ ...formData, password: e.target.value });
+                  }}
                 />
               </FloatingLabel>
 
-              <Button type="submit" className="w-100 mb-2" size="lg">
-                Login
+              <Button
+                type="submit"
+                className="w-100 mb-2"
+                size="lg"
+                disabled={userState?.loading ? true : false}
+              >
+                {userState?.loading ? (
+                  <Spinner as="span" animation="border" size="sm" />
+                ) : (
+                  "Login"
+                )}
               </Button>
 
-              {/* <div className="fontuser position-relative">
-                <span className="position-absolute top-50 translate-middle ms-4">
-                  <FaUser />
-                </span>
-                <input
-                  autoComplete="off"
-                  type="text"
-                  placeholder="User ID"
-                  name="uname"
-                  required
-                  id="inputUsername"
-                  onChange={(e) =>
-                    setFormData({ ...formData, username: e.target.value })
-                  }
-                />
-              </div>
-
-              <div className="fontpassword position-relative">
-                <span className="position-absolute top-50 translate-middle ms-4">
-                  <FaKey />
-                </span>
-                <input
-                  autoComplete="false"
-                  type="password"
-                  placeholder="Password"
-                  name="psw"
-                  id="inputPassword"
-                  onChange={(e) =>
-                    setFormData({ ...formData, password: e.target.value })
-                  }
-                />
-              </div>
-              <button className="loginBtn btn" type="submit">
-                Login
-              </button> */}
               <Link to="/login/registration">Register</Link>
             </div>
+            <p className="text-danger">
+              {!clearError ? userState?.error && userState?.error?.message : ""}
+            </p>
           </form>
         </div>
       </div>
