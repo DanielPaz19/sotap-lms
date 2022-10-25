@@ -14,16 +14,6 @@ function Home({ user }) {
     if (window.screen.width > 600) setOpen(true);
   }, []);
 
-  // useEffect(() => {
-  //   const checkLogin = () => {
-  //     return localStorage.getItem("student_id");
-  //   };
-
-  //   checkLogin()
-  //     ? console.log("Welcome to SOTAP LMS")
-  //     : (window.location.pathname = "/login");
-  // }, []);
-
   const toggleNav = (e) => {
     if (e.target.closest(".btnToggleNav")) return setOpen(!open);
   };
@@ -43,6 +33,7 @@ function Home({ user }) {
         onClick={toggleNav}
         open={open}
         closeNav={closeNav}
+        variant={state?.user?.role}
       />
       <div className="main">
         <Header
