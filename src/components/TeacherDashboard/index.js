@@ -1,5 +1,7 @@
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import useTeacher from "../../context/TeacherContextProvider";
+import teacherReducer from "../../context/teacherReducer";
 import "./style.css";
 
 function GradeCard({ title, id }) {

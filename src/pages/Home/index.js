@@ -3,8 +3,9 @@ import Nav from "../../components/Nav";
 import Header from "../../components/Header";
 import { Navigate, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { STUDENT_USER } from "../../config";
+import { STUDENT_USER, TEACHER_USER } from "../../config";
 import useUser from "../../context/UserContextProvider";
+import { TeacherContextProvider } from "../../context/TeacherContextProvider";
 
 function Home({ user }) {
   const [open, setOpen] = useState(false);
@@ -43,7 +44,13 @@ function Home({ user }) {
           user={user}
         />
         <div className="content container-fluid">
-          <Outlet user={user} />
+          {state?.user?.role === TEACHER_USER ? (
+            <TeacherContextProvider>
+              <Outlet user={user} />
+            </TeacherContextProvider>
+          ) : (
+            <Outlet user={user} />
+          )}
         </div>
       </div>
     </>
