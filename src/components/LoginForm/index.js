@@ -13,8 +13,6 @@ function LoginForm({ onSubmit }) {
   const [clearError, setClearError] = useState(false);
   const { login, state: userState } = useUser();
 
-  console.log(userState);
-
   // Set focus on input Select
   const inputSelect = useRef();
   useEffect(() => {
