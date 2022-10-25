@@ -58,6 +58,7 @@ function LoginForm({ onSubmit }) {
 
               <FloatingLabel label="Username" className="text-secondary mb-2">
                 <Form.Control
+                  required
                   isInvalid={!clearError ? userState?.error && true : false}
                   type="text"
                   placeholder="Username"
@@ -70,6 +71,7 @@ function LoginForm({ onSubmit }) {
 
               <FloatingLabel label="Password" className="text-secondary mb-2">
                 <Form.Control
+                  required
                   isInvalid={!clearError ? userState?.error && true : false}
                   type="password"
                   placeholder="Password"
