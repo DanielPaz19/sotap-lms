@@ -29,16 +29,16 @@ function GradeCard({ title, id }) {
 }
 
 function TeacherDashboard() {
+  const { state: teacherState } = useTeacher();
+
+  console.log(teacherState.grade_levels);
+
   return (
     <Container className="pt-4 container--grade__card">
       <Row className="g-4">
-        <GradeCard title="Grade 1" id={3} />
-        <GradeCard title="Grade 1" />
-        <GradeCard title="Grade 1" />
-        <GradeCard title="Grade 1" />
-        <GradeCard title="Grade 1" />
-        <GradeCard title="Grade 1" />
-        <GradeCard title="Grade 1" />
+        {teacherState?.grade_levels.map((grade) => (
+          <GradeCard title={grade.name} id={grade.id} />
+        ))}
       </Row>
     </Container>
   );
