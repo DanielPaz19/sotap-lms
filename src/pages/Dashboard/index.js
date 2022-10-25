@@ -3,10 +3,14 @@ import SubjectCard from "../../components/SubjectCard";
 import { Form } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import useUser from "../../context/UserContextProvider";
+import TeacherDashboard from "../../components/TeacherDashboard";
 
 function Dashboard({ user }) {
   const [subjects, setSubjects] = useState([]);
   const [qry, setQry] = useState("");
+
+  const { state: userState } = useUser();
 
   const getSubjectId = async (student_id) => {
     try {
@@ -45,6 +49,9 @@ function Dashboard({ user }) {
   const searchSubject = (e) => {
     setQry(e.target.value);
   };
+
+  // Teacher Dashboard will show if teacher is login
+  if (Number(userState?.user?.role) === 2) return <TeacherDashboard />;
 
   return (
     <>
