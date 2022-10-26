@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { Col, Container, Nav, Row, Tab, Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { API_URL } from "../../config";
+import useTeacher from "../../context/TeacherContextProvider";
+import useUser from "../../context/UserContextProvider";
 
 function StudentTable() {
   const [students, setStudents] = useState([]);
 
-  const { id: grade_id } = useParams();
+  const { grade_id } = useParams();
 
   useEffect(() => {
     const getStudents = async () => {
@@ -52,6 +54,25 @@ function StudentTable() {
   );
 }
 function SubjectTable() {
+  const [subjects, setSubjects] = useState([]);
+
+  const { grade_id } = useParams();
+  const { state: userState } = useUser();
+  console.log(userState);
+
+  useEffect(() => {
+    const getStudents = async () => {
+      const res = await fetch(API_URL + `/grade_levels/${grade_id}/subjects`, {
+        credentials: "include",
+      });
+      const { data } = await res.json();
+      console.log(data);
+      setSubjects(data);
+    };
+
+    getStudents();
+  }, [grade_id]);
+
   return (
     <Table striped responsive>
       <thead>
@@ -63,24 +84,20 @@ function SubjectTable() {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>00001</td>
-          <td>Mark</td>
-          <td>Mark</td>
-          <td>Otto</td>
-        </tr>
-        <tr>
-          <td>00002</td>
-          <td>Jacob</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-        </tr>
-        <tr>
-          <td>00003</td>
-          <td>Larry the Bird</td>
-          <td>Larry the Bird</td>
-          <td>Larry the Bird</td>
-        </tr>
+        {subjects
+          ?.filter((subject) =>
+            subject.teachers
+              .map((teacher) => teacher.id)
+              .includes(userState?.id)
+          )
+          .map((subject) => (
+            <tr>
+              <td>{String(subject.id).padStart(5, 0)}</td>
+              <td>{subject.subject_code}</td>
+              <td>{subject.subject_name}</td>
+              <td>{subject.subject_description}</td>
+            </tr>
+          ))}
       </tbody>
     </Table>
   );
