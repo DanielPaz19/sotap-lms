@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Col, Container, Nav, Row, Tab, Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { API_URL } from "../../config";
-import useTeacher from "../../context/TeacherContextProvider";
 import useUser from "../../context/UserContextProvider";
 
 function StudentTable() {
