@@ -1,6 +1,7 @@
 export const initialState = {
   loading: false,
   error: "",
+  status_code: null,
 };
 
 const userReducer = (state, action) => {
@@ -30,6 +31,7 @@ const userReducer = (state, action) => {
         ...state,
         error: payload.value,
         loading: false,
+        status_code: payload.status_code,
       };
 
     default:
