@@ -38,48 +38,53 @@ function AdminHome() {
         <div
           className={`${navOpen ? "active" : ""} bg-primary admin--sidebar `}
         >
-        <div className="text-center logo-container">
-          <img
-            src={logo}
-            alt="company_logo"
-            width="120px"
-            className="my-2 logo"
-          />
-          <p className="logo-subtitle">Learning Management System</p>
-        </div>
+          <div className="text-center logo-container">
+            <img
+              src={logo}
+              alt="company_logo"
+              width="120px"
+              className="my-2 logo"
+            />
+            <p className="logo-subtitle">Learning Management System</p>
+          </div>
           <Nav activeKey="#" className="flex-column mt-5">
             <Nav.Item>
               <Link to="/admin">
                 <Nav.Link as="li" className="link-light">
-                  <AiOutlineDashboard className="fs-3 me-2" />Dashboard
+                  <AiOutlineDashboard className="fs-3 me-2" />
+                  Dashboard
                 </Nav.Link>
               </Link>
             </Nav.Item>
             <Nav.Item>
               <Link to="students">
                 <Nav.Link as="li" className="link-light">
-                  <ImProfile className="fs-3 me-2" />Students
+                  <ImProfile className="fs-3 me-2" />
+                  Students
                 </Nav.Link>
               </Link>
             </Nav.Item>
             <Nav.Item>
               <Link to="teachers">
                 <Nav.Link as="li" className="link-light">
-                  <FaChalkboardTeacher className="fs-3 me-2" />Teachers
+                  <FaChalkboardTeacher className="fs-3 me-2" />
+                  Teachers
                 </Nav.Link>
               </Link>
             </Nav.Item>
             <Nav.Item>
               <Link to="subjects">
                 <Nav.Link as="li" className="link-light">
-                  <MdSubject className="fs-3 me-2" />Subjects
+                  <MdSubject className="fs-3 me-2" />
+                  Subjects
                 </Nav.Link>
               </Link>
             </Nav.Item>
             <Nav.Item>
               <Link to="grade_levels">
                 <Nav.Link as="li" className="link-light">
-                  <TbMilitaryRank className="fs-3 me-2" />Grade Levels
+                  <TbMilitaryRank className="fs-3 me-2" />
+                  Grade Levels
                 </Nav.Link>
               </Link>
             </Nav.Item>
