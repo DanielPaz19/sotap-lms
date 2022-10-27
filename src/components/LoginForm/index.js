@@ -4,7 +4,7 @@ import { Button, FloatingLabel, Form, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import useUser from "../../context/UserContextProvider";
 
-function LoginForm({ onSubmit }) {
+function LoginForm() {
   const [formData, setFormData] = useState({
     role: 3,
     username: "",
@@ -29,8 +29,7 @@ function LoginForm({ onSubmit }) {
       <div className="login mx-auto position-absolute top-50 start-50 translate-middle">
         <div className="text-center">
           <h2 className="loginTxt">Login</h2>
-          <form
-            action=""
+          <Form
             onSubmit={(e) => {
               e.preventDefault();
               handleSubmit();
@@ -57,7 +56,11 @@ function LoginForm({ onSubmit }) {
               <FloatingLabel label="Username" className="text-secondary mb-2">
                 <Form.Control
                   required
-                  isInvalid={!clearError ? userState?.error && true : false}
+                  isInvalid={
+                    !clearError
+                      ? userState?.error && userState?.status_code === 401
+                      : false
+                  }
                   type="text"
                   placeholder="Username"
                   onChange={(e) => {
@@ -70,7 +73,11 @@ function LoginForm({ onSubmit }) {
               <FloatingLabel label="Password" className="text-secondary mb-2">
                 <Form.Control
                   required
-                  isInvalid={!clearError ? userState?.error && true : false}
+                  isInvalid={
+                    !clearError
+                      ? userState?.error && userState?.status_code === 401
+                      : false
+                  }
                   type="password"
                   placeholder="Password"
                   onChange={(e) => {
@@ -96,9 +103,11 @@ function LoginForm({ onSubmit }) {
               <Link to="/login/registration">Register</Link>
             </div>
             <p className="text-danger">
-              {!clearError ? userState?.error && userState?.error?.message : ""}
+              {!clearError
+                ? userState?.status_code === 401 && userState?.error
+                : ""}
             </p>
-          </form>
+          </Form>
         </div>
       </div>
     </div>
