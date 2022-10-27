@@ -1,6 +1,14 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useEffect } from "react";
-import { Button, Container, ListGroup, Stack } from "react-bootstrap";
+import {
+  Button,
+  Container,
+  FloatingLabel,
+  Form,
+  ListGroup,
+  Modal,
+  Stack,
+} from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { API_URL } from "../../config";
 import useTeacher from "../../context/TeacherContextProvider";
@@ -9,7 +17,15 @@ import useUser from "../../context/UserContextProvider";
 function SubjectTopics() {
   const { subject_id } = useParams();
   const [topics, setTopics] = useState([]);
+  const [show, setShow] = useState(false);
+  const [formData, setFormData] = useState({
+    title: "",
+    url: "",
+    body: "",
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
+  const modalInput = useRef();
   const { state: userState } = useUser();
   const { state: teacherState } = useTeacher();
 
@@ -29,7 +45,36 @@ function SubjectTopics() {
     };
 
     getSubjectTopics();
-  }, [subject_id, userState?.id]);
+  }, [subject_id, userState?.id, isLoading]);
+
+  const handleClose = () => {
+    setShow(false);
+  };
+
+  const handleShow = () => {
+    setShow(true);
+  };
+
+  const handleSubmit = async () => {
+    setIsLoading(true);
+
+    const res = await fetch(API_URL + `/topics`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        ...formData,
+        subject_id,
+        teacher_id: userState?.id,
+      }),
+    });
+
+    console.log(await res.json());
+    setIsLoading(false);
+    setShow(false);
+  };
 
   return (
     <Container className="pt-3">
@@ -37,7 +82,9 @@ function SubjectTopics() {
         {subject?.subject_code} : {subject?.subject_name}
       </h4>
       <hr />
-      <Button className="mb-3">Add Topic</Button>
+      <Button className="mb-3" onClick={handleShow}>
+        Add Topic
+      </Button>
       <ListGroup variant="flush">
         {topics?.map((topic) => (
           <ListGroup.Item action key={topic.id}>
@@ -51,6 +98,73 @@ function SubjectTopics() {
           </ListGroup.Item>
         ))}
       </ListGroup>
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        onEntered={() => modalInput.current.focus()}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title className="h4 text-primary">Add Topic</Modal.Title>
+        </Modal.Header>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
+          <Modal.Body>
+            <FloatingLabel label="Title" className="mb-3">
+              <Form.Control
+                type="text"
+                placeholder="Title"
+                required
+                ref={modalInput}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, title: e.target.value }))
+                }
+              />
+            </FloatingLabel>
+            <FloatingLabel label="Video URL" className="mb-3">
+              <Form.Control
+                type="url"
+                placeholder="Video URL"
+                required
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, url: e.target.value }))
+                }
+              />
+            </FloatingLabel>
+            <FloatingLabel controlId="floatingTextarea2" label="Body">
+              <Form.Control
+                required
+                as="textarea"
+                placeholder="Body"
+                style={{ height: "8em" }}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, body: e.target.value }))
+                }
+              />
+            </FloatingLabel>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="danger"
+              onClick={handleClose}
+              disabled={isLoading ? true : false}
+            >
+              Close
+            </Button>
+            <Button
+              type="submit"
+              variant="primary"
+              onClick={handleSubmit}
+              disabled={isLoading ? true : false}
+            >
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Form>
+      </Modal>
     </Container>
   );
 }
