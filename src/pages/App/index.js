@@ -26,6 +26,7 @@ import SubjectDetails from "../Admin/SubjectDetails";
 import GradeLevelDetails from "../Admin/GradeLevelDetails";
 import LoginForm from "../../components/LoginForm";
 import RegistrationForm from "../../components/RegistrationForm";
+import TeacherTopics from "../TeacherTopics";
 
 function App() {
   const checkUser = async ({ username, password }) => {
@@ -76,6 +77,7 @@ function App() {
             <Route path="students" element={<Students />} />
             <Route path="student_quizes" element={<Quizes />} />
             <Route path="teachers" element={<Teachers />} />
+            <Route path="teacher/topic" element={<TeacherTopics />} />
             <Route path="subjects" element={<Subjects />} />
             <Route path="grade_levels/:grade_id" element={<GradeLevels />} />
             <Route path="books" element={<Books />} />

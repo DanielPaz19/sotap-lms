@@ -107,27 +107,11 @@ function TeacherNav({ user_type, onClick, open, closeNav }) {
             icon={"bi bi-speedometer"}
           />
           <NavLink
-            href={"students"}
-            title={"Students"}
-            icon={"bi bi-mortarboard"}
+            href={"teacher/topic"}
+            title={"Topics"}
+            icon={"bi bi-lightbulb"}
           />
-          <NavLink
-            href={"subjects"}
-            title={"Subjects"}
-            icon={"bi bi-plus-slash-minus"}
-          />
-          <NavLink
-            href={"grade_levels"}
-            title={"Grade Levels"}
-            icon={"bi bi-bar-chart"}
-          />
-          <NavLink href={"books"} title={"Books"} icon={"bi bi-book"} />
-
-          <NavLink
-            href={"events"}
-            title={"Events"}
-            icon={"bi bi-calendar-check"}
-          />
+          <NavLink href={"quizzes"} title={"Quizzes"} icon={"bi bi-pencil"} />
         </ul>
       </nav>
     </Collapse>
