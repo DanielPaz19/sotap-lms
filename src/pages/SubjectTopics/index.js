@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { Container } from "react-bootstrap";
+import { Button, Container, ListGroup, Stack } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { API_URL } from "../../config";
 import useTeacher from "../../context/TeacherContextProvider";
@@ -17,8 +17,6 @@ function SubjectTopics() {
     (subject) => Number(subject.id) === Number(subject_id)
   );
 
-  console.log(topics);
-
   useEffect(() => {
     const getSubjectTopics = async () => {
       const res = await fetch(
@@ -26,7 +24,7 @@ function SubjectTopics() {
         { credentials: "include" }
       );
       const { data } = await res.json();
-
+      console.log(data);
       setTopics(data);
     };
 
@@ -39,6 +37,20 @@ function SubjectTopics() {
         {subject?.subject_code} : {subject?.subject_name}
       </h4>
       <hr />
+      <Button className="mb-3">Add Topic</Button>
+      <ListGroup variant="flush">
+        {topics?.map((topic) => (
+          <ListGroup.Item action key={topic.id}>
+            <Stack direction="horizontal" gap={3}>
+              <span className="font-monospace">
+                {String(topic.id).padStart(5, 0)}
+              </span>
+              <span className="vr"></span>
+              <span className="text-primary fw-light">{topic.title}</span>
+            </Stack>
+          </ListGroup.Item>
+        ))}
+      </ListGroup>
     </Container>
   );
 }
