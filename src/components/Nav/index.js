@@ -63,7 +63,7 @@ function StudentNav({ user_type, onClick, open, closeNav }) {
           />
           <NavLink
             href={"student_quizes"}
-            title={"Quizes"}
+            title={"Quizzes"}
             icon={"bi bi-pencil"}
           />
           <NavLink
