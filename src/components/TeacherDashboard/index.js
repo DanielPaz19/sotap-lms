@@ -31,7 +31,9 @@ function TeacherDashboard() {
   const { state: teacherState } = useTeacher();
 
   return (
-    <Container className="pt-4 container--grade__card">
+    <Container className="pt-3 container--grade__card">
+      <h4 className="text-primary">Dashboard</h4>
+      <hr />
       <Row className="g-4">
         {teacherState?.grade_levels.map((grade) => (
           <GradeCard key={grade.id} title={grade.name} id={grade.id} />

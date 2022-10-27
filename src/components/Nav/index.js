@@ -107,7 +107,7 @@ function TeacherNav({ user_type, onClick, open, closeNav }) {
             icon={"bi bi-speedometer"}
           />
           <NavLink
-            href={"teacher/topic"}
+            href={"teacher/topics"}
             title={"Topics"}
             icon={"bi bi-lightbulb"}
           />

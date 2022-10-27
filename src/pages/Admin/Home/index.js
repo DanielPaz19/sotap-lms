@@ -5,6 +5,7 @@ import { Button, Container, Nav } from "react-bootstrap";
 import "./style.css";
 import { FiMenu } from "react-icons/fi";
 import { IoExitOutline } from "react-icons/io5";
+import { AiOutlineDashboard } from "react-icons/ai";
 import { AdminContextProvider } from "../../../context/AdminContextProvider";
 import useUser from "../../../context/UserContextProvider";
 
@@ -36,7 +37,7 @@ function AdminHome() {
             <Nav.Item>
               <Link to="/admin">
                 <Nav.Link as="li" className="link-light">
-                  Dashboard
+                  <AiOutlineDashboard className="fs-3 me-3" /> Dashboard
                 </Nav.Link>
               </Link>
             </Nav.Item>

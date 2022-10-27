@@ -1,0 +1,7 @@
+.card--subject {
+  transition: all ease-out 0.2s;
+}
+
+.card--subject:hover {
+  transform: translateY(-5px);
+}

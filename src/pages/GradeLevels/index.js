@@ -57,10 +57,9 @@ function SubjectTable() {
 
   const { grade_id } = useParams();
   const { state: userState } = useUser();
-  console.log(userState);
 
   useEffect(() => {
-    const getStudents = async () => {
+    const getSubjects = async () => {
       const res = await fetch(API_URL + `/grade_levels/${grade_id}/subjects`, {
         credentials: "include",
       });
@@ -69,7 +68,7 @@ function SubjectTable() {
       setSubjects(data);
     };
 
-    getStudents();
+    getSubjects();
   }, [grade_id]);
 
   return (
