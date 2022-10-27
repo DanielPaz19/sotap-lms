@@ -1,14 +1,17 @@
 export const initialState = {
   grade_levels: [],
+  subjects: [],
   loading: false,
   error: "",
 };
+
+export const REQUESTED = "REQUESTED";
 
 const teacherReducer = (state, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case "REQUESTED":
+    case REQUESTED:
       return {
         ...state,
         loading: true,
