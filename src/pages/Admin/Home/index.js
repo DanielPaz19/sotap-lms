@@ -6,8 +6,13 @@ import "./style.css";
 import { FiMenu } from "react-icons/fi";
 import { IoExitOutline } from "react-icons/io5";
 import { AiOutlineDashboard } from "react-icons/ai";
+import { FaChalkboardTeacher } from "react-icons/fa";
+import { ImProfile } from "react-icons/im";
+import { MdSubject } from "react-icons/md";
+import { TbMilitaryRank } from "react-icons/tb";
 import { AdminContextProvider } from "../../../context/AdminContextProvider";
 import useUser from "../../../context/UserContextProvider";
+import logo from "../../../img/company-logo.png";
 
 function AdminHome() {
   const [navOpen, setNavOpen] = useState(true);
@@ -33,39 +38,52 @@ function AdminHome() {
         <div
           className={`${navOpen ? "active" : ""} bg-primary admin--sidebar `}
         >
+        <div className="text-center logo-container">
+          <img
+            src={logo}
+            alt="company_logo"
+            width="120px"
+            className="my-2 logo"
+          />
+          <p className="logo-subtitle">Learning Management System</p>
+        </div>
           <Nav activeKey="#" className="flex-column mt-5">
             <Nav.Item>
               <Link to="/admin">
                 <Nav.Link as="li" className="link-light">
+<<<<<<< HEAD
                   <AiOutlineDashboard className="fs-3 me-3" /> Dashboard
+=======
+                  <AiOutlineDashboard className="fs-3 me-2" />Dashboard
+>>>>>>> dd039de9fa4f3c7a203e89d2f3a2e58589b18b72
                 </Nav.Link>
               </Link>
             </Nav.Item>
             <Nav.Item>
               <Link to="students">
                 <Nav.Link as="li" className="link-light">
-                  Students
+                  <ImProfile className="fs-3 me-2" />Students
                 </Nav.Link>
               </Link>
             </Nav.Item>
             <Nav.Item>
               <Link to="teachers">
                 <Nav.Link as="li" className="link-light">
-                  Teachers
+                  <FaChalkboardTeacher className="fs-3 me-2" />Teachers
                 </Nav.Link>
               </Link>
             </Nav.Item>
             <Nav.Item>
               <Link to="subjects">
                 <Nav.Link as="li" className="link-light">
-                  Subjects
+                  <MdSubject className="fs-3 me-2" />Subjects
                 </Nav.Link>
               </Link>
             </Nav.Item>
             <Nav.Item>
               <Link to="grade_levels">
                 <Nav.Link as="li" className="link-light">
-                  Grade Levels
+                  <TbMilitaryRank className="fs-3 me-2" />Grade Levels
                 </Nav.Link>
               </Link>
             </Nav.Item>
