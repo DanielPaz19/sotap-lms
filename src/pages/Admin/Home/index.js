@@ -36,7 +36,7 @@ function AdminHome() {
             <Nav.Item>
               <Link to="/admin">
                 <Nav.Link as="li" className="link-light">
-                  Dasboard
+                  Dashboard
                 </Nav.Link>
               </Link>
             </Nav.Item>

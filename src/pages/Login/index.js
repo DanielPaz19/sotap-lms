@@ -16,7 +16,7 @@ export default function Login({ onSubmit }) {
             <div className="position-absolute top-50 start-50 translate-middle w-100">
               <img src={logo} alt="" id="logo" />
               <h1 className="school-name fs-1">
-                School of Thougths and Principles
+                School of Thoughts and Principles
               </h1>
             </div>
           </div>
