@@ -14,6 +14,7 @@ export function TeacherContextProvider({ children }) {
   useEffect(() => {
     getGradeLevels(userState?.id);
     getSubjects(userState?.id);
+    getTopics(userState?.id);
   }, [userState?.id]);
 
   const getGradeLevels = async (teacher_id) => {
@@ -48,10 +49,33 @@ export function TeacherContextProvider({ children }) {
     });
   };
 
+  const getTopics = async (teacher_id, qry = "") => {
+    dispatch({ type: REQUESTED });
+    const res = await fetch(
+      API_URL + `/teacher/${teacher_id}/topics?${qry ? qry : ""}`,
+      {
+        credentials: "include",
+      }
+    );
+
+    const { data } = await res.json();
+
+    if (qry) {
+      dispatch({ type: "END_REQUEST" });
+      return data;
+    }
+
+    dispatch({
+      type: "UPDATE_DATA",
+      payload: { value: data, key: "topics" },
+    });
+  };
+
   const value = {
     state,
     getGradeLevels,
     getSubjects,
+    getTopics,
   };
 
   return (

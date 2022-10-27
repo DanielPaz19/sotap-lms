@@ -20,7 +20,7 @@ function SubjectCard({ subject }) {
 
   return (
     <Col md={3}>
-      <Link to="1">
+      <Link to={String(subject.id)}>
         <Card className="shadow card--subject">
           <Card.Body>
             <Card.Title className="text-primary fw-bolder text-center">

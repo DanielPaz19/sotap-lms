@@ -1,6 +1,7 @@
 export const initialState = {
   grade_levels: [],
   subjects: [],
+  topics: [],
   loading: false,
   error: "",
 };
@@ -29,6 +30,12 @@ const teacherReducer = (state, action) => {
         ...state,
         loading: false,
         error: payload.value,
+      };
+
+    case "END_REQUEST":
+      return {
+        ...state,
+        loading: false,
       };
 
     default:
