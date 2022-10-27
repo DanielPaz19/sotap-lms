@@ -7,6 +7,7 @@ import { FiMenu } from "react-icons/fi";
 import { IoExitOutline } from "react-icons/io5";
 import { AdminContextProvider } from "../../../context/AdminContextProvider";
 import useUser from "../../../context/UserContextProvider";
+import { GrFormClose } from "react-icons/gr";
 
 function AdminHome() {
   const [navOpen, setNavOpen] = useState(true);
@@ -36,7 +37,7 @@ function AdminHome() {
             <Nav.Item>
               <Link to="/admin">
                 <Nav.Link as="li" className="link-light">
-                  Dasboard
+                  Dashboard
                 </Nav.Link>
               </Link>
             </Nav.Item>
