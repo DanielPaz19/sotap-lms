@@ -105,7 +105,7 @@ function SubjectTopics() {
       </h4>
       <hr />
       <Button className="mb-3" onClick={handleShow}>
-        Add Topic
+        Create Topic
       </Button>
       <ListGroup variant="flush">
         {state?.topics?.map((topic) => (

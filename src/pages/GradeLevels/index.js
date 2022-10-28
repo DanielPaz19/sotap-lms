@@ -1,26 +1,12 @@
-import { useEffect, useState } from "react";
-import { Col, Container, Nav, Row, Tab, Table } from "react-bootstrap";
+import { useReducer } from "react";
+import { useEffect } from "react";
+import { Col, Container, Nav, Row, Spinner, Tab, Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { API_URL } from "../../config";
+import gradeReducer, { initialState } from "../../context/gradeReducer";
 import useUser from "../../context/UserContextProvider";
 
-function StudentTable() {
-  const [students, setStudents] = useState([]);
-
-  const { grade_id } = useParams();
-
-  useEffect(() => {
-    const getStudents = async () => {
-      const res = await fetch(API_URL + `/grade_levels/${grade_id}/students`, {
-        credentials: "include",
-      });
-      const { data } = await res.json();
-      setStudents(data);
-    };
-
-    getStudents();
-  }, [grade_id]);
-
+function StudentTable({ students }) {
   return (
     <Table striped responsive>
       <thead>
@@ -52,25 +38,8 @@ function StudentTable() {
     </Table>
   );
 }
-function SubjectTable() {
-  const [subjects, setSubjects] = useState([]);
 
-  const { grade_id } = useParams();
-  const { state: userState } = useUser();
-
-  useEffect(() => {
-    const getSubjects = async () => {
-      const res = await fetch(API_URL + `/grade_levels/${grade_id}/subjects`, {
-        credentials: "include",
-      });
-      const { data } = await res.json();
-      console.log(data);
-      setSubjects(data);
-    };
-
-    getSubjects();
-  }, [grade_id]);
-
+function SubjectTable({ subjects, teacherId }) {
   return (
     <Table striped responsive>
       <thead>
@@ -84,9 +53,7 @@ function SubjectTable() {
       <tbody>
         {subjects
           ?.filter((subject) =>
-            subject.teachers
-              .map((teacher) => teacher.id)
-              .includes(userState?.id)
+            subject.teachers.map((teacher) => teacher.id).includes(teacherId)
           )
           .map((subject) => (
             <tr>
@@ -102,6 +69,41 @@ function SubjectTable() {
 }
 
 function GradeLevels() {
+  const [state, dispatch] = useReducer(gradeReducer, initialState);
+
+  const { grade_id } = useParams();
+  const { state: userState } = useUser();
+
+  useEffect(() => {
+    getStudents(grade_id);
+    getSubjects(grade_id);
+  }, [grade_id]);
+
+  const getStudents = async (grade_id) => {
+    dispatch({ type: "REQUESTED" });
+    const res = await fetch(API_URL + `/grade_levels/${grade_id}/students`, {
+      credentials: "include",
+    });
+    const { data } = await res.json();
+    dispatch({
+      type: "UPDATE_DATA",
+      payload: { key: "students", value: data },
+    });
+  };
+
+  const getSubjects = async (grade_id) => {
+    dispatch({ type: "REQUESTED" });
+    const res = await fetch(API_URL + `/grade_levels/${grade_id}/subjects`, {
+      credentials: "include",
+    });
+    const { data } = await res.json();
+    console.log(data);
+    dispatch({
+      type: "UPDATE_DATA",
+      payload: { key: "subjects", value: data },
+    });
+  };
+
   return (
     <Container fluid="md" className="pt-4">
       <Tab.Container defaultActiveKey="first" fluid>
@@ -134,14 +136,23 @@ function GradeLevels() {
             </Container>
           </Col>
           <Col sm={9} lg={10}>
-            <Tab.Content>
-              <Tab.Pane eventKey="first">
-                <StudentTable />
-              </Tab.Pane>
-              <Tab.Pane eventKey="second">
-                <SubjectTable />
-              </Tab.Pane>
-            </Tab.Content>
+            {state?.loading ? (
+              <div className="d-flex justify-content-center mt-5">
+                <Spinner variant="primary" animation="border" />
+              </div>
+            ) : (
+              <Tab.Content>
+                <Tab.Pane eventKey="first">
+                  <StudentTable students={state?.students} />
+                </Tab.Pane>
+                <Tab.Pane eventKey="second">
+                  <SubjectTable
+                    subjects={state?.subjects}
+                    teacherId={userState?.id}
+                  />
+                </Tab.Pane>
+              </Tab.Content>
+            )}
           </Col>
         </Row>
       </Tab.Container>
