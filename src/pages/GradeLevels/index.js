@@ -18,11 +18,47 @@ import { API_URL } from "../../config";
 import gradeReducer, { initialState } from "../../context/gradeReducer";
 import useUser from "../../context/UserContextProvider";
 
-function TopicTable({ topics, subjects }) {
+function TopicTable({ topics, subjects, grade_id, teacher_id }) {
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const [disabledSelect, setDisabledSelect] = useState(true);
+  const [teacherTopics, setTeacherTopics] = useState([]);
+  const [selectedSubject, setSelectedSubject] = useState(null);
+
+  useEffect(() => {
+    getTeacherTopics(teacher_id, grade_id);
+  }, [grade_id, teacher_id]);
+
+  const handleClose = () => {
+    setShow(false);
+    setDisabledSelect(true);
+  };
+  const handleShow = () => setShow(true);
+
+  const handleSubjectSelect = (value) => {
+    console.log(value);
+    setSelectedSubject(value);
+    setDisabledSelect(false);
+  };
+
+  const getTeacherTopics = async (teacher_id) => {
+    const res = await fetch(API_URL + `/teacher/${teacher_id}/topics`, {
+      credentials: "include",
+    });
+
+    const { data } = await res.json();
+    console.log(data);
+    setTeacherTopics(data);
+  };
+  // const getTeacherTopics = async (teacher_id, grade_id) => {
+  //   const res = await fetch(
+  //     API_URL + `/grade_levels/${grade_id}/topics?teacher=${teacher_id}`,
+  //     { credentials: "include" }
+  //   );
+
+  //   const { data } = await res.json();
+  //   console.log(data);
+  //   setTeacherTopics(data);
+  // };
 
   return (
     <>
@@ -39,7 +75,7 @@ function TopicTable({ topics, subjects }) {
         </thead>
         <tbody>
           {topics?.map((topic) => (
-            <tr>
+            <tr key={topic.id}>
               <td>{String(topic.id).padStart(5, 0)}</td>
               <td>{topic.title}</td>
               <td>{topic.url}</td>
@@ -62,13 +98,17 @@ function TopicTable({ topics, subjects }) {
               <Form.Select
                 aria-label="Floating label select example"
                 defaultValue=""
-                onChange={() => setDisabledSelect(false)}
+                onChange={(e) => handleSubjectSelect(e.target.value)}
               >
                 <option value="" disabled>
                   Select subject ...
                 </option>
                 {subjects?.map((subject) => (
-                  <option value="1" className="text-truncate">
+                  <option
+                    value={subject.id}
+                    className="text-truncate"
+                    key={subject.id}
+                  >
                     {subject.subject_code}: {subject.subject_name}
                   </option>
                 ))}
@@ -83,9 +123,16 @@ function TopicTable({ topics, subjects }) {
                 <option value="" disabled>
                   Select topic ...
                 </option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                {teacherTopics
+                  ?.filter(
+                    (topic) =>
+                      Number(topic.subject_id) === Number(selectedSubject)
+                  )
+                  .map((topic) => (
+                    <option value={topic.id} key={topic.id}>
+                      {topic.title}
+                    </option>
+                  ))}
               </Form.Select>
             </FloatingLabel>
           </Modal.Body>
@@ -117,7 +164,7 @@ function StudentTable({ students }) {
       </thead>
       <tbody>
         {students?.map((student) => (
-          <tr>
+          <tr key={student.id}>
             <td>{String(student.id).padStart(5, 0)}</td>
             <td>{student.firstname}</td>
             <td>{student.middlename}</td>
@@ -149,7 +196,7 @@ function SubjectTable({ subjects }) {
       </thead>
       <tbody>
         {subjects?.map((subject) => (
-          <tr>
+          <tr key={subject.id}>
             <td>{String(subject.id).padStart(5, 0)}</td>
             <td>{subject.subject_code}</td>
             <td>{subject.subject_name}</td>
@@ -233,7 +280,7 @@ function GradeLevels() {
   if (state?.loading)
     return (
       <div className="d-flex justify-content-center pt-5">
-        <Spinner variant="primary" animation="border" />;
+        <Spinner variant="primary" animation="border" />
       </div>
     );
 
@@ -279,7 +326,12 @@ function GradeLevels() {
                 <SubjectTable subjects={state?.subjects} />
               </Tab.Pane>
               <Tab.Pane eventKey="third">
-                <TopicTable topics={state?.topics} subjects={state?.subjects} />
+                <TopicTable
+                  topics={state?.topics}
+                  subjects={state?.subjects}
+                  grade_id={grade_id}
+                  teacher_id={userState?.id}
+                />
               </Tab.Pane>
             </Tab.Content>
           </Col>
