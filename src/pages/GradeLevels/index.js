@@ -35,7 +35,6 @@ function TopicTable({ topics, subjects, grade_id, teacher_id }) {
   const handleShow = () => setShow(true);
 
   const handleSubjectSelect = (value) => {
-    console.log(value);
     setSelectedSubject(value);
     setDisabledSelect(false);
   };
@@ -46,7 +45,6 @@ function TopicTable({ topics, subjects, grade_id, teacher_id }) {
     });
 
     const { data } = await res.json();
-    console.log(data);
     setTeacherTopics(data);
   };
   // const getTeacherTopics = async (teacher_id, grade_id) => {
@@ -242,7 +240,6 @@ function GradeLevels() {
       }
     );
     const { data } = await res.json();
-    console.log(data);
     dispatch({
       type: "UPDATE_DATA",
       payload: { key: "subjects", value: data },
@@ -256,7 +253,6 @@ function GradeLevels() {
       credentials: "include",
     });
     const { data } = await res.json();
-    console.log(data);
     dispatch({
       type: "UPDATE_DATA",
       payload: { key: "grade_level", value: data },
@@ -270,7 +266,6 @@ function GradeLevels() {
       credentials: "include",
     });
     const { data } = await res.json();
-    console.log(data);
     dispatch({
       type: "UPDATE_DATA",
       payload: { key: "topics", value: data },
