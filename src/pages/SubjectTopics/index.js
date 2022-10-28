@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import { useEffect } from "react";
 import {
   Button,
@@ -13,18 +13,19 @@ import {
 import { useParams } from "react-router-dom";
 import { API_URL } from "../../config";
 import useTeacher from "../../context/TeacherContextProvider";
+import topicReducer, { initialState } from "../../context/topicReducer";
 import useUser from "../../context/UserContextProvider";
 
 function SubjectTopics() {
+  const [state, dispatch] = useReducer(topicReducer, initialState);
+
   const { subject_id } = useParams();
-  const [topics, setTopics] = useState([]);
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     url: "",
     body: "",
   });
-  const [isLoading, setIsLoading] = useState(true);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editMode, setEditMode] = useState(false);
 
@@ -34,21 +35,28 @@ function SubjectTopics() {
   const [subject] = teacherState?.subjects.filter(
     (subject) => Number(subject.id) === Number(subject_id)
   );
-
   useEffect(() => {
     const getSubjectTopics = async () => {
+      dispatch({ type: "REQUESTED" });
       const res = await fetch(
         API_URL + `/teacher/${userState?.id}/topics?subject=${subject_id}`,
         { credentials: "include" }
       );
       const { data } = await res.json();
-      console.log(data);
-      setTopics(data);
-      setIsLoading(false);
+      dispatch({ type: "UPDATE_DATA", payload: { value: data } });
     };
-
     getSubjectTopics();
-  }, [subject_id, userState?.id, isLoading]);
+  }, [subject_id, userState?.id]);
+
+  const updateTopics = async () => {
+    dispatch({ type: "REQUESTED" });
+    const res = await fetch(
+      API_URL + `/teacher/${userState?.id}/topics?subject=${subject_id}`,
+      { credentials: "include" }
+    );
+    const { data } = await res.json();
+    dispatch({ type: "UPDATE_DATA", payload: { value: data } });
+  };
 
   const handleClose = () => {
     setShow(false);
@@ -59,28 +67,40 @@ function SubjectTopics() {
   };
 
   const handleSubmit = async (method = "POST", topic_id = null) => {
-    setIsLoading(true);
+    dispatch({ type: "REQUESTED" });
+    const res = await fetch(
+      API_URL + `/topics${topic_id ? "/" + topic_id : ""}`,
+      {
+        method: method,
+        credentials: "include",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          subject_id,
+          teacher_id: userState?.id,
+        }),
+      }
+    );
 
-    await fetch(API_URL + `/topics/${topic_id || ""}`, {
-      method: method,
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        ...formData,
-        subject_id,
-        teacher_id: userState?.id,
-      }),
-    });
-
-    setIsLoading(false);
+    await res.json();
+    updateTopics();
+    setShow(false);
     setShowEditModal(false);
     setEditMode(false);
-    setShow(false);
   };
 
-  if (isLoading && !topics.length)
+  const handleDelete = async (topic_id) => {
+    if (
+      !window.confirm(`Are you sure you want to delete Topic ID ${topic_id}?`)
+    )
+      return;
+
+    await handleSubmit("DELETE", topic_id);
+  };
+
+  if (state?.loading)
     return (
       <div className="d-flex justify-content-center pt-5">
         <Spinner animation="border" variant="primary" />
@@ -97,7 +117,7 @@ function SubjectTopics() {
         Add Topic
       </Button>
       <ListGroup variant="flush">
-        {topics?.map((topic) => (
+        {state?.topics?.map((topic) => (
           <ListGroup.Item
             action
             key={topic.id}
@@ -160,14 +180,14 @@ function SubjectTopics() {
             <Button
               variant="danger"
               onClick={handleClose}
-              disabled={isLoading ? true : false}
+              disabled={state?.loading ? true : false}
             >
               Close
             </Button>
             <Button
               type="submit"
               variant="primary"
-              disabled={isLoading ? true : false}
+              disabled={state?.loading ? true : false}
             >
               Save Changes
             </Button>
@@ -196,7 +216,7 @@ function SubjectTopics() {
               <FloatingLabel label="Title" className="mb-3">
                 <Form.Control
                   className="text-primary fw-light"
-                  defaultValue={topics
+                  defaultValue={state?.topics
                     ?.filter(
                       (topic) => Number(topic.id) === Number(showEditModal)
                     )
@@ -212,7 +232,7 @@ function SubjectTopics() {
               <FloatingLabel label="Video URL" className="mb-3">
                 <Form.Control
                   className="text-primary fw-light"
-                  defaultValue={topics
+                  defaultValue={state?.topics
                     ?.filter(
                       (topic) => Number(topic.id) === Number(showEditModal)
                     )
@@ -228,7 +248,7 @@ function SubjectTopics() {
               <FloatingLabel controlId="floatingTextarea2" label="Body">
                 <Form.Control
                   className="text-primary fw-light"
-                  defaultValue={topics
+                  defaultValue={state?.topics
                     ?.filter(
                       (topic) => Number(topic.id) === Number(showEditModal)
                     )
@@ -247,14 +267,14 @@ function SubjectTopics() {
               <Button
                 variant="danger"
                 onClick={() => setEditMode(false)}
-                disabled={isLoading ? true : false}
+                disabled={state?.loading ? true : false}
               >
                 Cancel
               </Button>
               <Button
                 type="submit"
                 variant="primary"
-                disabled={isLoading ? true : false}
+                disabled={state?.loading ? true : false}
               >
                 Save Changes
               </Button>
@@ -271,7 +291,7 @@ function SubjectTopics() {
             <FloatingLabel label="Title" className="mb-3">
               <Form.Control
                 className="text-primary fw-light"
-                value={topics
+                value={state?.topics
                   ?.filter(
                     (topic) => Number(topic.id) === Number(showEditModal)
                   )
@@ -285,7 +305,7 @@ function SubjectTopics() {
             <FloatingLabel label="Video URL" className="mb-3">
               <Form.Control
                 className="text-primary fw-light"
-                value={topics
+                value={state?.topics
                   ?.filter(
                     (topic) => Number(topic.id) === Number(showEditModal)
                   )
@@ -299,7 +319,7 @@ function SubjectTopics() {
             <FloatingLabel controlId="floatingTextarea2" label="Body">
               <Form.Control
                 className="text-primary fw-light"
-                value={topics
+                value={state?.topics
                   ?.filter(
                     (topic) => Number(topic.id) === Number(showEditModal)
                   )
@@ -315,14 +335,14 @@ function SubjectTopics() {
           <Modal.Footer>
             <Button
               variant="danger"
-              onClick={() => setShowEditModal(false)}
-              disabled={isLoading ? true : false}
+              onClick={() => handleDelete(showEditModal)}
+              disabled={state?.loading ? true : false}
             >
               Delete
             </Button>
             <Button
               variant="success"
-              disabled={isLoading ? true : false}
+              disabled={state?.loading ? true : false}
               onClick={() => {
                 setEditMode(true);
               }}
