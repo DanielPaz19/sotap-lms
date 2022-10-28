@@ -8,6 +8,10 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { ADMIN_USER } from "../../../config";
 import useUser from "../../../context/UserContextProvider";
+import logo from "../../../img/company-logo.png";
+
+
+
 
 function AdminLogin() {
   const [formData, setFormData] = useState({
@@ -33,6 +37,8 @@ function AdminLogin() {
   };
 
   return (
+    <div className="d-flex justify-content-center w-100">
+      <div className="d-flex justify-content-center w-100">
     <Container className="mt-5">
       <Row>
         <Col md={3}></Col>
@@ -43,6 +49,17 @@ function AdminLogin() {
               handleSubmit();
             }}
           >
+            <div className="text-center logo-container">
+            <img
+              src={logo}
+              alt="company_logo"
+              width="110px"
+              className="my-2 logo"
+            />
+          </div>
+          <br></br>
+          <h2>Admin</h2>
+          <br></br>
             <FloatingLabel
               controlId="floatingInput"
               label="Username"
@@ -89,7 +106,10 @@ function AdminLogin() {
         ""
       )}
     </Container>
+      </div>
+    </div>
   );
 }
+
 
 export default AdminLogin;
