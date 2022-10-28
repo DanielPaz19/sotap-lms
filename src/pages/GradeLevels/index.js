@@ -18,11 +18,18 @@ import { API_URL } from "../../config";
 import gradeReducer, { initialState } from "../../context/gradeReducer";
 import useUser from "../../context/UserContextProvider";
 
-function TopicTable({ topics, subjects, grade_id, teacher_id }) {
+function TopicTable({
+  topics,
+  subjects,
+  grade_id,
+  teacher_id,
+  getGradeTopics,
+}) {
   const [show, setShow] = useState(false);
   const [disabledSelect, setDisabledSelect] = useState(true);
   const [teacherTopics, setTeacherTopics] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState(null);
+  const [selectedTopic, setSelectedTopic] = useState(null);
 
   useEffect(() => {
     getTeacherTopics(teacher_id, grade_id);
@@ -58,17 +65,32 @@ function TopicTable({ topics, subjects, grade_id, teacher_id }) {
   //   setTeacherTopics(data);
   // };
 
+  const handleSubmit = async (grade_id, topic_id = null, method = "POST") => {
+    await fetch(API_URL + `/grade_levels/${grade_id}/topics`, {
+      credentials: "include",
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ topic_id: topic_id || selectedTopic }),
+    });
+
+    await getGradeTopics(grade_id);
+    handleClose();
+  };
+
   return (
     <>
       <div className="d-flex justify-content-start mb-3">
         <Button onClick={handleShow}>Add Topic</Button>
       </div>
-      <Table striped responsive>
+      <Table striped responsive hover>
         <thead>
           <tr className="text-primary">
             <th>#</th>
             <th>Topic Title</th>
             <th>Video URL</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -77,6 +99,14 @@ function TopicTable({ topics, subjects, grade_id, teacher_id }) {
               <td>{String(topic.id).padStart(5, 0)}</td>
               <td>{topic.title}</td>
               <td>{topic.url}</td>
+              <td
+                className="text-danger hover"
+                onMouseEnter={(e) => (e.target.style.fontWeight = "bolder")}
+                onMouseLeave={(e) => (e.target.style.fontWeight = "")}
+                onClick={() => handleSubmit(grade_id, topic.id, "DELETE")}
+              >
+                Remove
+              </td>
             </tr>
           ))}
         </tbody>
@@ -86,7 +116,12 @@ function TopicTable({ topics, subjects, grade_id, teacher_id }) {
         <Modal.Header closeButton>
           <Modal.Title>Add topic</Modal.Title>
         </Modal.Header>
-        <Form>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit(grade_id);
+          }}
+        >
           <Modal.Body>
             <FloatingLabel
               controlId="floatingSelect"
@@ -94,6 +129,7 @@ function TopicTable({ topics, subjects, grade_id, teacher_id }) {
               className="mb-3"
             >
               <Form.Select
+                required
                 aria-label="Floating label select example"
                 defaultValue=""
                 onChange={(e) => handleSubjectSelect(e.target.value)}
@@ -114,15 +150,21 @@ function TopicTable({ topics, subjects, grade_id, teacher_id }) {
             </FloatingLabel>
             <FloatingLabel controlId="floatingSelect" label="Topic">
               <Form.Select
+                required
                 aria-label="Floating label select example"
                 disabled={disabledSelect ? true : false}
                 defaultValue=""
+                onChange={(e) => setSelectedTopic(e.target.value)}
               >
                 <option value="" disabled>
                   Select topic ...
                 </option>
                 {teacherTopics
                   ?.filter(
+                    (topic) =>
+                      !topics.map((topic) => topic.id).includes(topic.id)
+                  )
+                  .filter(
                     (topic) =>
                       Number(topic.subject_id) === Number(selectedSubject)
                   )
@@ -138,7 +180,7 @@ function TopicTable({ topics, subjects, grade_id, teacher_id }) {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleClose}>
+            <Button variant="primary" type="submit">
               Save Changes
             </Button>
           </Modal.Footer>
@@ -284,7 +326,7 @@ function GradeLevels() {
       <Tab.Container defaultActiveKey="first" fluid>
         <Row>
           <Col sm={3} lg={2}>
-            <Container className="bg-white py-3 px-3 shadow rounded-3">
+            <Container className="bg-white py-3 px-3 shadow rounded-3 mb-3">
               <h4 className="text-primary text-center mb-4">
                 {state?.grade_level?.name}
               </h4>
@@ -326,6 +368,7 @@ function GradeLevels() {
                   subjects={state?.subjects}
                   grade_id={grade_id}
                   teacher_id={userState?.id}
+                  getGradeTopics={getGradeTopics}
                 />
               </Tab.Pane>
             </Tab.Content>
