@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useEffect } from "react";
 import {
   Button,
@@ -7,6 +7,7 @@ import {
   Form,
   ListGroup,
   Modal,
+  Spinner,
   Stack,
 } from "react-bootstrap";
 import { useParams } from "react-router-dom";
@@ -23,9 +24,10 @@ function SubjectTopics() {
     url: "",
     body: "",
   });
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
-  const modalInput = useRef();
   const { state: userState } = useUser();
   const { state: teacherState } = useTeacher();
 
@@ -42,6 +44,7 @@ function SubjectTopics() {
       const { data } = await res.json();
       console.log(data);
       setTopics(data);
+      setIsLoading(false);
     };
 
     getSubjectTopics();
@@ -55,11 +58,11 @@ function SubjectTopics() {
     setShow(true);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (method = "POST", topic_id = null) => {
     setIsLoading(true);
 
-    const res = await fetch(API_URL + `/topics`, {
-      method: "POST",
+    await fetch(API_URL + `/topics/${topic_id || ""}`, {
+      method: method,
       credentials: "include",
       headers: {
         "Content-type": "application/json",
@@ -71,10 +74,18 @@ function SubjectTopics() {
       }),
     });
 
-    console.log(await res.json());
     setIsLoading(false);
+    setShowEditModal(false);
+    setEditMode(false);
     setShow(false);
   };
+
+  if (isLoading && !topics.length)
+    return (
+      <div className="d-flex justify-content-center pt-5">
+        <Spinner animation="border" variant="primary" />
+      </div>
+    );
 
   return (
     <Container className="pt-3">
@@ -87,7 +98,11 @@ function SubjectTopics() {
       </Button>
       <ListGroup variant="flush">
         {topics?.map((topic) => (
-          <ListGroup.Item action key={topic.id}>
+          <ListGroup.Item
+            action
+            key={topic.id}
+            onClick={() => setShowEditModal(topic.id)}
+          >
             <Stack direction="horizontal" gap={3}>
               <span className="font-monospace">
                 {String(topic.id).padStart(5, 0)}
@@ -98,18 +113,14 @@ function SubjectTopics() {
           </ListGroup.Item>
         ))}
       </ListGroup>
-
-      <Modal
-        show={show}
-        onHide={handleClose}
-        onEntered={() => modalInput.current.focus()}
-      >
+      <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title className="h4 text-primary">Add Topic</Modal.Title>
         </Modal.Header>
         <Form
           onSubmit={(e) => {
             e.preventDefault();
+            handleSubmit();
           }}
         >
           <Modal.Body>
@@ -118,7 +129,6 @@ function SubjectTopics() {
                 type="text"
                 placeholder="Title"
                 required
-                ref={modalInput}
                 onChange={(e) =>
                   setFormData((prev) => ({ ...prev, title: e.target.value }))
                 }
@@ -157,7 +167,6 @@ function SubjectTopics() {
             <Button
               type="submit"
               variant="primary"
-              onClick={handleSubmit}
               disabled={isLoading ? true : false}
             >
               Save Changes
@@ -165,6 +174,164 @@ function SubjectTopics() {
           </Modal.Footer>
         </Form>
       </Modal>
+
+      {editMode ? (
+        <Modal
+          show={showEditModal}
+          onHide={() => {
+            setShowEditModal(false);
+            setEditMode(false);
+          }}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title className="h4 text-primary"> Edit Topic</Modal.Title>
+          </Modal.Header>
+          <Form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSubmit("PUT", showEditModal);
+            }}
+          >
+            <Modal.Body>
+              <FloatingLabel label="Title" className="mb-3">
+                <Form.Control
+                  className="text-primary fw-light"
+                  defaultValue={topics
+                    ?.filter(
+                      (topic) => Number(topic.id) === Number(showEditModal)
+                    )
+                    .map((topic) => topic.title)}
+                  type="text"
+                  placeholder="Title"
+                  required
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, title: e.target.value }))
+                  }
+                />
+              </FloatingLabel>
+              <FloatingLabel label="Video URL" className="mb-3">
+                <Form.Control
+                  className="text-primary fw-light"
+                  defaultValue={topics
+                    ?.filter(
+                      (topic) => Number(topic.id) === Number(showEditModal)
+                    )
+                    .map((topic) => topic.url)}
+                  type="url"
+                  placeholder="Video URL"
+                  required
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, url: e.target.value }))
+                  }
+                />
+              </FloatingLabel>
+              <FloatingLabel controlId="floatingTextarea2" label="Body">
+                <Form.Control
+                  className="text-primary fw-light"
+                  defaultValue={topics
+                    ?.filter(
+                      (topic) => Number(topic.id) === Number(showEditModal)
+                    )
+                    .map((topic) => topic.body)}
+                  required
+                  as="textarea"
+                  placeholder="Body"
+                  style={{ height: "8em" }}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, body: e.target.value }))
+                  }
+                />
+              </FloatingLabel>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                variant="danger"
+                onClick={() => setEditMode(false)}
+                disabled={isLoading ? true : false}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                variant="primary"
+                disabled={isLoading ? true : false}
+              >
+                Save Changes
+              </Button>
+            </Modal.Footer>
+          </Form>
+        </Modal>
+      ) : (
+        <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title className="h4 text-primary">Topic</Modal.Title>
+          </Modal.Header>
+
+          <Modal.Body>
+            <FloatingLabel label="Title" className="mb-3">
+              <Form.Control
+                className="text-primary fw-light"
+                value={topics
+                  ?.filter(
+                    (topic) => Number(topic.id) === Number(showEditModal)
+                  )
+                  .map((topic) => topic.title)}
+                disabled
+                type="text"
+                placeholder="Title"
+                required
+              />
+            </FloatingLabel>
+            <FloatingLabel label="Video URL" className="mb-3">
+              <Form.Control
+                className="text-primary fw-light"
+                value={topics
+                  ?.filter(
+                    (topic) => Number(topic.id) === Number(showEditModal)
+                  )
+                  .map((topic) => topic.url)}
+                disabled
+                type="url"
+                placeholder="Video URL"
+                required
+              />
+            </FloatingLabel>
+            <FloatingLabel controlId="floatingTextarea2" label="Body">
+              <Form.Control
+                className="text-primary fw-light"
+                value={topics
+                  ?.filter(
+                    (topic) => Number(topic.id) === Number(showEditModal)
+                  )
+                  .map((topic) => topic.body)}
+                disabled
+                required
+                as="textarea"
+                placeholder="Body"
+                style={{ height: "8em" }}
+              />
+            </FloatingLabel>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="danger"
+              onClick={() => setShowEditModal(false)}
+              disabled={isLoading ? true : false}
+            >
+              Delete
+            </Button>
+            <Button
+              variant="success"
+              disabled={isLoading ? true : false}
+              onClick={() => {
+                setEditMode(true);
+              }}
+            >
+              Edit Topic
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
     </Container>
   );
 }
