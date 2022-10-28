@@ -1,26 +1,196 @@
-import { useEffect, useState } from "react";
-import { Col, Container, Nav, Row, Tab, Table } from "react-bootstrap";
+import { useReducer, useState } from "react";
+import { useEffect } from "react";
+import {
+  Button,
+  Col,
+  Container,
+  FloatingLabel,
+  Form,
+  Modal,
+  Nav,
+  Row,
+  Spinner,
+  Tab,
+  Table,
+} from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { API_URL } from "../../config";
+import gradeReducer, { initialState } from "../../context/gradeReducer";
 import useUser from "../../context/UserContextProvider";
 
-function StudentTable() {
-  const [students, setStudents] = useState([]);
-
-  const { grade_id } = useParams();
+function TopicTable({
+  topics,
+  subjects,
+  grade_id,
+  teacher_id,
+  getGradeTopics,
+}) {
+  const [show, setShow] = useState(false);
+  const [disabledSelect, setDisabledSelect] = useState(true);
+  const [teacherTopics, setTeacherTopics] = useState([]);
+  const [selectedSubject, setSelectedSubject] = useState(null);
+  const [selectedTopic, setSelectedTopic] = useState(null);
 
   useEffect(() => {
-    const getStudents = async () => {
-      const res = await fetch(API_URL + `/grade_levels/${grade_id}/students`, {
-        credentials: "include",
-      });
-      const { data } = await res.json();
-      setStudents(data);
-    };
+    getTeacherTopics(teacher_id, grade_id);
+  }, [grade_id, teacher_id]);
 
-    getStudents();
-  }, [grade_id]);
+  const handleClose = () => {
+    setShow(false);
+    setDisabledSelect(true);
+  };
+  const handleShow = () => setShow(true);
 
+  const handleSubjectSelect = (value) => {
+    setSelectedSubject(value);
+    setDisabledSelect(false);
+  };
+
+  const getTeacherTopics = async (teacher_id) => {
+    const res = await fetch(API_URL + `/teacher/${teacher_id}/topics`, {
+      credentials: "include",
+    });
+
+    const { data } = await res.json();
+    setTeacherTopics(data);
+  };
+  // const getTeacherTopics = async (teacher_id, grade_id) => {
+  //   const res = await fetch(
+  //     API_URL + `/grade_levels/${grade_id}/topics?teacher=${teacher_id}`,
+  //     { credentials: "include" }
+  //   );
+
+  //   const { data } = await res.json();
+  //   console.log(data);
+  //   setTeacherTopics(data);
+  // };
+
+  const handleSubmit = async (grade_id, topic_id = null, method = "POST") => {
+    await fetch(API_URL + `/grade_levels/${grade_id}/topics`, {
+      credentials: "include",
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ topic_id: topic_id || selectedTopic }),
+    });
+
+    await getGradeTopics(grade_id);
+    handleClose();
+  };
+
+  return (
+    <>
+      <div className="d-flex justify-content-start mb-3">
+        <Button onClick={handleShow}>Add Topic</Button>
+      </div>
+      <Table striped responsive hover>
+        <thead>
+          <tr className="text-primary">
+            <th>#</th>
+            <th>Topic Title</th>
+            <th>Video URL</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {topics?.map((topic) => (
+            <tr key={topic.id}>
+              <td>{String(topic.id).padStart(5, 0)}</td>
+              <td>{topic.title}</td>
+              <td>{topic.url}</td>
+              <td
+                className="text-danger hover"
+                onMouseEnter={(e) => (e.target.style.fontWeight = "bolder")}
+                onMouseLeave={(e) => (e.target.style.fontWeight = "")}
+                onClick={() => handleSubmit(grade_id, topic.id, "DELETE")}
+              >
+                Remove
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+      {!topics?.length ? "No Topics Found" : ""}
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add topic</Modal.Title>
+        </Modal.Header>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit(grade_id);
+          }}
+        >
+          <Modal.Body>
+            <FloatingLabel
+              controlId="floatingSelect"
+              label="Subject"
+              className="mb-3"
+            >
+              <Form.Select
+                required
+                aria-label="Floating label select example"
+                defaultValue=""
+                onChange={(e) => handleSubjectSelect(e.target.value)}
+              >
+                <option value="" disabled>
+                  Select subject ...
+                </option>
+                {subjects?.map((subject) => (
+                  <option
+                    value={subject.id}
+                    className="text-truncate"
+                    key={subject.id}
+                  >
+                    {subject.subject_code}: {subject.subject_name}
+                  </option>
+                ))}
+              </Form.Select>
+            </FloatingLabel>
+            <FloatingLabel controlId="floatingSelect" label="Topic">
+              <Form.Select
+                required
+                aria-label="Floating label select example"
+                disabled={disabledSelect ? true : false}
+                defaultValue=""
+                onChange={(e) => setSelectedTopic(e.target.value)}
+              >
+                <option value="" disabled>
+                  Select topic ...
+                </option>
+                {teacherTopics
+                  ?.filter(
+                    (topic) =>
+                      !topics.map((topic) => topic.id).includes(topic.id)
+                  )
+                  .filter(
+                    (topic) =>
+                      Number(topic.subject_id) === Number(selectedSubject)
+                  )
+                  .map((topic) => (
+                    <option value={topic.id} key={topic.id}>
+                      {topic.title}
+                    </option>
+                  ))}
+              </Form.Select>
+            </FloatingLabel>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" type="submit">
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Form>
+      </Modal>
+    </>
+  );
+}
+
+function StudentTable({ students }) {
   return (
     <Table striped responsive>
       <thead>
@@ -34,7 +204,7 @@ function StudentTable() {
       </thead>
       <tbody>
         {students?.map((student) => (
-          <tr>
+          <tr key={student.id}>
             <td>{String(student.id).padStart(5, 0)}</td>
             <td>{student.firstname}</td>
             <td>{student.middlename}</td>
@@ -52,25 +222,8 @@ function StudentTable() {
     </Table>
   );
 }
-function SubjectTable() {
-  const [subjects, setSubjects] = useState([]);
 
-  const { grade_id } = useParams();
-  const { state: userState } = useUser();
-
-  useEffect(() => {
-    const getSubjects = async () => {
-      const res = await fetch(API_URL + `/grade_levels/${grade_id}/subjects`, {
-        credentials: "include",
-      });
-      const { data } = await res.json();
-      console.log(data);
-      setSubjects(data);
-    };
-
-    getSubjects();
-  }, [grade_id]);
-
+function SubjectTable({ subjects }) {
   return (
     <Table striped responsive>
       <thead>
@@ -82,33 +235,101 @@ function SubjectTable() {
         </tr>
       </thead>
       <tbody>
-        {subjects
-          ?.filter((subject) =>
-            subject.teachers
-              .map((teacher) => teacher.id)
-              .includes(userState?.id)
-          )
-          .map((subject) => (
-            <tr>
-              <td>{String(subject.id).padStart(5, 0)}</td>
-              <td>{subject.subject_code}</td>
-              <td>{subject.subject_name}</td>
-              <td>{subject.subject_description}</td>
-            </tr>
-          ))}
+        {subjects?.map((subject) => (
+          <tr key={subject.id}>
+            <td>{String(subject.id).padStart(5, 0)}</td>
+            <td>{subject.subject_code}</td>
+            <td>{subject.subject_name}</td>
+            <td>{subject.subject_description}</td>
+          </tr>
+        ))}
       </tbody>
     </Table>
   );
 }
 
 function GradeLevels() {
+  const [state, dispatch] = useReducer(gradeReducer, initialState);
+
+  const { grade_id } = useParams();
+  const { state: userState } = useUser();
+
+  useEffect(() => {
+    getStudents(grade_id);
+    getSubjects(grade_id, userState?.id);
+    getGradeDetails(grade_id);
+    getGradeTopics(grade_id);
+  }, [grade_id, userState?.id]);
+
+  const getStudents = async (grade_id) => {
+    dispatch({ type: "REQUESTED" });
+    const res = await fetch(API_URL + `/grade_levels/${grade_id}/students`, {
+      credentials: "include",
+    });
+    const { data } = await res.json();
+    dispatch({
+      type: "UPDATE_DATA",
+      payload: { key: "students", value: data },
+    });
+  };
+
+  const getSubjects = async (grade_id, teacher_id) => {
+    dispatch({ type: "REQUESTED" });
+    const res = await fetch(
+      API_URL + `/grade_levels/${grade_id}/subjects?teacher=${teacher_id}`,
+      {
+        credentials: "include",
+      }
+    );
+    const { data } = await res.json();
+    dispatch({
+      type: "UPDATE_DATA",
+      payload: { key: "subjects", value: data },
+    });
+  };
+
+  const getGradeDetails = async (grade_id) => {
+    dispatch({ type: "REQUESTED" });
+
+    const res = await fetch(API_URL + `/grade_levels/${grade_id}`, {
+      credentials: "include",
+    });
+    const { data } = await res.json();
+    dispatch({
+      type: "UPDATE_DATA",
+      payload: { key: "grade_level", value: data },
+    });
+  };
+
+  const getGradeTopics = async (grade_id) => {
+    dispatch({ type: "REQUESTED" });
+
+    const res = await fetch(API_URL + `/grade_levels/${grade_id}/topics`, {
+      credentials: "include",
+    });
+    const { data } = await res.json();
+    dispatch({
+      type: "UPDATE_DATA",
+      payload: { key: "topics", value: data },
+    });
+  };
+
+  if (state?.loading)
+    return (
+      <div className="d-flex justify-content-center pt-5">
+        <Spinner variant="primary" animation="border" />
+      </div>
+    );
+
   return (
     <Container fluid="md" className="pt-4">
       <Tab.Container defaultActiveKey="first" fluid>
         <Row>
           <Col sm={3} lg={2}>
-            <Container className="bg-white py-3 px-3 shadow rounded-3">
-              <h4 className="text-primary text-center mb-4">Grade 1</h4>
+            <Container className="bg-white py-3 px-3 shadow rounded-3 mb-3">
+              <h4 className="text-primary text-center mb-4">
+                {state?.grade_level?.name}
+              </h4>
               <Nav variant="pills" className="flex-column">
                 <Nav.Item>
                   <Nav.Link eventKey="first" as="li" className="hover">
@@ -136,10 +357,19 @@ function GradeLevels() {
           <Col sm={9} lg={10}>
             <Tab.Content>
               <Tab.Pane eventKey="first">
-                <StudentTable />
+                <StudentTable students={state?.students} />
               </Tab.Pane>
               <Tab.Pane eventKey="second">
-                <SubjectTable />
+                <SubjectTable subjects={state?.subjects} />
+              </Tab.Pane>
+              <Tab.Pane eventKey="third">
+                <TopicTable
+                  topics={state?.topics}
+                  subjects={state?.subjects}
+                  grade_id={grade_id}
+                  teacher_id={userState?.id}
+                  getGradeTopics={getGradeTopics}
+                />
               </Tab.Pane>
             </Tab.Content>
           </Col>
