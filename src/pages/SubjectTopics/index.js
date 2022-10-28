@@ -36,22 +36,13 @@ function SubjectTopics() {
     (subject) => Number(subject.id) === Number(subject_id)
   );
   useEffect(() => {
-    const getSubjectTopics = async () => {
-      dispatch({ type: "REQUESTED" });
-      const res = await fetch(
-        API_URL + `/teacher/${userState?.id}/topics?subject=${subject_id}`,
-        { credentials: "include" }
-      );
-      const { data } = await res.json();
-      dispatch({ type: "UPDATE_DATA", payload: { value: data } });
-    };
-    getSubjectTopics();
+    updateTopics(userState?.id, subject_id);
   }, [subject_id, userState?.id]);
 
-  const updateTopics = async () => {
+  const updateTopics = async (teacher_id, subject_id) => {
     dispatch({ type: "REQUESTED" });
     const res = await fetch(
-      API_URL + `/teacher/${userState?.id}/topics?subject=${subject_id}`,
+      API_URL + `/teacher/${teacher_id}/topics?subject=${subject_id}`,
       { credentials: "include" }
     );
     const { data } = await res.json();
@@ -85,7 +76,7 @@ function SubjectTopics() {
     );
 
     await res.json();
-    updateTopics();
+    updateTopics(userState?.id, subject_id);
     setShow(false);
     setShowEditModal(false);
     setEditMode(false);
