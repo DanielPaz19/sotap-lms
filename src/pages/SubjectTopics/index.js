@@ -126,7 +126,7 @@ function SubjectTopics() {
       </ListGroup>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title className="h4 text-primary">Add Topic</Modal.Title>
+          <Modal.Title className="h4 text-primary">Create Topic</Modal.Title>
         </Modal.Header>
         <Form
           onSubmit={(e) => {

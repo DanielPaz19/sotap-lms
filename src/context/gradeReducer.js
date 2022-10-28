@@ -2,6 +2,7 @@ export const initialState = {
   student: [],
   subjects: [],
   topics: [],
+  grade_level: [],
   loading: false,
   error: "",
 };
@@ -19,8 +20,8 @@ const gradeReducer = (state, action) => {
     case "UPDATE_DATA":
       return {
         ...state,
-        loading: false,
         [payload.key]: payload.value,
+        loading: false,
       };
 
     case "END_REQUEST":
