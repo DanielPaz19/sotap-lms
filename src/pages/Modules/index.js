@@ -61,18 +61,6 @@ function Modules({ user }) {
       <div className="container px-md-5 px-0 pb-4">
         <Accordion defaultActiveKey={["0", "1", "2", "3"]} alwaysOpen>
           <div className="row g-md-4 g-3">
-            {/* <ModulesAccordionItems header={"Topics"} eventKey={"0"}>
-              {useGetTopics(subject?.id).map((topic) => (
-                <Link to={`/modules/topic/${topic.id}`}>
-                  <ModuleList
-                    title={topic.title}
-                    key={topic.id}
-                    type={"topic"}
-                    user={user}
-                  />
-                </Link>
-              ))}
-            </ModulesAccordionItems> */}
             <TopicAccordionItem
               eventKey={"0"}
               subjectId={subject?.id}

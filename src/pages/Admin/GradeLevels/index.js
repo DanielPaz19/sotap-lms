@@ -62,7 +62,7 @@ function AdminGradeLevels() {
             <Form.Group className="mb-3">
               <Form.Label>Level</Form.Label>
               <Form.Control
-                type="text"
+                type="number"
                 placeholder="Enter Level"
                 required
                 onChange={(e) =>
