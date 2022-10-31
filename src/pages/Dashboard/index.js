@@ -89,14 +89,14 @@ function Dashboard({ user }) {
         </div>
         <div className="container px-0">
           <div className="pt-2 pb-4 row g-2">
-            {state?.subjects.map((subject) => (
+            {state?.subjects.map((subject, index) => (
               <div
                 className="col-6 col-md-4 col-lg-3 col-xl-3 p-0"
                 key={subject.id}
               >
                 <SubjectCard
                   title={subject.subject_name}
-                  img_src="https://images.unsplash.com/photo-1585247226801-bc613c441316?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80"
+                  img_src={subject?.img_url + `?random=${index}`}
                   id={subject.id}
                 />
               </div>

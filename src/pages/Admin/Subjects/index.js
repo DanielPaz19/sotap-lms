@@ -10,6 +10,7 @@ function AdminSubject() {
     subject_code: "",
     subject_name: "",
     subject_description: "",
+    img_url: "",
   });
 
   const { addData, state } = useAdmin();
@@ -29,6 +30,7 @@ function AdminSubject() {
       subject_code: "",
       subject_name: "",
       subject_description: "",
+      img_url: "",
     });
   };
 
@@ -102,6 +104,7 @@ function AdminSubject() {
             <Form.Group className="mb-3">
               <Form.Label>Subject Description</Form.Label>
               <Form.Control
+                autoComplete="off"
                 type="text"
                 placeholder="Enter Description"
                 name="subject_description"
@@ -110,6 +113,21 @@ function AdminSubject() {
                   setFormData((prev) => ({
                     ...prev,
                     subject_description: e.target.value,
+                  }))
+                }
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Image URL</Form.Label>
+              <Form.Control
+                autoComplete="off"
+                type="text"
+                placeholder="Enter Image URL"
+                name="subject_description"
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    img_url: e.target.value,
                   }))
                 }
               />
