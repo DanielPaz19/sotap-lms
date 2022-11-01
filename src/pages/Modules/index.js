@@ -9,6 +9,10 @@ import useGetExams from "../../customHooks/useGetExams";
 import useGetSubjectById from "../../customHooks/useGetSubjectById";
 import { FaEye } from "react-icons/fa";
 import TopicAccordionItem from "../../components/TopicAccordion";
+import { useParams } from "react-router-dom";
+import { useReducer } from "react";
+import topicReducer, { initialState } from "../../context/topicReducer";
+import { API_URL } from "../../config";
 
 function ModuleList({ title, type }) {
   return (
@@ -44,7 +48,37 @@ function ModulesAccordionItems({ children, header, eventKey }) {
 
 function Modules({ user }) {
   const [subject, setSubject] = useState({});
+  const [state, dispatch] = useReducer(topicReducer, initialState);
+  const { id: subject_id } = useParams();
 
+  useEffect(() => {
+    getTopics(subject_id);
+    getSubjectDetails(subject_id);
+  }, [subject_id]);
+
+  const getTopics = async (subject_id) => {
+    dispatch({ type: "REQUESTED" });
+    const res = await fetch(API_URL + `/subjects/${subject_id}/topics`, {
+      credentials: "include",
+    });
+
+    const { data } = await res.json();
+    dispatch({ type: "UPDATE_DATA", payload: { key: "topics", value: data } });
+  };
+
+  const getSubjectDetails = async (subject_id) => {
+    dispatch({ type: "REQUESTED" });
+    const res = await fetch(API_URL + `/subjects/${subject_id}`, {
+      credentials: "include",
+    });
+
+    const { data } = await res.json();
+    console.log(data);
+    setSubject(data);
+    dispatch({ type: "END_REQUEST" });
+  };
+
+  console.log(state);
   const data = useGetSubjectById();
 
   useEffect(() => setSubject(data), [data]);
@@ -52,7 +86,10 @@ function Modules({ user }) {
   // Set Breadcrumbs Item and link
   const path = [
     { title: "Modules", link: "/modules" },
-    { title: subject?.title, link: `/modules/${subject?.id}` },
+    {
+      title: `${subject?.subject_code}: ${subject?.subject_name}`,
+      link: `/modules/${subject?.id}`,
+    },
   ];
 
   return (
@@ -61,11 +98,7 @@ function Modules({ user }) {
       <div className="container px-md-5 px-0 pb-4">
         <Accordion defaultActiveKey={["0", "1", "2", "3"]} alwaysOpen>
           <div className="row g-md-4 g-3">
-            <TopicAccordionItem
-              eventKey={"0"}
-              subjectId={subject?.id}
-              user_id={user?.id}
-            />
+            <TopicAccordionItem eventKey={"0"} topics={state?.topics} />
             <ModulesAccordionItems header={"Assignments"} eventKey={"1"}>
               {useGetAssignments(subject?.id).map((assignment) => (
                 <ModuleList title={assignment.title} key={assignment.id} />
