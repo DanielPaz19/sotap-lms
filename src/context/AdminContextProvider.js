@@ -78,8 +78,7 @@ export function AdminContextProvider({ children }) {
       body: JSON.stringify(data),
     });
 
-    await updateData("teachers");
-    await updateData("subjects");
+    await updateAll();
   };
 
   const removeSubjectToTeacher = async (data) => {

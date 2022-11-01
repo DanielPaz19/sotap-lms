@@ -53,7 +53,7 @@ function GradeLevelDetails() {
   };
 
   const handleSubmitSubjectTeacher = async () => {
-    const [subject_teacher] = state.subject_teacher
+    const [subject_teacher] = state?.subject_teacher
       .map((item) => ({
         id: item.id,
         subject_id: item.subject.id,
@@ -67,7 +67,7 @@ function GradeLevelDetails() {
 
     await addSubjectToGrade({
       grade_id: id,
-      subject_teacher_id: subject_teacher.id,
+      subject_teacher_id: subject_teacher?.id,
     });
 
     handleClose();

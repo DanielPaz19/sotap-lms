@@ -1,7 +1,6 @@
 import { FaEye, FaPlay, FaCheck } from "react-icons/fa";
 import { ImNotification } from "react-icons/im";
 import useGetStudentTopicData from "../../customHooks/useGetStudentTopicData";
-import useGetTopics from "../../customHooks/useGetTopics";
 import { Accordion, ListGroup } from "react-bootstrap";
 import { FiFileText } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -38,14 +37,14 @@ function TopicStatus({ topic_id, user_id }) {
   }
 }
 
-function TopicAccordionItem({ eventKey, subjectId, user_id }) {
+function TopicAccordionItem({ eventKey, subjectId, user_id, topics }) {
   return (
     <div className="col-12  ">
       <Accordion.Item eventKey={eventKey}>
         <Accordion.Header>Topics</Accordion.Header>
         <Accordion.Body className="px-2">
           <ListGroup variant="flush">
-            {useGetTopics(subjectId).map((topic) => (
+            {topics?.map((topic) => (
               <Link to={`/modules/topic/${topic.id}`} key={topic.id}>
                 <ListGroup.Item
                   action

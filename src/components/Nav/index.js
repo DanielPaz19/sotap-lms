@@ -13,11 +13,13 @@ function BtnHideNav() {
   );
 }
 
-function NavLink({ href, title, icon }) {
+function NavLink({ href, title, icon, disabled }) {
   return (
     <Link to={`/${href}`}>
       <li
-        className={`d-md-flex align-items-center ps-3 `}
+        className={`d-md-flex align-items-center ps-3 ${
+          disabled ? "text-muted" : ""
+        }`}
         style={{ minWidth: "16rem" }}
       >
         <i className={`${icon} me-3 fs-4`}></i>
@@ -57,19 +59,22 @@ function StudentNav({ user_type, onClick, open, closeNav }) {
             icon={"bi bi-speedometer"}
           />
           <NavLink
-            href={"student_assignments"}
+            href={"/#"}
             title={"Assignments"}
             icon={"bi bi-card-checklist"}
+            disabled={true}
           />
           <NavLink
-            href={"student_quizes"}
+            href={"/#"}
             title={"Quizzes"}
             icon={"bi bi-pencil"}
+            disabled={true}
           />
           <NavLink
-            href={"student_exams"}
+            href={"/#"}
             title={"Exams"}
             icon={"bi bi-files"}
+            disabled={true}
           />
         </ul>
       </nav>
@@ -127,5 +132,9 @@ function Nav({ user_type, onClick, open, closeNav, variant }) {
     return <StudentNav onClick={onClick} open={open} closeNav={closeNav} />;
   }
 }
+
+NavLink.defaultProps = {
+  disabled: false,
+};
 
 export default Nav;
