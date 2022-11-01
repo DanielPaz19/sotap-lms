@@ -24,8 +24,14 @@ function AdminDashboard() {
           <DataCounter data={state.subjects.length} title="Subjects" />
           <DataCounter data={state.grade_levels.length} title="Grade Levels" />
           <Col md={3}></Col>
-          <DataCounter data={10} title="Registered Teachers" />
-          <DataCounter data={10} title="Registered Students" />
+          <DataCounter
+            data={state?.teachers?.filter((teacher) => teacher?.user).length}
+            title="Registered Teachers"
+          />
+          <DataCounter
+            data={state?.students?.filter((student) => student?.user).length}
+            title="Registered Students"
+          />
           <Col md={3}></Col>
         </Row>
       </Container>
