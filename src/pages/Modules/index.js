@@ -73,15 +73,9 @@ function Modules({ user }) {
     });
 
     const { data } = await res.json();
-    console.log(data);
     setSubject(data);
     dispatch({ type: "END_REQUEST" });
   };
-
-  console.log(state);
-  const data = useGetSubjectById();
-
-  useEffect(() => setSubject(data), [data]);
 
   // Set Breadcrumbs Item and link
   const path = [

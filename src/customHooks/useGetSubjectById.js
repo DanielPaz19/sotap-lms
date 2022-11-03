@@ -1,36 +1,37 @@
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 
 function useGetSubjectById(subject_id = null) {
-  const [data, setData] = useState({});
+  // const [data, setData] = useState({});
 
-  const parseId = () => {
-    const arrPath = window.location.pathname
-      .split("/")
-      .filter((arr) => arr !== "");
+  // const parseId = () => {
+  //   const arrPath = window.location.pathname
+  //     .split("/")
+  //     .filter((arr) => arr !== "");
 
-    return Number(arrPath.at(-1));
-  };
+  //   return Number(arrPath.at(-1));
+  // };
 
-  const id = subject_id || parseId();
+  // const id = subject_id || parseId();
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await fetch(`http://localhost:3500/subjects?id=${id}`);
-        const data = await response.json();
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     try {
+  //       const response = await fetch(`http://localhost:3500/subjects?id=${id}`);
+  //       const data = await response.json();
 
-        if (!data.length) return;
+  //       if (!data.length) return;
 
-        setData(await data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  //       setData(await data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
 
-    (async () => await getData(parseId()))();
-  }, [id]);
+  //   (async () => await getData(parseId()))();
+  // }, [id]);
 
-  return data[0];
+  // return data[0];
+  return {};
 }
 
 export default useGetSubjectById;

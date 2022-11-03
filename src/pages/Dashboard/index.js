@@ -13,7 +13,7 @@ function Dashboard({ user }) {
 
   useEffect(() => {
     getStudentGradeLevel(userState?.id);
-    getGradesubjects(state?.grade_level?.id);
+    state?.grade_level?.id && getGradesubjects(state?.grade_level?.id);
   }, [userState?.id, state?.grade_level?.id]);
 
   const getStudentGradeLevel = async (student_id) => {

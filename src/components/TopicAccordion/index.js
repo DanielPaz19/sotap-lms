@@ -1,12 +1,11 @@
 import { FaEye, FaPlay, FaCheck } from "react-icons/fa";
 import { ImNotification } from "react-icons/im";
-import useGetStudentTopicData from "../../customHooks/useGetStudentTopicData";
 import { Accordion, ListGroup } from "react-bootstrap";
 import { FiFileText } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
 function TopicStatus({ topic_id, user_id }) {
-  const topicStatus = useGetStudentTopicData(topic_id, user_id);
+  const topicStatus = [];
 
   switch (topicStatus.status) {
     case "viewed":
