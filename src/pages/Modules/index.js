@@ -6,7 +6,6 @@ import { FiFileText } from "react-icons/fi";
 import useGetAssignments from "../../customHooks/useGetAssignments";
 import useGetQuizes from "../../customHooks/useGetQuizes";
 import useGetExams from "../../customHooks/useGetExams";
-import useGetSubjectById from "../../customHooks/useGetSubjectById";
 import { FaEye } from "react-icons/fa";
 import TopicAccordionItem from "../../components/TopicAccordion";
 import { useParams } from "react-router-dom";
@@ -73,15 +72,9 @@ function Modules({ user }) {
     });
 
     const { data } = await res.json();
-    console.log(data);
     setSubject(data);
     dispatch({ type: "END_REQUEST" });
   };
-
-  console.log(state);
-  const data = useGetSubjectById();
-
-  useEffect(() => setSubject(data), [data]);
 
   // Set Breadcrumbs Item and link
   const path = [
